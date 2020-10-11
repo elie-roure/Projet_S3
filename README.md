@@ -11,7 +11,7 @@ En fait si vous essayez (en l'ouvrant avec intellij idea) de run le main ca devr
 
 Mais pour que ca marche il faut :
 
- - dl le javafx sdk 14.0.1 (vous trompez pas de version)
+ - dl le javafx sdk plus recent que la 14.0.1
  
  - Avoir une variable d'environnement JAVA_FX vers le dossier lib de javafx
    - (RUN -> Edit configuration -> Environnement variable)
