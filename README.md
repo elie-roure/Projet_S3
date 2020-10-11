@@ -11,8 +11,13 @@ Du coup en fait si vous essayez (en l'ouvrant avec intellij idea) de run le main
 
 Mais pour que ca marche il faut :
 
- - dl le sdk javafx 14.0.1 (vous trompez pas de version)
+ - dl le javafx sdk 14.0.1 (vous trompez pas de version)
+ 
  - Avoir une variable d'environnement JAVA_FX vers le dossier lib de javafx
+    (RUN -> Edit configuration -> Environnement variable)
+    En gros vous devrez y mettre un truc comme ca (en mettant votre propre chemin): JAVA_FX=/home/gab/Téléchargements/javafx-sdk-14.0.1/lib
  
  - Ajouter le dossier lib de javafx à project structure
+   
+ 
  - Ajouter --module-path ${JAVA_FX} --add-modules javafx.controls,javafx.fxml aux options VM dans run/configuration
