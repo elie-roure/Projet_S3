@@ -4,12 +4,12 @@ Projet S3 : Génération procédurale de cartes par une approche top-bottom
 
 
 
-# Ce qu'il faut savoir :
+## Ce qu'il faut savoir pour javafx :
 
 Du coup j'ai fait en sorte d'initialiser le projet en javaFX.
 En fait si vous essayez (en l'ouvrant avec intellij idea) de run le main ca devrait marcher.
 
-Mais pour que ca marche il faut :
+Mais pour que ca marche il faut d'abord :
 
  - dl le javafx sdk plus recent que la 14.0.1 (https://gluonhq.com/products/javafx/ le 15)
  (https://openjfx.io/openjfx-docs/#introduction ce tuto est en anglais mais il est pas mal si vous arrivez pas a mettre javafx)
