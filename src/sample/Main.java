@@ -20,6 +20,7 @@ public class Main extends Application {
         System.out.println(al.donneRandom());
         System.out.println(al.donneRandom());
         System.out.println(al.donneRandom());
+        System.out.println("oui");
     }
 
 
