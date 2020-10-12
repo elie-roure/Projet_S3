@@ -15,12 +15,12 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
 
-        Aleatoire al = new Aleatoire(0);
+        Aleatoire al = new Aleatoire(4, 10);
         System.out.println(al.donneRandom());
         System.out.println(al.donneRandom());
         System.out.println(al.donneRandom());
         System.out.println(al.donneRandom());
-        System.out.println("oui");
+
     }
 
 
