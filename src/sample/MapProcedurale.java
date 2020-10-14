@@ -51,7 +51,7 @@ public class MapProcedurale extends Parent {
 
     // créateur de carré
     public void creerCarre(int coordx, int coordy){
-        Rectangle r = new Rectangle(20, 20, Color.BLUE);
+        Rectangle r = new Rectangle(20, 20, choisirCouleur());
         grille.add(r, coordy, coordx);
     }
 
@@ -60,4 +60,7 @@ public class MapProcedurale extends Parent {
     public Color choisirCouleur(){
         return Color.BLUE;
     }
+
+
+    // remplir matrice de nb aléatoire :
 }
