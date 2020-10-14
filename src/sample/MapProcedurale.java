@@ -1,10 +1,8 @@
 package sample;
 
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 
@@ -16,19 +14,50 @@ public class MapProcedurale extends Parent {
     private GridPane grille;
     private ArrayList listerandom;
 
-    // constructeur :
-    public MapProcedurale() {
+    private int longueur;
+    private int hauteur;
 
-        Rectangle r1 = new Rectangle(20, 20, Color.BLUE);
-        Rectangle r2 = new Rectangle(20, 20, Color.GREEN);
-        Rectangle r3 = new Rectangle(20, 20, Color.RED);
+    // constructeur :
+    public MapProcedurale(int longueur, int hauteur) {
+
+        this.longueur = longueur-1;
+        this.hauteur = hauteur-1;
 
         grille = new GridPane();
-
-        grille.add(r1, 0, 0);
-        grille.add(r2, 1, 1);
-        grille.add(r3, 0, 1);
+        remplir(0, 0);
         getChildren().add(grille);
-        System.out.println("oui");
+    }
+
+
+    // remplissage de la fenetre (en récursif)
+    public void remplir(int i, int j){
+
+        if (!(i == longueur && j == hauteur)){
+
+            creerCarre(i,j);
+
+            if (i == longueur){
+                remplir(0,j+1);
+            }
+            else {
+                remplir(i+1,j);
+            }
+        }
+        else {
+            creerCarre(i,j);
+        }
+    }
+
+
+    // créateur de carré
+    public void creerCarre(int coordx, int coordy){
+        Rectangle r = new Rectangle(20, 20, Color.BLUE);
+        grille.add(r, coordy, coordx);
+    }
+
+
+    // choix couleur du carré
+    public Color choisirCouleur(){
+        return Color.BLUE;
     }
 }

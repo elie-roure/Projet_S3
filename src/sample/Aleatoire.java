@@ -20,3 +20,7 @@ public class Aleatoire {
         return rd.nextInt(taille);      // donne un nb aléatoire
     }
 }
+
+
+
+
