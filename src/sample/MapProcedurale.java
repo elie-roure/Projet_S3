@@ -29,5 +29,6 @@ public class MapProcedurale extends Parent {
         grille.add(r2, 1, 1);
         grille.add(r3, 0, 1);
         getChildren().add(grille);
+        System.out.println("oui");
     }
 }
