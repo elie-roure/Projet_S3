@@ -16,17 +16,12 @@ public class Main extends Application {
         Group root = new Group();
         Scene scene = new Scene(root, 500, 500, Color.WHITE);
 
-        MapProcedurale map = new MapProcedurale(20,20);
+        MapProcedurale map = new MapProcedurale(20,20, 0);
         root.getChildren().add(map);
 
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        Aleatoire al = new Aleatoire(4, 10);
-        System.out.println(al.donneRandom());
-        System.out.println(al.donneRandom());
-        System.out.println(al.donneRandom());
-        System.out.println(al.donneRandom());
 
     }
 

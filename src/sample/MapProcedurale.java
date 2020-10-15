@@ -12,16 +12,21 @@ public class MapProcedurale extends Parent {
 
     // arguments :
     private GridPane grille;
-    private ArrayList listerandom;
+    private int[][] matricerandom;
 
     private int longueur;
     private int hauteur;
 
+    private Aleatoire aleatoire;
+
     // constructeur :
-    public MapProcedurale(int longueur, int hauteur) {
+    public MapProcedurale(int longueur, int hauteur, int seed) {
 
         this.longueur = longueur-1;
         this.hauteur = hauteur-1;
+        aleatoire = new Aleatoire(seed, 5);
+
+        matricerandom = new int[longueur][hauteur];
 
         grille = new GridPane();
         remplir(0, 0);
@@ -30,10 +35,12 @@ public class MapProcedurale extends Parent {
 
 
     // remplissage de la fenetre (en récursif)
+    // + remplissage matriceRandom
     public void remplir(int i, int j){
 
         if (!(i == longueur && j == hauteur)){
 
+            matricerandom[i][j] = aleatoire.donneRandom();
             creerCarre(i,j);
 
             if (i == longueur){
@@ -51,16 +58,28 @@ public class MapProcedurale extends Parent {
 
     // créateur de carré
     public void creerCarre(int coordx, int coordy){
-        Rectangle r = new Rectangle(20, 20, choisirCouleur());
+        Rectangle r = new Rectangle(20, 20, choisirCouleur(coordx, coordy));
         grille.add(r, coordy, coordx);
     }
 
 
     // choix couleur du carré
-    public Color choisirCouleur(){
-        return Color.BLUE;
+    public Color choisirCouleur(int i,int j){
+        if (matricerandom[i][j] == 0){
+            return Color.BLUE;
+        }
+        else if (matricerandom[i][j] == 1){
+            return Color.RED;
+        }
+        else if (matricerandom[i][j] == 2){
+            return Color.GREEN;
+        }
+        else if (matricerandom[i][j] == 3){
+            return Color.ORANGE;
+        }
+        else{
+            return Color.YELLOW;
+        }
+
     }
-
-
-    // remplir matrice de nb aléatoire :
 }
