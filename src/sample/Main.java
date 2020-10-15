@@ -16,7 +16,7 @@ public class Main extends Application {
         Group root = new Group();
         Scene scene = new Scene(root, 500, 500, Color.WHITE);
 
-        MapProcedurale map = new MapProcedurale(20,20, 0);
+        MapProcedurale map = new MapProcedurale(20,20, 6);
         root.getChildren().add(map);
 
         primaryStage.setScene(scene);
