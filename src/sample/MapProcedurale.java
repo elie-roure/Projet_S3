@@ -27,7 +27,7 @@ public class MapProcedurale extends Parent {
         aleatoire = new Aleatoire(seed, 5);
 
         matricerandom = new int[longueur][hauteur];
-
+//
         grille = new GridPane();
         remplir(0, 0);
         getChildren().add(grille);
