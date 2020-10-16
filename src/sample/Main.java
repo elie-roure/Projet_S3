@@ -3,10 +3,12 @@ package sample;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -30,14 +32,14 @@ public class Main extends Application {
         Scene mapScene = new Scene(mapGroup,500,500);
         mapStage.setScene(mapScene);
 
-        demmarage(root, mapGroup, mapStage);
+        demarrage(root, mapGroup, mapStage);
 
         primaryStage.setScene(scene);
         primaryStage.show();
 
     }
 
-    public void demmarage(Group root, Group mapGroup, Stage mapStage){
+    public void demarrage(Group root, Group mapGroup, Stage mapStage){
         //On creer les texte d'indication
         Text tLongueur = new Text("Saisir la longueur de la carte (entre 0 et 50)");
         Text tHauteur = new Text("Saisir la hauteur de la carte (entre 0 et 50)");
@@ -49,25 +51,18 @@ public class Main extends Application {
         IntField seed = new IntField(0,999,0);
 
         //On positionne le tout
-        tLongueur.setTranslateX(100);
-        tHauteur.setTranslateX(100);
-        tSeed.setTranslateX(100);
+        placement(100,75,tLongueur);
+        placement(100,175,tHauteur);
+        placement(100,275,tSeed);
 
-        tLongueur.setTranslateY(75);
-        tHauteur.setTranslateY(175);
-        tSeed.setTranslateY(275);
 
         longueur.minHeight(100);
         hauteur.minWidth(100);
         seed.minWidth(100);
 
-        longueur.setTranslateX(100);
-        hauteur.setTranslateX(100);
-        seed.setTranslateX(100);
-
-        longueur.setTranslateY(100);
-        hauteur.setTranslateY(200);
-        seed.setTranslateY(300);
+        placement(100,100, longueur);
+        placement(100,200,hauteur);
+        placement(100,300,seed);
 
         //On creer un bouton generer qui va creer une map avec les paramettres precedement remplis ou les parrametre par default
         Button generer = new Button("Generer la map");
@@ -84,7 +79,10 @@ public class Main extends Application {
         root.getChildren().addAll(longueur, hauteur, seed, generer, tHauteur, tLongueur, tSeed);
     }
 
-
+    public void placement (int x, int y, Node node){
+        node.setTranslateX(x);
+        node.setTranslateY(y);
+    }
     public static void main(String[] args) {
         launch(args);
     }
