@@ -27,10 +27,10 @@ public class MapProcedurale extends Parent {
         aleatoire = new Aleatoire(seed, 5);
 
         matricerandom = new int[longueur][hauteur];
-
         grille = new GridPane();
         remplir(0, 0);
-        getChildren().add(grille);
+        this.getChildren().add(grille);
+
     }
 
 
@@ -66,7 +66,7 @@ public class MapProcedurale extends Parent {
     // choix couleur du carré
     public Color choisirCouleur(int i,int j){
         if (matricerandom[i][j] == 0){
-            return Color.BLUE;
+            return Color.GOLDENROD;
         }
         else if (matricerandom[i][j] == 1){
             return Color.RED;
@@ -75,7 +75,7 @@ public class MapProcedurale extends Parent {
             return Color.GREEN;
         }
         else if (matricerandom[i][j] == 3){
-            return Color.ORANGE;
+            return Color.BLUE;
         }
         else{
             return Color.YELLOW;
