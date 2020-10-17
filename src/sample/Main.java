@@ -41,13 +41,13 @@ public class Main extends Application {
 
     public void demarrage(Group root, Group mapGroup, Stage mapStage){
         //On creer les texte d'indication
-        Text tLongueur = new Text("Saisir la longueur de la carte (entre 0 et 50)");
-        Text tHauteur = new Text("Saisir la hauteur de la carte (entre 0 et 50)");
+        Text tLongueur = new Text("Saisir la longueur de la carte (entre 0 et 1500)");
+        Text tHauteur = new Text("Saisir la hauteur de la carte (entre 0 et 1500)");
         Text tSeed = new Text("Saisir la seed de la carte ( entre 0 et 999)");
 
         //On creer les case ou saisir les valeurs
-        IntField longueur = new IntField(0,50,20);
-        IntField hauteur = new IntField(0,50,20);
+        IntField longueur = new IntField(0,1500,20);
+        IntField hauteur = new IntField(0,1500,20);
         IntField seed = new IntField(0,999,0);
 
         //On positionne le tout
