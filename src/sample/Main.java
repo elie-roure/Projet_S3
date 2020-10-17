@@ -46,8 +46,8 @@ public class Main extends Application {
         Text tSeed = new Text("Saisir la seed de la carte ( entre 0 et 999)");
 
         //On creer les case ou saisir les valeurs
-        IntField longueur = new IntField(0,100,20);
-        IntField hauteur = new IntField(0,100,20);
+        IntField longueur = new IntField(0,1000,20);
+        IntField hauteur = new IntField(0,1000,20);
         IntField seed = new IntField(0,999,0);
 
         //On positionne le tout
