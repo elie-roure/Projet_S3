@@ -64,7 +64,7 @@ public class Main extends Application {
         placement(100,200,hauteur);
         placement(100,300,seed);
 
-        //On creer un bouton generer qui va creer une map avec les paramettres precedement remplis ou les parrametre par default
+        //On creer un bouton generer qui va creer une map avec les paramettres precedement remplis ou les parrametres par default
         Button generer = new Button("Generer la map");
         generer.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override

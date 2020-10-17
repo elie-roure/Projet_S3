@@ -55,6 +55,9 @@ public class MapProcedurale extends Parent {
             creerCarre(i,j);
         }
     }
+
+
+    //remplissage de la matrice .matricerandom (itératif)
     public void remplirBis(){
         for(int i=0 ;i<=longueur;i++){
             for(int j=0 ; j<=hauteur ; j++){
