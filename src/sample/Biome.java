@@ -13,8 +13,10 @@ Principe :
 public class Biome extends Parent {
 
 	// attributs en commun a tous les Biome :
-	private int longueur;
-	private int hauteur;
+	private int l;
+	private int h;
+	private int l2;
+	private int h2;
 	private int[][] matriceMap;
 	private GridPane grille;
 
@@ -31,19 +33,21 @@ public class Biome extends Parent {
 	private Rectangle forme;
 
 	// constructeur :
-	public Biome(int longueur, int hauteur, int coordx, int coordy, int[][] matriceMap) {
+	public Biome(int l, int h, int coordx, int coordy, int[][] matriceMap) {
 
-		this.longueur = longueur;
-		this.hauteur = hauteur;
+		this.l = l;
+		this.h = h;
 		this.coordx = coordx;
 		this.coordy = coordy;
 		this.matriceMap = matriceMap;
+		l2 = 10;
+		h2 = 10;
 
 		nbAleatoire = matriceMap[coordx][coordy];
 		aleatoire = new Aleatoire(nbAleatoire*coordx+coordy, 5);
-		matricerandom = new int[longueur][hauteur];
+		matricerandom = new int[l2][h2];
 
-		forme = new Rectangle(longueur, hauteur);
+		forme = new Rectangle(l, h);
 		grille = new GridPane();
 		remplir();
 
@@ -53,47 +57,43 @@ public class Biome extends Parent {
 	// Attribution de la couleur du biome :
 	public void choixcouleur(){
 		if (nbAleatoire == 0){
-			forme.setFill(Color.BLUE);
+			couleur = Color.BLUE;
+			forme.setFill(couleur);
 		}
 		else if (nbAleatoire == 1){
-			forme.setFill(Color.GREEN);
+			couleur = Color.GREEN;
+			forme.setFill(couleur);
 		}
 		else if (nbAleatoire == 2){
-			forme.setFill(Color.RED);
+			couleur = Color.RED;
+			forme.setFill(couleur);
 		}
 		else if (nbAleatoire == 3){
-			forme.setFill(Color.PINK);
+			couleur = Color.PINK;
+			forme.setFill(couleur);
 		}
 		else{
-			forme.setFill(Color.YELLOW);
+			couleur = Color.YELLOW;
+			forme.setFill(couleur);
 		}
 	}
 
 	// Attribution de la couleur du sous-biome :
-	public void choixcouleur2(){
-		if (nbAleatoire == 0){
-			forme.setFill(Color.BLUE);
-		}
-		else if (nbAleatoire == 1){
-			forme.setFill(Color.GREEN);
-		}
-		else if (nbAleatoire == 2){
-			forme.setFill(Color.RED);
-		}
-		else if (nbAleatoire == 3){
-			forme.setFill(Color.PINK);
+	public Color choixcouleur2(int i,int j){
+		if (matricerandom[i][j] == 0){
+			return Color.BLACK;
 		}
 		else{
-			forme.setFill(Color.YELLOW);
+			return couleur;
 		}
 	}
 
 	// remplir :
 	public void remplir(){
-		for(int i = 0; i< longueur; i++){
-			for(int j=0 ; j<hauteur ; j++){
+		for(int i = 0; i< l2; i++){
+			for(int j = 0; j< h2; j++){
 				matricerandom[i][j] = aleatoire.donneRandom();
-				Rectangle r = new Rectangle(1,1, choixcouleur2());
+				Rectangle r = new Rectangle(2,2, choixcouleur2(i,j));
 				grille.add(r, j, i);
 			}
 		}
