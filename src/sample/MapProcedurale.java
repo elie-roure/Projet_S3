@@ -37,6 +37,28 @@ public class MapProcedurale extends Parent {
     }
 
 
+    //remplissage de la matrice .matricerandom (itératif)
+    public void remplirBis(){
+        for(int i=0 ;i<=longueur;i++){
+            for(int j=0 ; j<=hauteur ; j++){
+                matricerandom[i][j] = aleatoire.donneRandom();
+                creerBiome(i,j);
+            }
+        }
+    }
+
+
+    // créateur de Biome :
+    public void creerBiome(int coordx, int coordy){
+        Biome b = new Biome(20, 20, coordx, coordy, matricerandom);
+        grille.add(b.getForme(), coordy, coordx);
+        grille.add(b.getGrille(), coordy, coordx);
+    }
+
+
+    // fonction brouillon / pas-optimale :
+
+    /*
     // remplissage de la fenetre (en récursif)
     // + remplissage matriceRandom
     public void remplir(int i, int j){
@@ -57,44 +79,5 @@ public class MapProcedurale extends Parent {
             creerCarre(i,j);
         }
     }
-
-
-    //remplissage de la matrice .matricerandom (itératif)
-
-    public void remplirBis(){
-        for(int i=0 ;i<=longueur;i++){
-            for(int j=0 ; j<=hauteur ; j++){
-                matricerandom[i][j] = aleatoire.donneRandom();
-                creerCarre(i,j);
-            }
-        }
-    }
-
-
-    // créateur de carré
-    public void creerCarre(int coordx, int coordy){
-        Rectangle r = new Rectangle(20, 20, choisirCouleur(coordx, coordy));
-        grille.add(r, coordy, coordx);
-    }
-
-
-    // choix couleur du carré
-    public Color choisirCouleur(int i,int j){
-        if (matricerandom[i][j] == 0){
-            return Color.GOLDENROD;
-        }
-        else if (matricerandom[i][j] == 1){
-            return Color.RED;
-        }
-        else if (matricerandom[i][j] == 2){
-            return Color.GREEN;
-        }
-        else if (matricerandom[i][j] == 3){
-            return Color.BLUE;
-        }
-        else{
-            return Color.YELLOW;
-        }
-
-    }
+*/
 }
