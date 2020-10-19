@@ -48,6 +48,8 @@ public class Main extends Application {
         //On creer les case ou saisir les valeurs
         IntField longueur = new IntField(0,1500,20);
         IntField hauteur = new IntField(0,1500,20);
+        IntField longueur = new IntField(0,1000,20);
+        IntField hauteur = new IntField(0,1000,20);
         IntField seed = new IntField(0,999,0);
 
         //On positionne le tout
