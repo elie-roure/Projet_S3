@@ -29,10 +29,9 @@ public class MapProcedurale extends Parent {
         matricerandom = new int[longueur][hauteur];
         grille = new GridPane();
         remplirBis();
-<<<<<<< HEAD
+
         //remplir(0, 0);
-=======
->>>>>>> 0eb0e283ba02c4be1ee88c48f2021061c98a6ba4
+
         this.getChildren().add(grille);
 
     }
@@ -60,10 +59,8 @@ public class MapProcedurale extends Parent {
     }
 
 
-<<<<<<< HEAD
     //remplissage de la matrice .matricerandom (itératif)
-=======
->>>>>>> 0eb0e283ba02c4be1ee88c48f2021061c98a6ba4
+
     public void remplirBis(){
         for(int i=0 ;i<=longueur;i++){
             for(int j=0 ; j<=hauteur ; j++){
@@ -73,10 +70,7 @@ public class MapProcedurale extends Parent {
         }
     }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 0eb0e283ba02c4be1ee88c48f2021061c98a6ba4
     // créateur de carré
     public void creerCarre(int coordx, int coordy){
         Rectangle r = new Rectangle(20, 20, choisirCouleur(coordx, coordy));

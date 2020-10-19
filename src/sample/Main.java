@@ -5,7 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;gi
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -48,8 +48,8 @@ public class Main extends Application {
         //On creer les case ou saisir les valeurs
         IntField longueur = new IntField(0,1500,20);
         IntField hauteur = new IntField(0,1500,20);
-        IntField longueur = new IntField(0,1000,20);
-        IntField hauteur = new IntField(0,1000,20);
+        //IntField longueur = new IntField(0,1000,20);
+        //IntField hauteur = new IntField(0,1000,20);
         IntField seed = new IntField(0,999,0);
 
         //On positionne le tout
