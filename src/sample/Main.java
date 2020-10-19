@@ -5,7 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.Button;gi
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -41,11 +41,13 @@ public class Main extends Application {
 
     public void demarrage(Group root, Group mapGroup, Stage mapStage){
         //On creer les texte d'indication
-        Text tLongueur = new Text("Saisir la longueur de la carte (entre 0 et 50)");
-        Text tHauteur = new Text("Saisir la hauteur de la carte (entre 0 et 50)");
+        Text tLongueur = new Text("Saisir la longueur de la carte (entre 0 et 1500)");
+        Text tHauteur = new Text("Saisir la hauteur de la carte (entre 0 et 1500)");
         Text tSeed = new Text("Saisir la seed de la carte ( entre 0 et 999)");
 
         //On creer les case ou saisir les valeurs
+        IntField longueur = new IntField(0,1500,20);
+        IntField hauteur = new IntField(0,1500,20);
         IntField longueur = new IntField(0,1000,20);
         IntField hauteur = new IntField(0,1000,20);
         IntField seed = new IntField(0,999,0);
@@ -64,7 +66,7 @@ public class Main extends Application {
         placement(100,200,hauteur);
         placement(100,300,seed);
 
-        //On creer un bouton generer qui va creer une map avec les paramettres precedement remplis ou les parrametre par default
+        //On creer un bouton generer qui va creer une map avec les paramettres precedement remplis ou les parrametres par default
         Button generer = new Button("Generer la map");
         generer.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
