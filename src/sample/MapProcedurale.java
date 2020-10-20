@@ -7,6 +7,7 @@ import javafx.scene.shape.Rectangle;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MapProcedurale extends Parent {
 
@@ -47,7 +48,6 @@ public class MapProcedurale extends Parent {
         }
     }
 
-
     // créateur de Biome :
     public void creerBiome(int coordx, int coordy){
         Biome b = new Biome(20, 20, coordx, coordy, matricerandom);
@@ -80,4 +80,11 @@ public class MapProcedurale extends Parent {
         }
     }
 */
+
+    @Override
+    public String toString() {
+        return "MapProcedurale{" +
+                "matricerandom=" + Arrays.toString(matricerandom) +
+                '}';
+    }
 }
