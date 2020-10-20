@@ -30,6 +30,7 @@ public class Biome extends Parent {
 
 	// pas définitif :
 	private Color couleur;
+	private Color variationColor = Color.ALICEBLUE;
 	private Rectangle forme;
 
 	// constructeur :
@@ -62,26 +63,38 @@ public class Biome extends Parent {
 		}
 		else if (nbAleatoire == 1){
 			couleur = Color.GREEN;
+
 			forme.setFill(couleur);
 		}
 		else if (nbAleatoire == 2){
 			couleur = Color.RED;
+
 			forme.setFill(couleur);
 		}
 		else if (nbAleatoire == 3){
 			couleur = Color.PINK;
+
 			forme.setFill(couleur);
 		}
 		else{
 			couleur = Color.YELLOW;
+
 			forme.setFill(couleur);
 		}
 	}
+	public void variationColor(){
+		if (nbAleatoire==0) variationColor = Color.DARKBLUE;
+		else if (nbAleatoire==1) variationColor = Color.DARKGREEN;
+		else if (nbAleatoire==2) variationColor = Color.DARKRED;
+		else if (nbAleatoire==3) variationColor = Color.DEEPPINK;
+		else variationColor = Color.LIGHTGOLDENRODYELLOW;
 
+	}
 	// Attribution de la couleur du sous-biome :
 	public Color choixcouleur2(int i,int j){
 		if (matricerandom[i][j] == 0){
-			return Color.BLACK;
+			 variationColor();
+			 return variationColor;
 		}
 		else{
 			return couleur;
