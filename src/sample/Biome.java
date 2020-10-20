@@ -32,6 +32,8 @@ public class Biome extends Parent {
 	// pas définitif :
 	private Color couleur;			// couleur du Biome
 	private Rectangle forme;		// forme du Biome
+	private Color variationColor = Color.BLACK;
+
 
 
 	// constructeur :
@@ -81,17 +83,74 @@ public class Biome extends Parent {
 			forme.setFill(couleur);
 		}
 	}
+	public Color variationColor(){
 
+		if (matriceMap[coordx][coordy] == 0) return Color.DARKBLUE;
+		else if (nbAleatoire == 1) return Color.DARKGREEN;
+		else if (nbAleatoire == 2) return Color.DARKRED;
+		else if (nbAleatoire == 3) return Color.DEEPPINK;
+		else return Color.LIGHTGOLDENRODYELLOW;
+	}
+
+	public Color frontiereBas(){
+		if (coordx < matriceMap.length-1){
+			if (matriceMap[coordx+1][coordy] == 0 ) return Color.BLUE;
+			else if (matriceMap[coordx+1][coordy] == 1 ) return Color.GREEN;
+			else if (matriceMap[coordx+1][coordy] == 2 ) return Color.RED;
+			else if (matriceMap[coordx+1][coordy] == 3 ) return Color.PINK;
+			else if (matriceMap[coordx+1][coordy] == 4 ) return Color.YELLOW;
+			else {
+				return couleur;
+			}
+		}
+		else return couleur;
+	}
+
+	public Color frontiereHaut(){
+		if (0 < coordx && coordx < matriceMap.length){
+			if (matriceMap[coordx-1][coordy] == 0 ) return Color.BLUE;
+			else if (matriceMap[coordx-1][coordy] == 1 ) return Color.GREEN;
+			else if (matriceMap[coordx-1][coordy] == 2 ) return Color.RED;
+			else if (matriceMap[coordx-1][coordy] == 3 ) return Color.PINK;
+			else if (matriceMap[coordx-1][coordy] == 4 ) return Color.YELLOW;
+			else {
+				return couleur;
+			}
+		}
+		else return couleur;
+	}
+
+	public Color frontiereDroite(){
+		if (coordy < matriceMap.length-1){
+			if (matriceMap[coordx][coordy+1] == 0 ) return Color.BLUE;
+			else if (matriceMap[coordx][coordy+1] == 1 ) return Color.GREEN;
+			else if (matriceMap[coordx][coordy+1] == 2 ) return Color.RED;
+			else if (matriceMap[coordx][coordy+1] == 3 ) return Color.PINK;
+			else if (matriceMap[coordx][coordy+1] == 4 ) return Color.YELLOW;
+			else {
+				return couleur;
+			}
+		}
+		else return couleur;
+	}
+
+	public Color frontiereGauche(){
+		if (0 < coordy && coordy < matriceMap.length){
+			if (matriceMap[coordx][coordy-1] == 0 ) return Color.BLUE;
+			else if (matriceMap[coordx][coordy-1] == 1 ) return Color.GREEN;
+			else if (matriceMap[coordx][coordy-1] == 2 ) return Color.RED;
+			else if (matriceMap[coordx][coordy-1] == 3 ) return Color.PINK;
+			else if (matriceMap[coordx][coordy-1] == 4 ) return Color.YELLOW;
+			else {
+				return couleur;
+			}
+		}
+		else return couleur;
+	}
 	// Attribution de la couleur des sous-biome :
 	public Color choixcouleur2(int i,int j){
 		if (matricerandom[i][j] == 0){
-			if (coordx < matriceMap.length-1){
-				if (matriceMap[coordx+1][coordy] == 0 ){
-					return Color.BLACK;
-				}
-				else return couleur;
-			}
-			else return couleur;
+			return frontiereGauche();
 		}
 		else{
 			return couleur;
