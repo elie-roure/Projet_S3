@@ -5,8 +5,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.util.Arrays;
-
 /*
 Principe :
     - 1 fragment de MapProcédurale
@@ -15,26 +13,26 @@ Principe :
 public class Biome extends Parent {
 
 	// attributs en commun a tous les Biome :
-	private int l;
-	private int h;
-	private int l2;
-	private int h2;
-	private int[][] matriceMap;
-	private GridPane grille;
+
+	private int l;					// longueur biome
+	private int h;					// hauteur biome
+	private int l2;					// longueur grille dans Biome
+	private int h2;					// hauteur grille dans Biome
+	private int[][] matriceMap;		// matrice des nb aléatoire de la grille de la MapProcedurale
+	private GridPane grille;		// grille du Biome
 
 	// attributs lié au Biome courant :
 	private Aleatoire aleatoire;
-	private int nbAleatoire;
-	private int coordx;
-	private int coordy;
-	private int[][] matricerandom;
+	private int nbAleatoire;		// nombre aléatoire du Biome
+	private int[][] matricerandom;	// matrice de nb aléatoire pour les sous-biome
+	private int coordx;				// coord x du nb du Biome dans MatriceMap
+	private int coordy;				// coord x du nb du Biome dans MatriceMap
 
 
 	// pas définitif :
-	private Color frontiere;
-	private Color couleur;
-	private Color variationColor = Color.BLACK;
-	private Rectangle forme;
+	private Color couleur;			// couleur du Biome
+	private Rectangle forme;		// forme du Biome
+
 
 	// constructeur :
 	public Biome(int l, int h, int coordx, int coordy, int[][] matriceMap) {
@@ -44,7 +42,6 @@ public class Biome extends Parent {
 		this.coordx = coordx;
 		this.coordy = coordy;
 		this.matriceMap = matriceMap;
-
 		l2 = 10;
 		h2 = 10;
 
@@ -54,18 +51,11 @@ public class Biome extends Parent {
 
 		forme = new Rectangle(l, h);
 		grille = new GridPane();
-		remplir();
 
-		choixcouleur();
+		remplirNbaleatoire();		// remplis la mtrice de nb aléatoire de sous-biome
+		choixcouleur();				// choisi la couleur du Biome
+		remplirBiome();				// remplis la matrice de sous-biome avec des carré de couleur
 
-		// Boucle pour comprendre les frontiere
-		for (int i = 0 ; i<l2 ; i++){
-			for (int j = 0 ; j<h2 ; j++){
-				if (i<l2-1) {
-					System.out.println(matricerandom[i + 1][j]);
-				}
-			}
-		}
 	}
 
 	// Attribution de la couleur du biome :
@@ -76,94 +66,52 @@ public class Biome extends Parent {
 		}
 		else if (nbAleatoire == 1){
 			couleur = Color.GREEN;
-
 			forme.setFill(couleur);
 		}
 		else if (nbAleatoire == 2){
 			couleur = Color.RED;
-
 			forme.setFill(couleur);
 		}
 		else if (nbAleatoire == 3){
 			couleur = Color.PINK;
-
 			forme.setFill(couleur);
 		}
 		else{
 			couleur = Color.YELLOW;
-
 			forme.setFill(couleur);
 		}
 	}
 
-
-
-
-	public void variationColor(){
-
-			if (matriceMap[coordx][coordy] == 0) variationColor = Color.DARKBLUE;
-			else if (nbAleatoire == 1) variationColor = Color.DARKGREEN;
-			else if (nbAleatoire == 2) variationColor = Color.DARKRED;
-			else if (nbAleatoire == 3) variationColor = Color.DEEPPINK;
-			else variationColor = Color.LIGHTGOLDENRODYELLOW;
-
-
-	}
-	public void frontierBas() {
-		for (int i = 0 ; i<l2 ; i++){
-			for (int j = 0 ; j<h2 ; j++){
-				if (i<l2-1) {
-					System.out.println(matricerandom[i + 1][j]);
-					if (matricerandom[i+1][j]==0) frontiere = Color.BLUE;
-					else if (matricerandom[i+1][j]==1) frontiere = Color.GREEN;
-					else if (matricerandom[i+1][j]==2) frontiere = Color.RED;
-					else if (matricerandom[i+1][j]==3) frontiere = Color.PINK;
-					else frontiere = Color.YELLOW;
-
-				}
-			}
-		}
-		/*//if (coordx < l2 - 1) {
-			for (int i = 0 ; i<h2; i++){
-				for (int j = 0 ; j<l2 -1 ; j++){
-					if (matricerandom[i+1][j ] == 0) {
-						//System.out.println(coordx);
-						//System.out.println(matriceMap[coordx][coordy]);
-						frontiere = Color.BLUE;
-					} else if (matricerandom[i+1][j] == 1) {
-						System.out.println("vert");
-						frontiere = Color.GREEN;
-					} else if (matricerandom[i + 1][j] == 2) {
-						frontiere = Color.RED;
-					} else if (matricerandom[i + 1][j] == 3) {
-						frontiere = Color.PINK;
-					} else frontiere = Color.YELLOW;
-				}
-		//	}
-
-		}*/
-	}
-	// Attribution de la couleur du sous-biome :
+	// Attribution de la couleur des sous-biome :
 	public Color choixcouleur2(int i,int j){
 		if (matricerandom[i][j] == 0){
-			 variationColor();
-			 //frontierBas();
-			 //return frontiere;
-			return variationColor;
+			if (coordx < matriceMap.length-1){
+				if (matriceMap[coordx+1][coordy] == 0 ){
+					return Color.BLACK;
+				}
+				else return couleur;
+			}
+			else return couleur;
 		}
 		else{
 			return couleur;
 		}
 	}
 
-
-	// remplir :
-	public void remplir(){
+	// remplir la matrice de nb pour les sous-Biome:
+	public void remplirNbaleatoire(){
 		for(int i = 0; i< l2; i++){
 			for(int j = 0; j< h2; j++){
 				matricerandom[i][j] = aleatoire.donneRandom();
-				Rectangle r = new Rectangle(2,2, choixcouleur2(i,j));
+			}
+		}
+	}
 
+	// remplir  les Biome d'un carré:
+	public void remplirBiome(){
+		for(int i = 0; i< l2; i++){
+			for(int j = 0; j< h2; j++){
+				Rectangle r = new Rectangle(2,2, choixcouleur2(i,j));
 				grille.add(r, j, i);
 			}
 		}
