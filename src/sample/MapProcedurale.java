@@ -28,7 +28,8 @@ public class MapProcedurale extends Parent {
 
         matricerandom = new int[longueur][hauteur];
         grille = new GridPane();
-        remplirBis();
+        remplirNbAleatoire();
+        remplirDeBiome();
 
         //remplir(0, 0);
 
@@ -38,10 +39,18 @@ public class MapProcedurale extends Parent {
 
 
     //remplissage de la matrice .matricerandom (itératif)
-    public void remplirBis(){
+    public void remplirNbAleatoire(){
         for(int i=0 ;i<=longueur;i++){
             for(int j=0 ; j<=hauteur ; j++){
                 matricerandom[i][j] = aleatoire.donneRandom();
+            }
+        }
+    }
+
+    //remplissage de Biome dans la grille (itératif)
+    public void remplirDeBiome(){
+        for(int i=0 ;i<=longueur;i++){
+            for(int j=0 ; j<=hauteur ; j++){
                 creerBiome(i,j);
             }
         }
