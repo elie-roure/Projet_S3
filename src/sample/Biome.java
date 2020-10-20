@@ -92,65 +92,86 @@ public class Biome extends Parent {
 		else return Color.LIGHTGOLDENRODYELLOW;
 	}
 
-	public Color frontiereBas(){
+
+	private Color getColorBas() {
 		if (coordx < matriceMap.length-1){
 			if (matriceMap[coordx+1][coordy] == 0 ) return Color.BLUE;
 			else if (matriceMap[coordx+1][coordy] == 1 ) return Color.GREEN;
 			else if (matriceMap[coordx+1][coordy] == 2 ) return Color.RED;
 			else if (matriceMap[coordx+1][coordy] == 3 ) return Color.PINK;
 			else if (matriceMap[coordx+1][coordy] == 4 ) return Color.YELLOW;
-			else {
-				return couleur;
-			}
-		}
-		else return couleur;
+			else return couleur;
+		} else return couleur;
 	}
 
-	public Color frontiereHaut(){
+	private Color getColorHaut() {
 		if (0 < coordx && coordx < matriceMap.length){
 			if (matriceMap[coordx-1][coordy] == 0 ) return Color.BLUE;
 			else if (matriceMap[coordx-1][coordy] == 1 ) return Color.GREEN;
 			else if (matriceMap[coordx-1][coordy] == 2 ) return Color.RED;
 			else if (matriceMap[coordx-1][coordy] == 3 ) return Color.PINK;
 			else if (matriceMap[coordx-1][coordy] == 4 ) return Color.YELLOW;
-			else {
-				return couleur;
-			}
-		}
-		else return couleur;
+			else return couleur;
+		} else return couleur;
 	}
 
-	public Color frontiereDroite(){
+	private Color getColorDroite() {
 		if (coordy < matriceMap.length-1){
 			if (matriceMap[coordx][coordy+1] == 0 ) return Color.BLUE;
 			else if (matriceMap[coordx][coordy+1] == 1 ) return Color.GREEN;
 			else if (matriceMap[coordx][coordy+1] == 2 ) return Color.RED;
 			else if (matriceMap[coordx][coordy+1] == 3 ) return Color.PINK;
 			else if (matriceMap[coordx][coordy+1] == 4 ) return Color.YELLOW;
-			else {
-				return couleur;
-			}
-		}
-		else return couleur;
+			else return couleur;
+		} else return couleur;
 	}
 
-	public Color frontiereGauche(){
+	private Color getColorGauche(){
 		if (0 < coordy && coordy < matriceMap.length){
 			if (matriceMap[coordx][coordy-1] == 0 ) return Color.BLUE;
 			else if (matriceMap[coordx][coordy-1] == 1 ) return Color.GREEN;
 			else if (matriceMap[coordx][coordy-1] == 2 ) return Color.RED;
 			else if (matriceMap[coordx][coordy-1] == 3 ) return Color.PINK;
 			else if (matriceMap[coordx][coordy-1] == 4 ) return Color.YELLOW;
-			else {
-				return couleur;
-			}
-		}
-		else return couleur;
+			else return couleur;
+		} else return couleur;
 	}
+
+	public Color frontiereBas(){
+		return getColorBas();
+	}
+	public Color frontiereHaut(){
+		return getColorHaut();
+	}
+	public Color frontiereDroite(){
+		return getColorDroite();
+	}
+	public Color frontiereGauche(){
+		return getColorGauche();
+	}
+
+	public Color frontiereAffineGauche(int i, int j) {
+		if (-1<j && j<2 && 1<i &&i<9) return getColorGauche();
+		return couleur;
+	}
+	public Color frontiereAffineHaut(int i, int j) {
+		if (-1<i && i<2 && 1<j &&j<9) return getColorHaut();
+		return couleur;
+	}
+	public Color frontiereAffineBas(int i, int j) {
+		if (7<i && i<matricerandom.length && 1<j && j<9) return getColorBas();
+		return couleur;
+	}
+	public Color frontiereAffineDroite(int i, int j) {
+		if (7<j && j<matricerandom.length && 1<i &&i<9) return getColorDroite();
+		return couleur;
+	}
+
+
 	// Attribution de la couleur des sous-biome :
 	public Color choixcouleur2(int i,int j){
 		if (matricerandom[i][j] == 0){
-			return frontiereGauche();
+			return  frontiereAffineGauche(i,j);
 		}
 		else{
 			return couleur;
