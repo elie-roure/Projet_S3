@@ -172,7 +172,7 @@ public class Biome extends Parent {
 		else if (-1<i && i<2 && 1<j &&j<9) return getColorHaut();
 		else if (7<i && i<matricerandom.length && 1<j && j<9) return getColorBas();
 		else if (7<j && j<matricerandom.length && 1<i &&i<9) return getColorDroite();
-		return couleur;
+		return variationColor();
 	}
 
 
