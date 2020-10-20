@@ -167,11 +167,19 @@ public class Biome extends Parent {
 		return couleur;
 	}
 
+	public Color frontiereGlobal(int i, int j){
+		if (-1<j && j<2 && 1<i &&i<9) return getColorGauche();
+		else if (-1<i && i<2 && 1<j &&j<9) return getColorHaut();
+		else if (7<i && i<matricerandom.length && 1<j && j<9) return getColorBas();
+		else if (7<j && j<matricerandom.length && 1<i &&i<9) return getColorDroite();
+		return couleur;
+	}
+
 
 	// Attribution de la couleur des sous-biome :
 	public Color choixcouleur2(int i,int j){
 		if (matricerandom[i][j] == 0){
-			return  frontiereAffineGauche(i,j);
+			return  frontiereGlobal(i,j);
 		}
 		else{
 			return couleur;
