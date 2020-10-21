@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="lib">
+  <library name="libvrai">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/javafx-sdk-14.0.1/lib" />
     </CLASSES>
