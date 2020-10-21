@@ -8,6 +8,7 @@ import javafx.scene.shape.Rectangle;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MapProcedurale extends Parent {
 
@@ -29,7 +30,12 @@ public class MapProcedurale extends Parent {
 
         matricerandom = new int[longueur][hauteur];
         grille = new GridPane();
+
         remplirBis();
+
+        remplirNbAleatoire();
+        remplirDeBiome();
+
 
         //remplir(0, 0);
 
@@ -38,6 +44,35 @@ public class MapProcedurale extends Parent {
     }
 
 
+    //remplissage de la matrice .matricerandom (itératif)
+    public void remplirNbAleatoire(){
+        for(int i=0 ;i<=longueur;i++){
+            for(int j=0 ; j<=hauteur ; j++){
+                matricerandom[i][j] = aleatoire.donneRandom();
+            }
+        }
+    }
+
+    //remplissage de Biome dans la grille (itératif)
+    public void remplirDeBiome(){
+        for(int i=0 ;i<=longueur;i++){
+            for(int j=0 ; j<=hauteur ; j++){
+                creerBiome(i,j);
+            }
+        }
+    }
+
+    // créateur de Biome :
+    public void creerBiome(int coordx, int coordy){
+        Biome b = new Biome(20, 20, coordx, coordy, matricerandom);
+        grille.add(b.getForme(), coordy, coordx);
+        grille.add(b.getGrille(), coordy, coordx);
+    }
+
+
+    // fonction brouillon / pas-optimale :
+
+    /*
     // remplissage de la fenetre (en récursif)
     // + remplissage matriceRandom
     public void remplir(int i, int j){
@@ -58,6 +93,8 @@ public class MapProcedurale extends Parent {
             creerCarre(i,j);
         }
     }
+*/
+
 
 
 
@@ -81,22 +118,27 @@ public class MapProcedurale extends Parent {
     }
 
     // choix couleur du carré
-    public Color choisirCouleur(int i,int j){
-        if (matricerandom[i][j] == 0){
+    public Color choisirCouleur(int i,int j) {
+        if (matricerandom[i][j] == 0) {
             return Color.GOLDENROD;
-        }
-        else if (matricerandom[i][j] == 1){
+        } else if (matricerandom[i][j] == 1) {
             return Color.RED;
-        }
-        else if (matricerandom[i][j] == 2){
+        } else if (matricerandom[i][j] == 2) {
             return Color.GREEN;
-        }
-        else if (matricerandom[i][j] == 3){
+        } else if (matricerandom[i][j] == 3) {
             return Color.BLUE;
-        }
-        else{
+        } else {
             return Color.YELLOW;
         }
-
     }
-}
+
+
+        @Override
+        public String toString() {
+            return "MapProcedurale{" +
+                    "matricerandom=" + Arrays.toString(matricerandom) +
+                    '}';
+
+        }
+    }
+
