@@ -77,9 +77,30 @@ public class Main extends Application {
                 //root.getChildren().removeAll(longueur,hauteur,seed,generer, tHauteur, tLongueur, tSeed);
             }
         });
+
+
+        /**Lorsqu'on clique sur la map, cela recupère les coordonnées de la GridPane, et reccrer une carte à partir
+         * de ces dernier
+         * */
+        mapGroup.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Node clicked = mouseEvent.getPickResult().getIntersectedNode();
+                Integer colIndice = GridPane.getColumnIndex(clicked);
+                Integer rowIndice = GridPane.getRowIndex(clicked);
+                MapProcedurale maplv2 = new MapProcedurale(longueur.getValue(),hauteur.getValue(),Integer.parseInt("84578" + colIndice + rowIndice));
+                //System.out.println(colIndice + ":" + rowIndice);
+                mapGroup.getChildren().add(maplv2);
+            }
+        });
+
+
         // MapProcedurale map = new MapProcedurale(20,20, 6);
         root.getChildren().addAll(longueur, hauteur, seed, generer, tHauteur, tLongueur, tSeed);
+
     }
+
+
 
     public void placement (int x, int y, Node node){
         node.setTranslateX(x);

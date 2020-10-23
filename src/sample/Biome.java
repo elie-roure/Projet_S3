@@ -1,6 +1,9 @@
 package sample;
 
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -35,6 +38,7 @@ public class Biome extends Parent {
 	private Color variationColor = Color.BLACK;
 
 
+
 	// constructeur :
 	public Biome(int l, int h, int coordx, int coordy, int[][] matriceMap) {
 
@@ -56,6 +60,7 @@ public class Biome extends Parent {
 		remplirNbaleatoire();        // remplis la mtrice de nb aléatoire de sous-biome
 		choixcouleur();                // choisi la couleur du Biome
 		remplirBiome();                // remplis la matrice de sous-biome avec des carré de couleur
+
 
 	}
 

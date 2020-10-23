@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -29,8 +30,12 @@ public class MapProcedurale extends Parent {
 
         matricerandom = new int[longueur][hauteur];
         grille = new GridPane();
+
+        remplirBis();
+
         remplirNbAleatoire();
-        remplirDeBiome();
+        //remplirDeBiome();
+
 
         //remplir(0, 0);
 
@@ -90,10 +95,50 @@ public class MapProcedurale extends Parent {
     }
 */
 
-    @Override
-    public String toString() {
-        return "MapProcedurale{" +
-                "matricerandom=" + Arrays.toString(matricerandom) +
-                '}';
+
+
+
+    //remplissage de la matrice .matricerandom (itératif)
+
+    public void remplirBis(){
+        for(int i=0 ;i<=longueur;i++){
+            for(int j=0 ; j<=hauteur ; j++){
+                matricerandom[i][j] = aleatoire.donneRandom();
+                creerCarre(i,j);
+            }
+        }
     }
-}
+
+
+    // créateur de carré
+    public void creerCarre(int coordx, int coordy){
+        Rectangle r = new Rectangle(20, 20, choisirCouleur(coordx, coordy));
+        grille.add(r,coordy,coordx);
+
+    }
+
+    // choix couleur du carré
+    public Color choisirCouleur(int i,int j) {
+        if (matricerandom[i][j] == 0) {
+            return Color.GOLDENROD;
+        } else if (matricerandom[i][j] == 1) {
+            return Color.RED;
+        } else if (matricerandom[i][j] == 2) {
+            return Color.GREEN;
+        } else if (matricerandom[i][j] == 3) {
+            return Color.BLUE;
+        } else {
+            return Color.YELLOW;
+        }
+    }
+
+
+        @Override
+        public String toString() {
+            return "MapProcedurale{" +
+                    "matricerandom=" + Arrays.toString(matricerandom) +
+                    '}';
+
+        }
+    }
+
