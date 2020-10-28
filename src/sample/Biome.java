@@ -15,22 +15,31 @@ Principe :
 
 public class Biome {
 
-	// attributs en commun a tous les Biome :
+	///////////////////////////////////////////////////////////////  attributs : ////////////////////////////////////////////////////////////////
 
+	// attributs en commun a tous les Biome :
 	private int l;                    // longueur biome
 	private int h;                    // hauteur biome
 	private int l2;                    // longueur grille dans Biome
 	private int h2;                    // hauteur grille dans Biome
-	private int[][] matriceMap;        // matrice des nb aléatoire de la grille de la MapProcedurale
 	private GridPane grille;        // grille du Biome
 
 	// attributs lié au Biome courant :
 	private Aleatoire aleatoire;
-	private int nbAleatoire;        // nombre aléatoire du Biome
-	private int[][] matricerandom;    // matrice de nb aléatoire pour les sous-biome
+	private int nbAleatoire;        	// nombre aléatoire du Biome
+	private int[][] matricerandom;
 	private int coordx;                // coord x du nb du Biome dans MatriceMap
 	private int coordy;                // coord x du nb du Biome dans MatriceMap
 
+	// les voisins:
+	private int voisinh;
+	private int voisinb;
+	private int voising;
+	private int voisind;
+	private int voisinhg;
+	private int voisinhd;
+	private int voisinbg;
+	private int voisinbd;
 
 	// pas définitif :
 	private Color couleur;            // couleur du Biome
@@ -38,19 +47,28 @@ public class Biome {
 	private Color variationColor = Color.BLACK;
 
 
+	///////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
 
-	// constructeur :
-	public Biome(int l, int h, int coordx, int coordy, int[][] matriceMap) {
+	public Biome(int l, int h, int coordx, int coordy, Color couleur, int[] matriceVoisin) {
 
 		this.l = l;
 		this.h = h;
 		this.coordx = coordx;
 		this.coordy = coordy;
-		this.matriceMap = matriceMap;
 		l2 = 10;
 		h2 = 10;
+		this.couleur = couleur;
 
-		nbAleatoire = matriceMap[coordx][coordy];
+		nbAleatoire = matriceVoisin[0];
+		voisinh = matriceVoisin[1];
+		voisinb = matriceVoisin[2];
+		voising = matriceVoisin[3];
+		voisind = matriceVoisin[4];
+		voisinhg = matriceVoisin[5];
+		voisinhd = matriceVoisin[6];
+		voisinbg = matriceVoisin[7];
+		voisinbd = matriceVoisin[8];
+
 		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 5);
 		matricerandom = new int[l2][h2];
 
@@ -58,37 +76,11 @@ public class Biome {
 		grille = new GridPane();
 
 		remplirNbaleatoire();        // remplis la mtrice de nb aléatoire de sous-biome
-		choixcouleur();                // choisi la couleur du Biome
 		remplirBiome();                // remplis la matrice de sous-biome avec des carré de couleur
-
-
-	}
-
-	// Attribution de la couleur du biome :
-	public void choixcouleur() {
-		if (nbAleatoire == 0) {
-			couleur = Color.BLUE;
-			forme.setFill(couleur);
-		} else if (nbAleatoire == 1) {
-			couleur = Color.GREEN;
-			forme.setFill(couleur);
-		} else if (nbAleatoire == 2) {
-			couleur = Color.RED;
-			forme.setFill(couleur);
-		} else if (nbAleatoire == 3) {
-			couleur = Color.PINK;
-			forme.setFill(couleur);
-		} else {
-			couleur = Color.YELLOW;
-			forme.setFill(couleur);
-		}
 	}
 
 
-	// Attribution de la couleur des sous-biome :
-	public Color choixcouleur2(int i,int j){
-		return  couleur;
-	}
+	/////////////////////////////////////////////////////////  méthodes de remplissages : ///////////////////////////////////////////////////////
 
 	// remplir la matrice de nb pour les sous-Biome:
 	public void remplirNbaleatoire(){
@@ -103,11 +95,22 @@ public class Biome {
 	public void remplirBiome(){
 		for(int i = 0; i< l2; i++){
 			for(int j = 0; j< h2; j++){
-				Rectangle r = new Rectangle(2,2, choixcouleur2(i,j));
+				Rectangle r = new Rectangle(2,2, choixcouleur(i,j));
 				grille.add(r, j, i);
 			}
 		}
 	}
+
+
+	////////////////////////////////////////////////////////  méthodes de choix du visuel : //////////////////////////////////////////////////////
+
+	// Attribution de la couleur des sous-biome :
+	public Color choixcouleur(int i,int j){
+		return  couleur;
+	}
+
+
+	///////////////////////////////////////////////////////  getter, setter et toString : ////////////////////////////////////////////////////////
 
 	// getter :
 
