@@ -39,6 +39,7 @@ public class Biome extends Parent {
 
 
 
+
 	// constructeur :
 	public Biome(int l, int h, int coordx, int coordy, int[][] matriceMap) {
 

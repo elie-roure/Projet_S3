@@ -21,8 +21,17 @@ public class MapProcedurale extends Parent {
 
     private Aleatoire aleatoire;
 
+    private Color[] couleurs;
+
     // constructeur :
     public MapProcedurale(int longueur, int hauteur, int seed) {
+
+        couleurs= new Color[5];
+        couleurs[0]=Color.GOLDENROD;
+        couleurs[1]=Color.RED;
+        couleurs[2]=Color.GREEN;
+        couleurs[3]=Color.BLUE;
+        couleurs[4]=Color.YELLOW;
 
         this.longueur = longueur-1;
         this.hauteur = hauteur-1;
@@ -40,7 +49,6 @@ public class MapProcedurale extends Parent {
         //remplir(0, 0);
 
         this.getChildren().add(grille);
-
     }
 
 
@@ -112,13 +120,13 @@ public class MapProcedurale extends Parent {
 
     // créateur de carré
     public void creerCarre(int coordx, int coordy){
-        Rectangle r = new Rectangle(20, 20, choisirCouleur(coordx, coordy));
+        Rectangle r = new Rectangle(20, 20, couleurs[matricerandom[coordx][coordy]]);
         grille.add(r,coordy,coordx);
 
     }
 
     // choix couleur du carré
-    public Color choisirCouleur(int i,int j) {
+    /*public Color choisirCouleur(int i,int j) {
         if (matricerandom[i][j] == 0) {
             return Color.GOLDENROD;
         } else if (matricerandom[i][j] == 1) {
@@ -130,7 +138,7 @@ public class MapProcedurale extends Parent {
         } else {
             return Color.YELLOW;
         }
-    }
+    }*/
 
 
         @Override
