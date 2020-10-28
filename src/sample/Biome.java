@@ -13,7 +13,7 @@ Principe :
     - 1 fragment de MapProcédurale
  */
 
-public class Biome extends Parent {
+public class Biome {
 
 	// attributs en commun a tous les Biome :
 
