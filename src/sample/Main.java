@@ -1,3 +1,4 @@
+
 package sample;
 
 import javafx.application.Application;
