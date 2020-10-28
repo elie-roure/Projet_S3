@@ -70,34 +70,6 @@ public class MapProcedurale extends Parent {
     }
 
 
-    // fonction brouillon / pas-optimale :
-
-    /*
-    // remplissage de la fenetre (en récursif)
-    // + remplissage matriceRandom
-    public void remplir(int i, int j){
-
-        if (!(i == longueur && j == hauteur)){
-
-            matricerandom[i][j] = aleatoire.donneRandom();
-            creerCarre(i,j);
-
-            if (i == longueur){
-                remplir(0,j+1);
-            }
-            else {
-                remplir(i+1,j);
-            }
-        }
-        else {
-            creerCarre(i,j);
-        }
-    }
-*/
-
-
-
-
     //remplissage de la matrice .matricerandom (itératif)
 
     public void remplirBis(){
