@@ -37,11 +37,18 @@ public class Biome extends Parent {
 	private Rectangle forme;        // forme du Biome
 	private Color variationColor = Color.BLACK;
 
-
+	private Color[] couleurs;
 
 
 	// constructeur :
 	public Biome(int l, int h, int coordx, int coordy, int[][] matriceMap) {
+
+		couleurs= new Color[5];
+		couleurs[0]=Color.BLUE;
+		couleurs[1]=Color.GREEN;
+		couleurs[2]=Color.RED;
+		couleurs[3]=Color.PINK;
+		couleurs[4]=Color.YELLOW;
 
 		this.l = l;
 		this.h = h;
@@ -67,22 +74,7 @@ public class Biome extends Parent {
 
 	// Attribution de la couleur du biome :
 	public void choixcouleur() {
-		if (nbAleatoire == 0) {
-			couleur = Color.BLUE;
-			forme.setFill(couleur);
-		} else if (nbAleatoire == 1) {
-			couleur = Color.GREEN;
-			forme.setFill(couleur);
-		} else if (nbAleatoire == 2) {
-			couleur = Color.RED;
-			forme.setFill(couleur);
-		} else if (nbAleatoire == 3) {
-			couleur = Color.PINK;
-			forme.setFill(couleur);
-		} else {
-			couleur = Color.YELLOW;
-			forme.setFill(couleur);
-		}
+		forme.setFill(couleurs[nbAleatoire]);
 	}
 
 	public Color variationColor() {

@@ -1,18 +1,15 @@
 package sample;
 
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-
-import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MapProcedurale extends Parent {
+public class MapProcedurale {
 
-    // arguments :
+    //////////////////////////////////////////////////////////////// attributs : ////////////////////////////////////////////////////////////////
+
     private GridPane grille;
     private int[][] matricerandom;
 
@@ -23,7 +20,8 @@ public class MapProcedurale extends Parent {
 
     private Color[] couleurs;
 
-    // constructeur :
+    ///////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
+
     public MapProcedurale(int longueur, int hauteur, int seed) {
 
         couleurs= new Color[5];
@@ -40,17 +38,14 @@ public class MapProcedurale extends Parent {
         matricerandom = new int[longueur][hauteur];
         grille = new GridPane();
 
-        remplirBis();
+        remplirBis();			// remplie matriceRandom et la grille de carré
 
-        remplirNbAleatoire();
-        //remplirDeBiome();
-
-
-        //remplir(0, 0);
-
-        this.getChildren().add(grille);
+        //remplirNbAleatoire();	// remplie matriceRandom
+        //remplirDeBiome();		// remplie la grille de Biome
     }
 
+
+    /////////////////////////////////////////////////////////  méthodes de remplissages : ///////////////////////////////////////////////////////
 
     //remplissage de la matrice .matricerandom (itératif)
     public void remplirNbAleatoire(){
@@ -70,44 +65,7 @@ public class MapProcedurale extends Parent {
         }
     }
 
-    // créateur de Biome :
-    public void creerBiome(int coordx, int coordy){
-        Biome b = new Biome(20, 20, coordx, coordy, matricerandom);
-        grille.add(b.getForme(), coordy, coordx);
-        grille.add(b.getGrille(), coordy, coordx);
-    }
-
-
-    // fonction brouillon / pas-optimale :
-
-    /*
-    // remplissage de la fenetre (en récursif)
-    // + remplissage matriceRandom
-    public void remplir(int i, int j){
-
-        if (!(i == longueur && j == hauteur)){
-
-            matricerandom[i][j] = aleatoire.donneRandom();
-            creerCarre(i,j);
-
-            if (i == longueur){
-                remplir(0,j+1);
-            }
-            else {
-                remplir(i+1,j);
-            }
-        }
-        else {
-            creerCarre(i,j);
-        }
-    }
-*/
-
-
-
-
     //remplissage de la matrice .matricerandom (itératif)
-
     public void remplirBis(){
         for(int i=0 ;i<=longueur;i++){
             for(int j=0 ; j<=hauteur ; j++){
@@ -118,12 +76,23 @@ public class MapProcedurale extends Parent {
     }
 
 
+    //////////////////////////////////////////////////  méthodes de création d'élément javaFX : ////////////////////////////////////////////////
+
+    // créateur de Biome :
+    public void creerBiome(int coordx, int coordy){
+        Biome b = new Biome(20, 20, coordx, coordy, matricerandom);
+        grille.add(b.getForme(), coordy, coordx);
+        grille.add(b.getGrille(), coordy, coordx);
+    }
+
     // créateur de carré
     public void creerCarre(int coordx, int coordy){
         Rectangle r = new Rectangle(20, 20, couleurs[matricerandom[coordx][coordy]]);
         grille.add(r,coordy,coordx);
-
     }
+
+
+    ////////////////////////////////////////////////////////  méthodes de choix du visuel : //////////////////////////////////////////////////////
 
     // choix couleur du carré
     /*public Color choisirCouleur(int i,int j) {
@@ -141,12 +110,19 @@ public class MapProcedurale extends Parent {
     }*/
 
 
-        @Override
-        public String toString() {
-            return "MapProcedurale{" +
-                    "matricerandom=" + Arrays.toString(matricerandom) +
-                    '}';
+    ////////////////////////////////////////////////////////  getter, setter et toString : ///////////////////////////////////////////////////////
 
-        }
+    // getter :
+    public GridPane getGrille() {
+        return grille;
     }
 
+    // to String :
+    @Override
+    public String toString() {
+        return "MapProcedurale{" +
+                "matricerandom=" + Arrays.toString(matricerandom) +
+                '}';
+
+    }
+}
