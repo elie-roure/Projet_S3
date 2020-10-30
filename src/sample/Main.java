@@ -73,7 +73,7 @@ public class Main extends Application {
             public void handle(MouseEvent mouseEvent) {
                 mapStage.show();
                 MapProcedurale map = new MapProcedurale(longueur.getValue(),hauteur.getValue(), seed.getValue());
-                mapGroup.getChildren().add(map);
+                mapGroup.getChildren().add(map.getGrille());
                 //root.getChildren().removeAll(longueur,hauteur,seed,generer, tHauteur, tLongueur, tSeed);
             }
         });
@@ -88,9 +88,9 @@ public class Main extends Application {
                 Node clicked = mouseEvent.getPickResult().getIntersectedNode();
                 Integer colIndice = GridPane.getColumnIndex(clicked);
                 Integer rowIndice = GridPane.getRowIndex(clicked);
-                MapProcedurale maplv2 = new MapProcedurale(longueur.getValue(),hauteur.getValue(),Integer.parseInt("84ois il578" + colIndice + rowIndice));
+                MapProcedurale maplv2 = new MapProcedurale(longueur.getValue(),hauteur.getValue(),Integer.parseInt(""+seed.getValue() + colIndice + rowIndice),Color.GREEN);
                 //System.out.println(colIndice + ":" + rowIndice);
-                mapGroup.getChildren().add(maplv2);
+                mapGroup.getChildren().add(maplv2.getGrille());
             }
         });
 
