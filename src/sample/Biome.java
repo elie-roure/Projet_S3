@@ -49,6 +49,8 @@ public class Biome {
 
 	///////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
 
+
+
 	public Biome(int l, int h, int coordx, int coordy, Color couleur, int[] matriceVoisin) {
 
 		this.l = l;
@@ -120,6 +122,10 @@ public class Biome {
 
 	public GridPane getGrille() {
 		return grille;
+	}
+
+	public Color getCouleur() {
+		return couleur;
 	}
 
 	// setter :

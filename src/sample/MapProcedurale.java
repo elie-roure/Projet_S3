@@ -27,7 +27,7 @@ public class MapProcedurale {
 
         this.longueur = longueur-1;
         this.hauteur = hauteur-1;
-        aleatoire = new Aleatoire(seed, 5);
+        aleatoire = new Aleatoire(seed, 100);
 
         matricerandom = new int[longueur][hauteur];
         grille = new GridPane();
@@ -39,9 +39,10 @@ public class MapProcedurale {
         couleurs[3]=Color.BLUE;
         couleurs[4]=Color.YELLOW;
 
-        remplirBis();			// remplie matriceRandom et la grille de carré
 
         remplirNbAleatoire();	// remplie matriceRandom
+        //remplirBis();			// remplie matriceRandom et la grille de carré
+
         remplirDeBiome();		// remplie la grille de Biome
     }
 
@@ -57,11 +58,28 @@ public class MapProcedurale {
         }
     }
 
+
+
     //remplissage de Biome dans la grille
     public void remplirDeBiome(){
         for(int i=0 ;i<=longueur;i++){
             for(int j=0 ; j<=hauteur ; j++){
-                creerBiome(i,j);
+                Biome b = creerBiome(i,j);
+                if (b.getCouleur()==Color.GOLDENROD){
+                    matricerandom[i][j]=10;
+                }
+                if (b.getCouleur()==Color.RED){
+                    matricerandom[i][j]=30;
+                }
+                if (b.getCouleur()==Color.GREEN){
+                    matricerandom[i][j]=50;
+                }
+                if (b.getCouleur()==Color.BLUE){
+                    matricerandom[i][j]=70;
+                }
+                if (b.getCouleur()==Color.YELLOW){
+                    matricerandom[i][j]=90;
+                }
             }
         }
     }
@@ -80,62 +98,193 @@ public class MapProcedurale {
     //////////////////////////////////////////////////  méthodes de création d'élément javaFX : ////////////////////////////////////////////////
 
     // créateur de Biome :
-    public void creerBiome(int coordx, int coordy){
+    public Biome creerBiome(int i, int j){
 
         // gestion des voisins
         int [] matriceVoisin = new int[9];
-        matriceVoisin[0] = matricerandom[coordx][coordy];
-        if (coordx > 0){
-            matriceVoisin[3] = matricerandom[coordx-1][coordy];
-            if (coordy > 0) {
-                matriceVoisin[1] = matricerandom[coordx][coordy-1];
-                matriceVoisin[5] = matricerandom[coordx-1][coordy-1];
+        matriceVoisin[0] = matricerandom[i][j];
+        if (i > 0){
+            matriceVoisin[3] = matricerandom[i-1][j];
+            if (j > 0) {
+                matriceVoisin[1] = matricerandom[i][j-1];
+                matriceVoisin[5] = matricerandom[i-1][j-1];
             }
-            if (coordy < hauteur) {
-                matriceVoisin[2] = matricerandom[coordx][coordy+1];
-                matriceVoisin[7] = matricerandom[coordx - 1][coordy + 1];
+            if (j < hauteur) {
+                matriceVoisin[2] = matricerandom[i][j+1];
+                matriceVoisin[7] = matricerandom[i - 1][j + 1];
             }
         }
-        if (coordx < longueur){
-            matriceVoisin[4] = matricerandom[coordx+1][coordy];
-            if (coordy > 0) {
-                matriceVoisin[1] = matricerandom[coordx][coordy-1];
-                matriceVoisin[6] = matricerandom[coordx+1][coordy-1];
+        if (i < longueur){
+            matriceVoisin[4] = matricerandom[i+1][j];
+            if (j > 0) {
+                matriceVoisin[1] = matricerandom[i][j-1];
+                matriceVoisin[6] = matricerandom[i+1][j-1];
             }
-            if (coordy < hauteur) {
-                matriceVoisin[2] = matricerandom[coordx][coordy+1];
-                matriceVoisin[8] = matricerandom[coordx+1][coordy+1];
+            if (j < hauteur) {
+                matriceVoisin[2] = matricerandom[i][j+1];
+                matriceVoisin[8] = matricerandom[i+1][j+1];
             }
         }
 
-        Biome b = new Biome(20, 20, coordx, coordy,couleurs[matricerandom[coordx][coordy]], matriceVoisin);
-        grille.add(b.getForme(), coordy, coordx);
-        grille.add(b.getGrille(), coordy, coordx);
+        if (i==0||j==0){
+            Biome b = new Biome(20, 20, i, j,choisirCouleur(i,j), matriceVoisin); // couleurs[matricerandom[coordx][coordy]]
+            grille.add(b.getForme(), j, i);
+            grille.add(b.getGrille(), j, i);
+            return b;
+        }
+        else if (matricerandom[i][j-1]<20){
+            Biome b = new Biome(20, 20, i, j,choisirCouleurGOLDENROD(i,j), matriceVoisin); // couleurs[matricerandom[coordx][coordy]]
+            grille.add(b.getForme(), j, i);
+            grille.add(b.getGrille(), j, i);
+            return b;
+        }
+        else if(20<=matricerandom[i][j-1]&&matricerandom[i][j]<40){
+            Biome b = new Biome(20, 20, i, j,choisirCouleurRED(i,j), matriceVoisin); // couleurs[matricerandom[coordx][coordy]]
+            grille.add(b.getForme(), j, i);
+            grille.add(b.getGrille(), j, i);
+            return b;
+        }
+        else if(40<=matricerandom[i][j-1]&&matricerandom[i][j]<60){
+            Biome b = new Biome(20, 20, i, j,choisirCouleurGREEN(i,j), matriceVoisin); // couleurs[matricerandom[coordx][coordy]]
+            grille.add(b.getForme(), j, i);
+            grille.add(b.getGrille(), j, i);
+            return b;
+        }
+        else if(60<=matricerandom[i][j-1]&&matricerandom[i][j]<80){
+            Biome b = new Biome(20, 20, i, j,choisirCouleurBLUE(i,j), matriceVoisin); // couleurs[matricerandom[coordx][coordy]]
+            grille.add(b.getForme(), j, i);
+            grille.add(b.getGrille(), j, i);
+            return b;
+        }
+        else{
+            Biome b = new Biome(20, 20, i, j,choisirCouleurYELLOW(i,j), matriceVoisin); // couleurs[matricerandom[coordx][coordy]]
+            grille.add(b.getForme(), j, i);
+            grille.add(b.getGrille(), j, i);
+            return b;
+        }
     }
 
     // créateur de carré
-    public void creerCarre(int coordx, int coordy){
-        Rectangle r = new Rectangle(20, 20, couleurs[matricerandom[coordx][coordy]]);
-        grille.add(r,coordy,coordx);
+    public void creerCarre(int i, int j){
+        Rectangle r = new Rectangle(20, 20, choisirCouleur(i,j));
+        grille.add(r,j,i);
+        /*if (i==0&&j==0){
+            Rectangle r = new Rectangle(20, 20, choisirCouleur(i,j));
+            grille.add(r,j,i);
+        }
+        else if (i==0||j==0){
+            Rectangle r = new Rectangle(20, 20, choisirCouleur(i,j));
+            grille.add(r,j,i);
+        }
+        else if (matricerandom[i-1][j]<20){
+            Rectangle r = new Rectangle(20, 20, choisirCouleurGOLDENROD(i,j));
+            grille.add(r,j,i);
+        }
+        else if(20<=matricerandom[i-1][j]&&matricerandom[i][j]<40){
+            Rectangle r = new Rectangle(20, 20, choisirCouleurRED(i,j));
+            grille.add(r,j,i);
+        }
+        else if(40<=matricerandom[i-1][j]&&matricerandom[i][j]<60){
+            Rectangle r = new Rectangle(20, 20, choisirCouleurGREEN(i,j));
+            grille.add(r,j,i);
+        }
+        else if(60<=matricerandom[i-1][j]&&matricerandom[i][j]<80){
+            Rectangle r = new Rectangle(20, 20, choisirCouleurBLUE(i,j));
+            grille.add(r,j,i);
+        }
+        else{
+            Rectangle r = new Rectangle(20, 20, choisirCouleurYELLOW(i,j));
+            grille.add(r,j,i);
+        }*/
     }
 
 
     ////////////////////////////////////////////////////////  méthodes de choix du visuel : //////////////////////////////////////////////////////
 
     // choix couleur du carré et du biome :
-    /*public Color choisirCouleur(int i,int j) {
-        if (matricerandom[i][j] == 0) {
+    public Color choisirCouleur(int i,int j) {
+        if (matricerandom[i][j] < 20) {
             return Color.GOLDENROD;
-        } else if (matricerandom[i][j] == 1) {
+        } else if (20<=matricerandom[i][j]&&matricerandom[i][j]<40) {
             return Color.RED;
-        } else if (matricerandom[i][j] == 2) {
+        } else if (40<=matricerandom[i][j]&&matricerandom[i][j]<60) {
             return Color.GREEN;
-        } else if (matricerandom[i][j] == 3) {
+        } else if (60<=matricerandom[i][j]&&matricerandom[i][j]<80) {
             return Color.BLUE;
         } else {
             return Color.YELLOW;
         }
-    }*/
+    }
+
+    public Color choisirCouleurGOLDENROD(int i,int j) {
+        if (matricerandom[i][j] < 91) {
+            return Color.GOLDENROD;
+        } else if (91<=matricerandom[i][j]&&matricerandom[i][j]<93) {
+            return Color.RED;
+        } else if (93<=matricerandom[i][j]&&matricerandom[i][j]<95) {
+            return Color.GREEN;
+        } else if (95<=matricerandom[i][j]&&matricerandom[i][j]<97){
+            return Color.BLUE;
+        } else {
+            return Color.YELLOW;
+        }
+    }
+
+    public Color choisirCouleurRED(int i,int j) {
+        if (matricerandom[i][j] < 2) {
+            return Color.GOLDENROD;
+        } else if (2<=matricerandom[i][j]&&matricerandom[i][j]<93) {
+            return Color.RED;
+        } else if (93<=matricerandom[i][j]&&matricerandom[i][j]<95) {
+            return Color.GREEN;
+        } else if (95<=matricerandom[i][j]&&matricerandom[i][j]<97){
+            return Color.BLUE;
+        } else {
+            return Color.YELLOW;
+        }
+    }
+
+    public Color choisirCouleurGREEN(int i,int j) {
+        if (matricerandom[i][j] < 2) {
+            return Color.GOLDENROD;
+        } else if (2<=matricerandom[i][j]&&matricerandom[i][j]<4) {
+            return Color.RED;
+        } else if (4<=matricerandom[i][j]&&matricerandom[i][j]<95) {
+            return Color.GREEN;
+        } else if (95<=matricerandom[i][j]&&matricerandom[i][j]<97){
+            return Color.BLUE;
+        } else {
+            return Color.YELLOW;
+        }
+    }
+
+    public Color choisirCouleurBLUE(int i,int j) {
+        if (matricerandom[i][j] < 2) {
+            return Color.GOLDENROD;
+        } else if (2<=matricerandom[i][j]&&matricerandom[i][j]<4) {
+            return Color.RED;
+        } else if (4<=matricerandom[i][j]&&matricerandom[i][j]<6) {
+            return Color.GREEN;
+        } else if (6<=matricerandom[i][j]&&matricerandom[i][j]<97) {
+            return Color.BLUE;
+        } else {
+            return Color.YELLOW;
+        }
+    }
+
+    public Color choisirCouleurYELLOW(int i,int j) {
+        if (matricerandom[i][j] < 2) {
+            return Color.GOLDENROD;
+        } else if (2<=matricerandom[i][j]&&matricerandom[i][j]<4) {
+            return Color.RED;
+        } else if (4<=matricerandom[i][j]&&matricerandom[i][j]<6) {
+            return Color.GREEN;
+        } else if (6<=matricerandom[i][j]&&matricerandom[i][j]<8) {
+            return Color.BLUE;
+        } else {
+            return Color.YELLOW;
+        }
+    }
 
 
     ////////////////////////////////////////////////////////  getter, setter et toString : ///////////////////////////////////////////////////////
