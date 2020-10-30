@@ -34,7 +34,7 @@ public class MapProcedurale extends Parent {
         remplirBis();
 
         remplirNbAleatoire();
-        remplirDeBiome();
+        //remplirDeBiome();
 
 
         //remplir(0, 0);
@@ -58,6 +58,7 @@ public class MapProcedurale extends Parent {
         for(int i=0 ;i<=longueur;i++){
             for(int j=0 ; j<=hauteur ; j++){
                 creerBiome(i,j);
+
             }
         }
     }

@@ -88,7 +88,7 @@ public class Main extends Application {
                 Node clicked = mouseEvent.getPickResult().getIntersectedNode();
                 Integer colIndice = GridPane.getColumnIndex(clicked);
                 Integer rowIndice = GridPane.getRowIndex(clicked);
-                MapProcedurale maplv2 = new MapProcedurale(longueur.getValue(),hauteur.getValue(),Integer.parseInt("84578" + colIndice + rowIndice));
+                MapProcedurale maplv2 = new MapProcedurale(longueur.getValue(),hauteur.getValue(),Integer.parseInt("84ois il578" + colIndice + rowIndice));
                 //System.out.println(colIndice + ":" + rowIndice);
                 mapGroup.getChildren().add(maplv2);
             }
