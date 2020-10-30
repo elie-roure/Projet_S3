@@ -20,16 +20,10 @@ public class MapProcedurale {
 
     private Color[] couleurs;
 
-    ///////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
+
+    /////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
 
     public MapProcedurale(int longueur, int hauteur, int seed) {
-
-        couleurs= new Color[5];
-        couleurs[0]=Color.GOLDENROD;
-        couleurs[1]=Color.RED;
-        couleurs[2]=Color.GREEN;
-        couleurs[3]=Color.BLUE;
-        couleurs[4]=Color.YELLOW;
 
         this.longueur = longueur-1;
         this.hauteur = hauteur-1;
@@ -38,16 +32,23 @@ public class MapProcedurale {
         matricerandom = new int[longueur][hauteur];
         grille = new GridPane();
 
+        couleurs= new Color[5];
+        couleurs[0]=Color.GOLDENROD;
+        couleurs[1]=Color.RED;
+        couleurs[2]=Color.GREEN;
+        couleurs[3]=Color.BLUE;
+        couleurs[4]=Color.YELLOW;
+
         remplirBis();			// remplie matriceRandom et la grille de carré
 
-        //remplirNbAleatoire();	// remplie matriceRandom
-        //remplirDeBiome();		// remplie la grille de Biome
+        remplirNbAleatoire();	// remplie matriceRandom
+        remplirDeBiome();		// remplie la grille de Biome
     }
 
 
     /////////////////////////////////////////////////////////  méthodes de remplissages : ///////////////////////////////////////////////////////
 
-    //remplissage de la matrice .matricerandom (itératif)
+    //remplissage de la matrice matricerandom
     public void remplirNbAleatoire(){
         for(int i=0 ;i<=longueur;i++){
             for(int j=0 ; j<=hauteur ; j++){
@@ -56,7 +57,7 @@ public class MapProcedurale {
         }
     }
 
-    //remplissage de Biome dans la grille (itératif)
+    //remplissage de Biome dans la grille
     public void remplirDeBiome(){
         for(int i=0 ;i<=longueur;i++){
             for(int j=0 ; j<=hauteur ; j++){
@@ -65,7 +66,7 @@ public class MapProcedurale {
         }
     }
 
-    //remplissage de la matrice .matricerandom (itératif)
+    //remplissage de la matrice .matricerandom et de la grille (en carré)
     public void remplirBis(){
         for(int i=0 ;i<=longueur;i++){
             for(int j=0 ; j<=hauteur ; j++){
@@ -80,7 +81,34 @@ public class MapProcedurale {
 
     // créateur de Biome :
     public void creerBiome(int coordx, int coordy){
-        Biome b = new Biome(20, 20, coordx, coordy, matricerandom);
+
+        // gestion des voisins
+        int [] matriceVoisin = new int[9];
+        matriceVoisin[0] = matricerandom[coordx][coordy];
+        if (coordx > 0){
+            matriceVoisin[3] = matricerandom[coordx-1][coordy];
+            if (coordy > 0) {
+                matriceVoisin[1] = matricerandom[coordx][coordy-1];
+                matriceVoisin[5] = matricerandom[coordx-1][coordy-1];
+            }
+            if (coordy < hauteur) {
+                matriceVoisin[2] = matricerandom[coordx][coordy+1];
+                matriceVoisin[7] = matricerandom[coordx - 1][coordy + 1];
+            }
+        }
+        if (coordx < longueur){
+            matriceVoisin[4] = matricerandom[coordx+1][coordy];
+            if (coordy > 0) {
+                matriceVoisin[1] = matricerandom[coordx][coordy-1];
+                matriceVoisin[6] = matricerandom[coordx+1][coordy-1];
+            }
+            if (coordy < hauteur) {
+                matriceVoisin[2] = matricerandom[coordx][coordy+1];
+                matriceVoisin[8] = matricerandom[coordx+1][coordy+1];
+            }
+        }
+
+        Biome b = new Biome(20, 20, coordx, coordy,couleurs[matricerandom[coordx][coordy]], matriceVoisin);
         grille.add(b.getForme(), coordy, coordx);
         grille.add(b.getGrille(), coordy, coordx);
     }
@@ -94,7 +122,7 @@ public class MapProcedurale {
 
     ////////////////////////////////////////////////////////  méthodes de choix du visuel : //////////////////////////////////////////////////////
 
-    // choix couleur du carré
+    // choix couleur du carré et du biome :
     /*public Color choisirCouleur(int i,int j) {
         if (matricerandom[i][j] == 0) {
             return Color.GOLDENROD;
@@ -126,3 +154,4 @@ public class MapProcedurale {
 
     }
 }
+
