@@ -77,6 +77,8 @@ public class Biome {
 
 		remplirNbaleatoire();        // remplis la mtrice de nb aléatoire de sous-biome
 		remplirBiome();                // remplis la matrice de sous-biome avec des carré de couleur
+
+		grille.setOnMousePressed(mouseEvent -> System.out.println(toString()));
 	}
 
 
@@ -122,7 +124,14 @@ public class Biome {
 		return grille;
 	}
 
-	// setter :
+	// to String
 
 
+	@Override
+	public String toString() {
+		return "Biome{" +
+				"coordx=" + coordx +
+				", coordy=" + coordy +
+				'}';
+	}
 }
