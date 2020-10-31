@@ -30,7 +30,7 @@ public class MapProcedurale {
         matricerandom = new int[longueur][hauteur];
         grille = new GridPane();
 
-        remplirBis();			// remplie matriceRandom et la grille de carré
+        //remplirBis();			// remplie matriceRandom et la grille de carré
 
 		remplirNbAleatoire();	// remplie matriceRandom
 		remplirDeBiome();		// remplie la grille de Biome

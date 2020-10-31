@@ -8,6 +8,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import static sample.Main.aff;
+
 /*
 Principe :
     - 1 fragment de MapProcédurale
@@ -72,13 +74,13 @@ public class Biome {
 		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 5);
 		matricerandom = new int[l2][h2];
 
-		forme = new Rectangle(l, h);
+		forme = new Rectangle(l, h, couleur);
 		grille = new GridPane();
 
-		remplirNbaleatoire();        // remplis la mtrice de nb aléatoire de sous-biome
-		remplirBiome();                // remplis la matrice de sous-biome avec des carré de couleur
+		//remplirNbaleatoire();        // remplis la mtrice de nb aléatoire de sous-biome
+		//remplirBiome();                // remplis la matrice de sous-biome avec des carré de couleur
 
-		grille.setOnMousePressed(mouseEvent -> System.out.println(toString()));
+		grille.setOnMousePressed(mouseEvent -> aff(coordx, coordy));
 	}
 
 
@@ -124,8 +126,7 @@ public class Biome {
 		return grille;
 	}
 
-	// to String
-
+	// to String des coordonnées
 
 	@Override
 	public String toString() {

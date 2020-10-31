@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -79,6 +80,7 @@ public class Main extends Application {
 		});
 
 
+
 		/**Lorsqu'on clique sur la map, cela recupère les coordonnées de la GridPane, et reccrer une carte à partir
 		 * de ces dernier
 		 * */
@@ -95,6 +97,10 @@ public class Main extends Application {
 		});
 
 
+
+
+
+
 		// MapProcedurale map = new MapProcedurale(20,20, 6);
 		root.getChildren().addAll(longueur, hauteur, seed, generer, tHauteur, tLongueur, tSeed);
 
@@ -108,5 +114,10 @@ public class Main extends Application {
 	}
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	// affiche les coord qu'ont lui passe
+	public static void aff(int coordx, int coordy){
+		System.out.println(coordx + " , " + coordy);
 	}
 }
