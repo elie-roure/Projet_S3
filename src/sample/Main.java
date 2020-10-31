@@ -16,14 +16,17 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+	public static Group root;
+	public static Scene scene;
+
 	@Override
 	public void start(Stage primaryStage) throws Exception{
 
 		primaryStage.setTitle("Génération");
 
 
-		Group root = new Group();
-		Scene scene = new Scene(root, 500, 500, Color.WHITE);
+		root = new Group();
+		scene = new Scene(root, 500, 500, Color.WHITE);
 
 
 		//On creer un nouveau stage ou sera afficher la carte uniquement pour qu'on puisse la modifier en directe avec l'autre stage
@@ -117,7 +120,8 @@ public class Main extends Application {
 	}
 
 	// affiche les coord qu'ont lui passe
-	public static void aff(int coordx, int coordy){
-		System.out.println(coordx + " , " + coordy);
-	}
+	/*public static void aff(Biome b){
+		System.out.println(b.getCoordx() + " , " + b.getCoordy());
+
+	}*/
 }

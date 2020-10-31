@@ -1,14 +1,16 @@
 package sample;
 
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
-import static sample.Main.aff;
 
 /*
 Principe :
@@ -80,7 +82,7 @@ public class Biome {
 		//remplirNbaleatoire();        // remplis la mtrice de nb aléatoire de sous-biome
 		//remplirBiome();                // remplis la matrice de sous-biome avec des carré de couleur
 
-		grille.setOnMousePressed(mouseEvent -> aff(coordx, coordy));
+		grille.setOnMousePressed(mouseEvent -> aff());
 	}
 
 
@@ -126,6 +128,14 @@ public class Biome {
 		return grille;
 	}
 
+	public int getCoordx() {
+		return coordx;
+	}
+
+	public int getCoordy() {
+		return coordy;
+	}
+
 	// to String des coordonnées
 
 	@Override
@@ -134,5 +144,15 @@ public class Biome {
 				"coordx=" + coordx +
 				", coordy=" + coordy +
 				'}';
+	}
+
+	//
+	public void aff(){
+		Stage biome = new Stage();
+		biome.setTitle("Biome");
+		Group biomeGroup = new Group();
+		Scene biomeScene = new Scene(biomeGroup,500,500);
+		biome.setScene(biomeScene);
+		biome.show();
 	}
 }
