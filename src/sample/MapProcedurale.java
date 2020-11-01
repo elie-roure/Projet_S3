@@ -185,9 +185,9 @@ public class MapProcedurale {
     public GridPane getGrille() {
         return grille;
     }
-    public Biome getBiome(int i, int j){
+    /*public Biome getBiome(int i, int j){
         return grille.get
-    }
+    }*/
 
     // to String :
     @Override
