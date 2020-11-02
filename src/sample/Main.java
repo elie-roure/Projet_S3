@@ -87,6 +87,7 @@ public class Main extends Application {
 		/**Lorsqu'on clique sur la map, cela recupère les coordonnées de la GridPane, et reccrer une carte à partir
 		 * de ces dernier
 		 * */
+		/*
 		mapGroup.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent mouseEvent) {
@@ -97,7 +98,7 @@ public class Main extends Application {
 				//System.out.println(colIndice + ":" + rowIndice);
 				mapGroup.getChildren().add(maplv2.getGrille());
 			}
-		});
+		});*/
 
 
 

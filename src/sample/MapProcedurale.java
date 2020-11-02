@@ -101,7 +101,7 @@ public class MapProcedurale {
 
         Biome b = new Biome(20, 20, coordx, coordy,choisirCouleur(coordx, coordy), matriceVoisin);
         grille.add(b.getForme(), coordy, coordx);
-        grille.add(b.getGrille(), coordy, coordx);
+        //grille.add(b.getGrille(), coordy, coordx);
     }
 
     // créateur de carré
