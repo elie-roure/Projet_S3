@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -15,14 +16,17 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    public static Group root;
+    public static Scene scene;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
         primaryStage.setTitle("Génération");
 
 
-        Group root = new Group();
-        Scene scene = new Scene(root, 500, 500, Color.WHITE);
+        root = new Group();
+        scene = new Scene(root, 500, 500, Color.WHITE);
 
 
         //On creer un nouveau stage ou sera afficher la carte uniquement pour qu'on puisse la modifier en directe avec l'autre stage
@@ -79,20 +83,26 @@ public class Main extends Application {
         });
 
 
+
         /**Lorsqu'on clique sur la map, cela recupère les coordonnées de la GridPane, et reccrer une carte à partir
          * de ces dernier
          * */
-        mapGroup.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                Node clicked = mouseEvent.getPickResult().getIntersectedNode();
-                Integer colIndice = GridPane.getColumnIndex(clicked);
-                Integer rowIndice = GridPane.getRowIndex(clicked);
-                MapProcedurale maplv2 = new MapProcedurale(longueur.getValue(),hauteur.getValue(),Integer.parseInt(""+seed.getValue() + colIndice + rowIndice),Color.GREEN);
-                //System.out.println(colIndice + ":" + rowIndice);
-                mapGroup.getChildren().add(maplv2.getGrille());
-            }
-        });
+		/*
+		mapGroup.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+				Node clicked = mouseEvent.getPickResult().getIntersectedNode();
+				Integer colIndice = GridPane.getColumnIndex(clicked);
+				Integer rowIndice = GridPane.getRowIndex(clicked);
+				MapProcedurale maplv2 = new MapProcedurale(longueur.getValue(),hauteur.getValue(),Integer.parseInt("84578" + colIndice + rowIndice));
+				//System.out.println(colIndice + ":" + rowIndice);
+				mapGroup.getChildren().add(maplv2.getGrille());
+			}
+		});*/
+
+
+
+
 
 
         // MapProcedurale map = new MapProcedurale(20,20, 6);
@@ -109,4 +119,9 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    // affiche les coord qu'ont lui passe
+	/*public static void aff(Biome b){
+		System.out.println(b.getCoordx() + " , " + b.getCoordy());
+	}*/
 }
