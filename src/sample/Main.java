@@ -22,14 +22,14 @@ public class Main extends Application {
 
 
         Group root = new Group();
-        Scene scene = new Scene(root, 500, 500, Color.WHITE);
+        Scene scene = new Scene(root, 1000, 1000, Color.WHITE);
 
 
         //On creer un nouveau stage ou sera afficher la carte uniquement pour qu'on puisse la modifier en directe avec l'autre stage
         Stage mapStage = new Stage();
         mapStage.setTitle("Map");
         Group mapGroup = new Group();
-        Scene mapScene = new Scene(mapGroup,500,500);
+        Scene mapScene = new Scene(mapGroup,1000,1000);
         mapStage.setScene(mapScene);
 
         demarrage(root, mapGroup, mapStage);
@@ -46,8 +46,8 @@ public class Main extends Application {
         Text tSeed = new Text("Saisir la seed de la carte ( entre 0 et 999)");
 
         //On creer les case ou saisir les valeurs
-        IntField longueur = new IntField(0,1500,20);
-        IntField hauteur = new IntField(0,1500,20);
+        IntField longueur = new IntField(0,1500,50);
+        IntField hauteur = new IntField(0,1500,50);
         //IntField longueur = new IntField(0,1000,20);
         //IntField hauteur = new IntField(0,1000,20);
         IntField seed = new IntField(0,999,0);
