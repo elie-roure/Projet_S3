@@ -68,8 +68,8 @@ public class Biome {
 		hz = 500;
 		this.coordx = coordx;
 		this.coordy = coordy;
-		lz2 = 10;
-		hz2 = 10;
+		lz2 = l;
+		hz2 = h;
 		this.couleur = couleur;
 
 		nbAleatoire = matriceVoisin[0];
@@ -82,13 +82,13 @@ public class Biome {
 		voisinbg = matriceVoisin[7];
 		voisinbd = matriceVoisin[8];
 
-		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 5);
+		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
 		matricerandom = new int[lz2][hz2];
 
 		forme = new Rectangle(l, h, couleur);
 		grille = new GridPane();
 
-		remplirNbaleatoire();        // remplis la mtrice de nb aléatoire de sous-biome
+		//remplirNbaleatoire();        // remplis la mtrice de nb aléatoire de sous-biome
 		//remplirBiome();                // remplis la matrice de sous-biome avec des carré de couleur
 
 		forme.setOnMousePressed(mouseEvent -> aff());
@@ -124,7 +124,7 @@ public class Biome {
 
 	// Attribution de la couleur des sous-biome :
 	public Color choixcouleur(int i,int j){
-		if (matricerandom[i][j] == 0){
+		if (matricerandom[i][j] < 5){
 			return Color.BLACK;
 		}
 		else {
@@ -166,12 +166,12 @@ public class Biome {
 	//
 	public void aff(){
 		Stage biome = new Stage();
-		biome.setTitle("Biome");
+		biome.setTitle("Biome " + coordx + " : " + coordy);
 		Group biomeGroup = new Group();
 		Scene biomeScene = new Scene(biomeGroup,500,500);
 		biome.setScene(biomeScene);
 		biome.show();
-
+		remplirNbaleatoire();
 		remplirBiome();
 
 		biomeGroup.getChildren().add(grille);
