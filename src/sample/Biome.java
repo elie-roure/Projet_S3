@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /*
 Principe :
-    - 1 fragment de MapProcédurale
+    - 1 fragment de MapProcédurale.
  */
 
 public class Biome {
