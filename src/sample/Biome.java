@@ -82,7 +82,7 @@ public class Biome {
 		voisinbg = matriceVoisin[7];
 		voisinbd = matriceVoisin[8];
 
-		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
+		//aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
 		matricerandom = new int[lz2][hz2];
 
 		forme = new Rectangle(l, h, couleur);
@@ -165,6 +165,7 @@ public class Biome {
 
 	//
 	public void aff(){
+		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
 		Stage biome = new Stage();
 		biome.setTitle("Biome " + coordx + " : " + coordy);
 		Group biomeGroup = new Group();
