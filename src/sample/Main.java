@@ -89,13 +89,14 @@ public class Main extends Application {
 			}
 		});
 
-
+		// quand on clique a un autre endroit que sur la map ca recree une map (le dézoom)
 		Main.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
 				if (e.getX() > 400) {
-					MapProcedurale oui = new MapProcedurale(20,20,0);
+					MapProcedurale map = new MapProcedurale(20,20,0);
 					System.out.println("pui");
+					Biome.bool = true;
 				}
 			}
 		});

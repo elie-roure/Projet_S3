@@ -54,6 +54,7 @@ public class Biome {
 	// pas définitif :
 	private Color couleur;            // couleur du Biome
 	private Color variationColor = Color.BLACK;
+	public static boolean bool = true;
 
 
 	///////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
@@ -92,13 +93,15 @@ public class Biome {
 		Main.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				if ((int) (e.getX() / 20) == coordx && (int) (e.getY() / 20) == coordy) {
-					aleatoire = new Aleatoire(nbAleatoire * ((int) (e.getX() / 20)) + (int) (e.getY() / 20), 100);
-					remplirNbaleatoire();
-					remplirBiome();
-					System.out.println("piou");
+				if (bool){
+					if ((int) (e.getX() / 20) == coordx && (int) (e.getY() / 20) == coordy) {
+						aleatoire = new Aleatoire(nbAleatoire * ((int) (e.getX() / 20)) + (int) (e.getY() / 20), 100);
+						remplirNbaleatoire();
+						remplirBiome();
+						System.out.println("piou");
+						bool = false;
+					}
 				}
-
 			}
 		});
 	}
