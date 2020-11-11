@@ -83,10 +83,23 @@ public class Biome {
 		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
 		matricerandom = new int[lz2][hz2];
 
-		remplirNbaleatoire();        // remplis la mtrice de nb aléatoire de sous-biome
-		remplirBiome();                // remplis la matrice de sous-biome avec des carré de couleur
+		MapProcedurale.gc.setFill(couleur);
+		MapProcedurale.gc.fillRect(coordy*20, coordx*20, 20, 20);
 
-		MapProcedurale.canvas.setOnMousePressed(mouseEvent -> aff2());
+		remplirNbaleatoire();        // remplis la mtrice de nb aléatoire de sous-biome
+
+		//MapProcedurale.canvas.setOnMousePressed(mouseEvent -> aff2());
+		MapProcedurale.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				if ((int)(e.getX()/20) == coordx && (int)(e.getY()/20) == coordy) {
+					aleatoire = new Aleatoire(nbAleatoire * ((int) (e.getX() / 20)) + (int) (e.getY() / 20), 100);
+					remplirNbaleatoire();
+					remplirBiome();
+					System.out.println("piou");
+				}
+			}
+		});
 
 	}
 
@@ -109,10 +122,9 @@ public class Biome {
 	public void remplirBiome(){
 		for(int i = 0; i< lz2; i++){
 			for(int j = 0; j< hz2; j++){
-				MapProcedurale.gc.setFill(couleur);
-				MapProcedurale.gc.fillRect(coordy*20, coordx*20, 20, 20);
-				//Rectangle r = new Rectangle(lz/lz2,hz/hz2, choixcouleur(i,j));
-				//grille.add(r, j, i);
+
+				MapProcedurale.gc.setFill(choixcouleur(i,j));
+				MapProcedurale.gc.fillRect(j*20, i*20, 20, 20);
 			}
 		}
 	}
@@ -176,7 +188,6 @@ public class Biome {
 
 	public void aff2(){
 		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
-		System.out.println("oui");
 		remplirNbaleatoire();
 		remplirBiome();
 
