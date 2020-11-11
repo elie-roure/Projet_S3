@@ -2,7 +2,6 @@ package sample;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -12,8 +11,8 @@ public class MapProcedurale {
 
     //////////////////////////////////////////////////////////////// attributs : ////////////////////////////////////////////////////////////////
 
-    private Canvas grille;
-    private GraphicsContext gc;
+    public static Canvas canvas;
+    public static GraphicsContext gc;
     private int[][] matricerandom;
 
     private int longueur;
@@ -31,13 +30,13 @@ public class MapProcedurale {
         aleatoire = new Aleatoire(seed, 5);
 
         matricerandom = new int[longueur][hauteur];
-        grille = new Canvas(5000,5000);
-        gc = grille.getGraphicsContext2D();
+        canvas = new Canvas(5000,5000);
+        gc = canvas.getGraphicsContext2D();
 
-        remplirBis();			// remplie matriceRandom et la grille de carré
+        //remplirBis();			// remplie matriceRandom et la grille de carré
 
-        //remplirNbAleatoire();	// remplie matriceRandom
-        //remplirDeBiome();		// remplie la grille de Biome
+        remplirNbAleatoire();	// remplie matriceRandom
+        remplirDeBiome();		// remplie la grille de Biome
     }
 
 
@@ -87,7 +86,7 @@ public class MapProcedurale {
                 }
             }
         }
-        //lisserCouleur();
+        lisserCouleur();
     }
 
     public void lisserCouleur(){
@@ -206,7 +205,6 @@ public class MapProcedurale {
 
     // créateur de carré
     public void creerCarre(double coordx, double coordy){
-        Rectangle r = new Rectangle(20, 20, choisirCouleur((int)coordx, (int)coordy));
         gc.setFill(choisirCouleur((int)coordx, (int)coordy));
         gc.fillRect(coordy*20, coordx*20, 20, 20);
     }
@@ -234,7 +232,7 @@ public class MapProcedurale {
 
     // getter :
     public Canvas getGrille() {
-        return grille;
+        return canvas;
     }
 
     // to String :

@@ -32,7 +32,6 @@ public class Biome {
 	private int hz;                    // hauteur biome
 	private int lz2;                    // longueur grille dans Biome
 	private int hz2;                    // hauteur grille dans Biome
-	private GridPane grille;        // grille du Biome
 
 
 	// attributs lié au Biome courant :
@@ -54,7 +53,6 @@ public class Biome {
 
 	// pas définitif :
 	private Color couleur;            // couleur du Biome
-	private Rectangle forme;        // forme du Biome
 	private Color variationColor = Color.BLACK;
 
 
@@ -82,16 +80,13 @@ public class Biome {
 		voisinbg = matriceVoisin[7];
 		voisinbd = matriceVoisin[8];
 
-		//aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
+		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
 		matricerandom = new int[lz2][hz2];
 
-		forme = new Rectangle(l, h, couleur);
-		grille = new GridPane();
+		remplirNbaleatoire();        // remplis la mtrice de nb aléatoire de sous-biome
+		remplirBiome();                // remplis la matrice de sous-biome avec des carré de couleur
 
-		//remplirNbaleatoire();        // remplis la mtrice de nb aléatoire de sous-biome
-		//remplirBiome();                // remplis la matrice de sous-biome avec des carré de couleur
-
-		forme.setOnMousePressed(mouseEvent -> aff());
+		MapProcedurale.canvas.setOnMousePressed(mouseEvent -> aff2());
 	}
 
 
@@ -113,8 +108,10 @@ public class Biome {
 	public void remplirBiome(){
 		for(int i = 0; i< lz2; i++){
 			for(int j = 0; j< hz2; j++){
-				Rectangle r = new Rectangle(lz/lz2,hz/hz2, choixcouleur(i,j));
-				grille.add(r, j, i);
+				MapProcedurale.gc.setFill(couleur);
+				MapProcedurale.gc.fillRect(coordy*20, coordx*20, 20, 20);
+				//Rectangle r = new Rectangle(lz/lz2,hz/hz2, choixcouleur(i,j));
+				//grille.add(r, j, i);
 			}
 		}
 	}
@@ -137,13 +134,10 @@ public class Biome {
 
 	// getter :
 
-	public Rectangle getForme() {
+	/*public Rectangle getForme() {
 		return forme;
-	}
+	}*/
 
-	public GridPane getGrille() {
-		return grille;
-	}
 
 	public int getCoordx() {
 		return coordx;
@@ -175,7 +169,15 @@ public class Biome {
 		remplirNbaleatoire();
 		remplirBiome();
 
-		biomeGroup.getChildren().add(grille);
+		//biomeGroup.getChildren().add(grille);
 		//biomeGroup.getChildren().add(formez);
+	}
+
+	public void aff2(){
+		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
+		System.out.println("oui");
+		remplirNbaleatoire();
+		remplirBiome();
+
 	}
 }
