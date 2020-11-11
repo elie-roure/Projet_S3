@@ -87,6 +87,7 @@ public class Biome {
 		remplirBiome();                // remplis la matrice de sous-biome avec des carré de couleur
 
 		MapProcedurale.canvas.setOnMousePressed(mouseEvent -> aff2());
+
 	}
 
 
