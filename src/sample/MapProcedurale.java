@@ -11,8 +11,7 @@ public class MapProcedurale {
 
     //////////////////////////////////////////////////////////////// attributs : ////////////////////////////////////////////////////////////////
 
-    public static Canvas canvas;
-    public static GraphicsContext gc;
+
     private int[][] matricerandom;
 
     private int longueur;
@@ -30,8 +29,7 @@ public class MapProcedurale {
         aleatoire = new Aleatoire(seed, 5);
 
         matricerandom = new int[longueur][hauteur];
-        canvas = new Canvas(5000,5000);
-        gc = canvas.getGraphicsContext2D();
+
 
         //remplirBis();			// remplie matriceRandom et la grille de carré
 
@@ -205,8 +203,8 @@ public class MapProcedurale {
 
     // créateur de carré
     public void creerCarre(double coordx, double coordy){
-        gc.setFill(choisirCouleur((int)coordx, (int)coordy));
-        gc.fillRect(coordy*20, coordx*20, 20, 20);
+        Main.gc.setFill(choisirCouleur((int)coordx, (int)coordy));
+        Main.gc.fillRect(coordy*20, coordx*20, 20, 20);
     }
 
 
@@ -231,9 +229,7 @@ public class MapProcedurale {
     ////////////////////////////////////////////////////////  getter, setter et toString : ///////////////////////////////////////////////////////
 
     // getter :
-    public Canvas getGrille() {
-        return canvas;
-    }
+
 
     // to String :
     @Override

@@ -6,6 +6,8 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -18,6 +20,9 @@ public class Main extends Application {
 
 	public static Group root;
 	public static Scene scene;
+	public static Canvas canvas  = new Canvas(5000,5000);;
+	public static GraphicsContext gc = canvas.getGraphicsContext2D();
+
 
 	@Override
 	public void start(Stage primaryStage) throws Exception{
@@ -70,6 +75,8 @@ public class Main extends Application {
 		placement(100,200,hauteur);
 		placement(100,300,seed);
 
+		mapGroup.getChildren().add(canvas);
+
 		//On creer un bouton generer qui va creer une map avec les paramettres precedement remplis ou les parrametres par default
 		Button generer = new Button("Generer la map");
 		generer.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -77,8 +84,19 @@ public class Main extends Application {
 			public void handle(MouseEvent mouseEvent) {
 				mapStage.show();
 				MapProcedurale map = new MapProcedurale(longueur.getValue(),hauteur.getValue(), seed.getValue());
-				mapGroup.getChildren().add(map.getGrille());
+
 				//root.getChildren().removeAll(longueur,hauteur,seed,generer, tHauteur, tLongueur, tSeed);
+			}
+		});
+
+
+		Main.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				if (e.getX() > 400) {
+					MapProcedurale oui = new MapProcedurale(20,20,0);
+					System.out.println("pui");
+				}
 			}
 		});
 
