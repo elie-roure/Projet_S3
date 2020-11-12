@@ -21,10 +21,18 @@ public class MapProcedurale {
 
     private Biome biome;
 
+    private Color[] couleurs;
 
     /////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
 
     public MapProcedurale(int longueur, int hauteur, int seed) {
+
+        couleurs= new Color[5];
+        couleurs[0]=Color.GOLDENROD;
+        couleurs[1]=Color.RED;
+        couleurs[2]=Color.GREEN;
+        couleurs[3]=Color.BLUE;
+        couleurs[4]=Color.YELLOW;
 
         this.longueur = longueur-1;
         this.hauteur = hauteur-1;
@@ -214,19 +222,8 @@ public class MapProcedurale {
 
     // choix couleur du carré et du biome :
     public Color choisirCouleur(int i,int j) {
-        if (matricerandom[i][j] == 0) {
-            return Color.GOLDENROD;
-        } else if (matricerandom[i][j] == 1) {
-            return Color.RED;
-        } else if (matricerandom[i][j] == 2) {
-            return Color.GREEN;
-        } else if (matricerandom[i][j] == 3) {
-            return Color.BLUE;
-        } else {
-            return Color.YELLOW;
-        }
+        return couleurs[matricerandom[i][j]];
     }
-
 
     ////////////////////////////////////////////////////////  getter, setter et toString : ///////////////////////////////////////////////////////
 
