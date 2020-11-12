@@ -15,6 +15,7 @@ public class InterfaceJoueur extends Parent {
     private MapProcedurale mapProcedurale;
 
 
+
     public InterfaceJoueur() {
     }
 
@@ -32,60 +33,61 @@ public class InterfaceJoueur extends Parent {
         centre.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                mapProcedurale.getBiome().affdeplacement(mapProcedurale.getBiome().getNbAleatoire(),mapProcedurale.getBiome().getCoordx(),mapProcedurale.getBiome().getCoordy());
+                //mapProcedurale.getBiome().affdeplacement(mapProcedurale.getBiome().getNbAleatoire(),mapProcedurale.getBiome().getCoordx(),mapProcedurale.getBiome().getCoordy());
 
-               /* mapProcedurale.getBiome().setAleatoire(new Aleatoire(mapProcedurale.getBiome().getNbAleatoire() * ( mapProcedurale.getBiome().getCoordx() + mapProcedurale.getBiome().getCoordy()), 100));
+
+               mapProcedurale.getBiome().setAleatoire(new Aleatoire(mapProcedurale.getBiome().getNbAleatoire() *  mapProcedurale.getBiome().getCoordx() + mapProcedurale.getBiome().getCoordy(), 100));
                 mapProcedurale.getBiome().remplirNbaleatoire();
                 mapProcedurale.getBiome().remplirBiome();
-                mapProcedurale.getBiome().setBool(false);*/
+                mapProcedurale.getBiome().setBool(false);
             }
         });
         droite.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                mapProcedurale.getBiome().affdeplacement(mapProcedurale.getBiome().getNbAleatoire(),mapProcedurale.getBiome().getCoordx()+1,mapProcedurale.getBiome().getCoordy());
+                //mapProcedurale.getBiome().affdeplacement(mapProcedurale.getBiome().getNbAleatoire(),mapProcedurale.getBiome().getCoordx()+1,mapProcedurale.getBiome().getCoordy());
 
-                /*mapProcedurale.getBiome().setAleatoire(new Aleatoire(mapProcedurale.getBiome().getNbAleatoire() * ( mapProcedurale.getBiome().getCoordx()+1 + mapProcedurale.getBiome().getCoordy()), 100));
+                mapProcedurale.getBiome().setAleatoire(new Aleatoire(mapProcedurale.getBiome().getNbAleatoire() *  (mapProcedurale.getBiome().getCoordx()+1) + mapProcedurale.getBiome().getCoordy(), 100));
                 mapProcedurale.getBiome().remplirNbaleatoire();
                 mapProcedurale.getBiome().remplirBiome();
-                mapProcedurale.getBiome().setBool(false);*/
+                mapProcedurale.getBiome().setBool(false);
             }
         });
 
         gauche.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                mapProcedurale.getBiome().affdeplacement(mapProcedurale.getBiome().getNbAleatoire(),mapProcedurale.getBiome().getCoordx()-1,mapProcedurale.getBiome().getCoordy());
+               // mapProcedurale.getBiome().affdeplacement(mapProcedurale.getBiome().getNbAleatoire(),mapProcedurale.getBiome().getCoordx()-1,mapProcedurale.getBiome().getCoordy());
 
 
-                /*mapProcedurale.getBiome().setAleatoire(new Aleatoire(mapProcedurale.getBiome().getNbAleatoire() * ( mapProcedurale.getBiome().getCoordx()-1 + mapProcedurale.getBiome().getCoordy()), 100));
+                mapProcedurale.getBiome().setAleatoire(new Aleatoire(mapProcedurale.getBiome().getNbAleatoire() *  (mapProcedurale.getBiome().getCoordx()-1) + mapProcedurale.getBiome().getCoordy(), 100));
                 mapProcedurale.getBiome().remplirNbaleatoire();
                 mapProcedurale.getBiome().remplirBiome();
-                mapProcedurale.getBiome().setBool(false);*/
+                mapProcedurale.getBiome().setBool(false);
             }
         });
 
         haut.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                mapProcedurale.getBiome().affdeplacement(mapProcedurale.getBiome().getNbAleatoire(),mapProcedurale.getBiome().getCoordx(),mapProcedurale.getBiome().getCoordy()-1);
+               // mapProcedurale.getBiome().affdeplacement(mapProcedurale.getBiome().getNbAleatoire(),mapProcedurale.getBiome().getCoordx(),mapProcedurale.getBiome().getCoordy()-1);
 
-                /*mapProcedurale.getBiome().setAleatoire(new Aleatoire(mapProcedurale.getBiome().getNbAleatoire() * ( mapProcedurale.getBiome().getCoordx() + mapProcedurale.getBiome().getCoordy()-1), 100));
+                mapProcedurale.getBiome().setAleatoire(new Aleatoire(mapProcedurale.getBiome().getNbAleatoire() *  mapProcedurale.getBiome().getCoordx() + mapProcedurale.getBiome().getCoordy()-1, 100));
                 mapProcedurale.getBiome().remplirNbaleatoire();
                 mapProcedurale.getBiome().remplirBiome();
-                mapProcedurale.getBiome().setBool(false);*/
+                mapProcedurale.getBiome().setBool(false);
             }
         });
 
         bas.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                mapProcedurale.getBiome().affdeplacement(mapProcedurale.getBiome().getNbAleatoire(),mapProcedurale.getBiome().getCoordx(),mapProcedurale.getBiome().getCoordy()+1);
+               // mapProcedurale.getBiome().affdeplacement(mapProcedurale.getBiome().getNbAleatoire(),mapProcedurale.getBiome().getCoordx(),mapProcedurale.getBiome().getCoordy()+1);
 
-                /*mapProcedurale.getBiome().setAleatoire(new Aleatoire(mapProcedurale.getBiome().getNbAleatoire() * ( mapProcedurale.getBiome().getCoordx() + mapProcedurale.getBiome().getCoordy()+1), 100));
+                mapProcedurale.getBiome().setAleatoire(new Aleatoire(mapProcedurale.getBiome().getNbAleatoire() *  mapProcedurale.getBiome().getCoordx() + mapProcedurale.getBiome().getCoordy()+1, 100));
                 mapProcedurale.getBiome().remplirNbaleatoire();
                 mapProcedurale.getBiome().remplirBiome();
-                mapProcedurale.getBiome().setBool(false);*/
+                mapProcedurale.getBiome().setBool(false);
             }
         });
 

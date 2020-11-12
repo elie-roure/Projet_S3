@@ -183,6 +183,30 @@ public class Biome {
 		Biome.bool = bool;
 	}
 
+	public int getVoisinh() {
+		return voisinh;
+	}
+
+	public void setVoisinh(){
+		voisinh = matricerandom[coordx][coordy-1];
+	}
+
+	public int getVoisinb() {
+		return voisinb;
+	}
+
+	public int getVoising() {
+		return voising;
+	}
+
+	public int getVoisind() {
+		return voisind;
+	}
+
+	public int getvaleur(int coordx, int coordy) {
+		return matricerandom[coordx][coordy];
+	}
+
 	// to String des coordonnées
 
 	@Override
