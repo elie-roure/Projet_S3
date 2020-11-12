@@ -1,19 +1,12 @@
 package sample;
 
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -41,14 +34,16 @@ public class Main extends Application {
 		Scene mapScene = new Scene(mapGroup,500,500);
 		mapStage.setScene(mapScene);
 
-		demarrage(root, mapGroup, mapStage);
+		InterfaceJoueur interfaceJoueur = new InterfaceJoueur();
+		interfaceJoueur.demarrage(root,mapGroup,mapStage);
+		//demarrage(root, mapGroup, mapStage);
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
 	}
 
-	public void demarrage(Group root, Group mapGroup, Stage mapStage){
+	/*public void demarrage(Group root, Group mapGroup, Stage mapStage){
 		//On creer les texte d'indication
 		Text tLongueur = new Text("Saisir la longueur de la carte (entre 0 et 1500)");
 		Text tHauteur = new Text("Saisir la hauteur de la carte (entre 0 et 1500)");
@@ -99,7 +94,7 @@ public class Main extends Application {
 					Biome.bool = true;
 				}
 			}
-		});
+		});*/
 
 
 
@@ -125,9 +120,9 @@ public class Main extends Application {
 
 
 		// MapProcedurale map = new MapProcedurale(20,20, 6);
-		root.getChildren().addAll(longueur, hauteur, seed, generer, tHauteur, tLongueur, tSeed);
+		//root.getChildren().addAll(longueur, hauteur, seed, generer, tHauteur, tLongueur, tSeed);
 
-	}
+	//}
 
 
 
