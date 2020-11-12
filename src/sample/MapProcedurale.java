@@ -1,6 +1,7 @@
 package sample;
 
-import javafx.scene.layout.GridPane;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -10,7 +11,7 @@ public class MapProcedurale {
 
     //////////////////////////////////////////////////////////////// attributs : ////////////////////////////////////////////////////////////////
 
-    private GridPane grille;
+
     private int[][] matricerandom;
 
     private int longueur;
@@ -28,7 +29,7 @@ public class MapProcedurale {
         aleatoire = new Aleatoire(seed, 5);
 
         matricerandom = new int[longueur][hauteur];
-        grille = new GridPane();
+
 
         //remplirBis();			// remplie matriceRandom et la grille de carré
 
@@ -196,14 +197,14 @@ public class MapProcedurale {
         }
 
         Biome b = new Biome(20, 20, coordx, coordy,choisirCouleur(coordx, coordy), matriceVoisin);
-        grille.add(b.getForme(), coordy, coordx);
+        //grille.add(b.getForme(), coordy, coordx);
         //grille.add(b.getGrille(), coordy, coordx);
     }
 
     // créateur de carré
-    public void creerCarre(int coordx, int coordy){
-        Rectangle r = new Rectangle(20, 20, choisirCouleur(coordx, coordy));
-        grille.add(r,coordy,coordx);
+    public void creerCarre(double coordx, double coordy){
+        Main.gc.setFill(choisirCouleur((int)coordx, (int)coordy));
+        Main.gc.fillRect(coordy*20, coordx*20, 20, 20);
     }
 
 
@@ -228,9 +229,7 @@ public class MapProcedurale {
     ////////////////////////////////////////////////////////  getter, setter et toString : ///////////////////////////////////////////////////////
 
     // getter :
-    public GridPane getGrille() {
-        return grille;
-    }
+
 
     // to String :
     @Override

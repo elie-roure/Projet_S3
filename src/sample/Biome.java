@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /*
 Principe :
-    - 1 fragment de MapProcédurale
+    - 1 fragment de MapProcédurale.
  */
 
 public class Biome {
@@ -32,7 +32,6 @@ public class Biome {
 	private int hz;                    // hauteur biome
 	private int lz2;                    // longueur grille dans Biome
 	private int hz2;                    // hauteur grille dans Biome
-	private GridPane grille;       		 // grille du Biome
 
 
 	// attributs lié au Biome courant :
@@ -54,8 +53,8 @@ public class Biome {
 
 	// pas définitif :
 	private Color couleur;            // couleur du Biome
-	private Rectangle forme;        // forme du Biome
 	private Color variationColor = Color.BLACK;
+	public static boolean bool = true;
 
 
 	///////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
@@ -85,13 +84,26 @@ public class Biome {
 		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
 		matricerandom = new int[lz2][hz2];
 
-		forme = new Rectangle(l, h, couleur);
-		grille = new GridPane();
+		Main.gc.setFill(couleur);
+		Main.gc.fillRect(coordy*20, coordx*20, 20, 20);
 
-		//remplirNbaleatoire();        // remplis la mtrice de nb aléatoire de sous-biome
-		//remplirBiome();                // remplis la matrice de sous-biome avec des carré de couleur
+		remplirNbaleatoire();        // remplis la mtrice de nb aléatoire de sous-biome
 
-		forme.setOnMousePressed(mouseEvent -> aff());
+		//MapProcedurale.canvas.setOnMousePressed(mouseEvent -> aff2());
+		Main.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				if (bool){
+					if ((int) (e.getX() / 20) == coordx && (int) (e.getY() / 20) == coordy) {
+						aleatoire = new Aleatoire(nbAleatoire * ((int) (e.getX() / 20)) + (int) (e.getY() / 20), 100);
+						remplirNbaleatoire();
+						remplirBiome();
+						System.out.println("piou");
+						bool = false;
+					}
+				}
+			}
+		});
 	}
 
 
@@ -113,8 +125,9 @@ public class Biome {
 	public void remplirBiome(){
 		for(int i = 0; i< lz2; i++){
 			for(int j = 0; j< hz2; j++){
-				Rectangle r = new Rectangle(lz/lz2,hz/hz2, choixcouleur(i,j));
-				grille.add(r, j, i);
+
+				Main.gc.setFill(choixcouleur(i,j));
+				Main.gc.fillRect(j*20, i*20, 20, 20);
 			}
 		}
 	}
@@ -137,13 +150,10 @@ public class Biome {
 
 	// getter :
 
-	public Rectangle getForme() {
+	/*public Rectangle getForme() {
 		return forme;
-	}
+	}*/
 
-	public GridPane getGrille() {
-		return grille;
-	}
 
 	public int getCoordx() {
 		return coordx;
@@ -165,6 +175,7 @@ public class Biome {
 
 	//
 	public void aff(){
+		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
 		Stage biome = new Stage();
 		biome.setTitle("Biome " + coordx + " : " + coordy);
 		Group biomeGroup = new Group();
@@ -174,7 +185,14 @@ public class Biome {
 		remplirNbaleatoire();
 		remplirBiome();
 
-		biomeGroup.getChildren().add(grille);
+		//biomeGroup.getChildren().add(grille);
 		//biomeGroup.getChildren().add(formez);
+	}
+
+	public void aff2(){
+		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
+		remplirNbaleatoire();
+		remplirBiome();
+
 	}
 }
