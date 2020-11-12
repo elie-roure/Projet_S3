@@ -36,10 +36,7 @@ public class InterfaceJoueur extends Parent {
 				//mapProcedurale.getBiome().affdeplacement(mapProcedurale.getBiome().getNbAleatoire(),mapProcedurale.getBiome().getCoordx(),mapProcedurale.getBiome().getCoordy());
 
 
-				mapProcedurale.getBiome().setAleatoire(new Aleatoire(mapProcedurale.getBiome().getNbAleatoire() *  mapProcedurale.getBiome().getCoordx() + mapProcedurale.getBiome().getCoordy(), 100));
-				mapProcedurale.getBiome().remplirNbaleatoire();
-				mapProcedurale.getBiome().remplirBiome();
-				mapProcedurale.getBiome().setBool(false);
+
 			}
 		});
 		droite.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -47,10 +44,7 @@ public class InterfaceJoueur extends Parent {
 			public void handle(MouseEvent mouseEvent) {
 				//mapProcedurale.getBiome().affdeplacement(mapProcedurale.getBiome().getNbAleatoire(),mapProcedurale.getBiome().getCoordx()+1,mapProcedurale.getBiome().getCoordy());
 
-				mapProcedurale.getBiome().setAleatoire(new Aleatoire(mapProcedurale.getBiome().getNbAleatoire() *  (mapProcedurale.getBiome().getCoordx()+1) + mapProcedurale.getBiome().getCoordy(), 100));
-				mapProcedurale.getBiome().remplirNbaleatoire();
-				mapProcedurale.getBiome().remplirBiome();
-				mapProcedurale.getBiome().setBool(false);
+
 			}
 		});
 
@@ -60,10 +54,7 @@ public class InterfaceJoueur extends Parent {
 				// mapProcedurale.getBiome().affdeplacement(mapProcedurale.getBiome().getNbAleatoire(),mapProcedurale.getBiome().getCoordx()-1,mapProcedurale.getBiome().getCoordy());
 
 
-				mapProcedurale.getBiome().setAleatoire(new Aleatoire(mapProcedurale.getBiome().getNbAleatoire() *  (mapProcedurale.getBiome().getCoordx()-1) + mapProcedurale.getBiome().getCoordy(), 100));
-				mapProcedurale.getBiome().remplirNbaleatoire();
-				mapProcedurale.getBiome().remplirBiome();
-				mapProcedurale.getBiome().setBool(false);
+
 			}
 		});
 
@@ -72,10 +63,7 @@ public class InterfaceJoueur extends Parent {
 			public void handle(MouseEvent mouseEvent) {
 				// mapProcedurale.getBiome().affdeplacement(mapProcedurale.getBiome().getNbAleatoire(),mapProcedurale.getBiome().getCoordx(),mapProcedurale.getBiome().getCoordy()-1);
 
-				mapProcedurale.getBiome().setAleatoire(new Aleatoire(mapProcedurale.getBiome().getNbAleatoire() *  mapProcedurale.getBiome().getCoordx() + mapProcedurale.getBiome().getCoordy()-1, 100));
-				mapProcedurale.getBiome().remplirNbaleatoire();
-				mapProcedurale.getBiome().remplirBiome();
-				mapProcedurale.getBiome().setBool(false);
+
 			}
 		});
 
@@ -84,23 +72,20 @@ public class InterfaceJoueur extends Parent {
 			public void handle(MouseEvent mouseEvent) {
 				// mapProcedurale.getBiome().affdeplacement(mapProcedurale.getBiome().getNbAleatoire(),mapProcedurale.getBiome().getCoordx(),mapProcedurale.getBiome().getCoordy()+1);
 
-				mapProcedurale.getBiome().setAleatoire(new Aleatoire(mapProcedurale.getBiome().getNbAleatoire() *  mapProcedurale.getBiome().getCoordx() + mapProcedurale.getBiome().getCoordy()+1, 100));
-				mapProcedurale.getBiome().remplirNbaleatoire();
-				mapProcedurale.getBiome().remplirBiome();
-				mapProcedurale.getBiome().setBool(false);
+
 			}
 		});
 
 		root.getChildren().addAll(droite,gauche,haut,bas,centre);
 	}
 
-	public void deZoom(Group root){
+	public void deZoom(Group root){/*
 		Button dezoom = new Button("Dezoomer");
 		dezoom.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent mouseEvent) {
 				MapProcedurale map = new MapProcedurale(20,20,0);
-				Biome.bool = true;
+
 
 			}
 		});
@@ -112,11 +97,11 @@ public class InterfaceJoueur extends Parent {
 				if (e.getX() > 400) {
 					MapProcedurale map = new MapProcedurale(20,20,0);
 					System.out.println("pui");
-					Biome.bool = true;
+
 				}
 			}
 		});
-		root.getChildren().add(dezoom);
+		root.getChildren().add(dezoom);*/
 	}
 
 	public void demarrage(Group root, Group mapGroup, Stage mapStage) {

@@ -86,6 +86,8 @@ public class Biome {
 				if (dezoom){
 					MapProcedurale map = new MapProcedurale(20,20,0);
 					dezoom = false;
+					MapProcedurale.zoom = false;
+					System.out.println("biome");
 				}
 			}
 		});

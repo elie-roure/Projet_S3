@@ -20,7 +20,7 @@ public class MapProcedurale {
     private Aleatoire aleatoire;
 
     // pas définitif :
-    static private boolean zoom = true;
+    public static boolean zoom = true;
 
     // pas encore utile :
     private int l2;         // nb de case dans une map
@@ -45,9 +45,11 @@ public class MapProcedurale {
         Main.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                if (true){
+                if (e.getX() < (longueur)*(longueur)  && e.getY() < (hauteur)*(hauteur) && zoom){
                     creerBiome((int)e.getX() / 20, (int)e.getY() / 20);
                     zoom = false;
+                    Biome.dezoom = false;
+                    System.out.println("map");
                 }
             }
         });
