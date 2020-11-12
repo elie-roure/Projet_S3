@@ -32,7 +32,7 @@ public class Biome {
 	private int hz;                    // hauteur biome
 	private int lz2;                    // longueur grille dans Biome
 	private int hz2;                    // hauteur grille dans Biome
-	private GridPane grille;        // grille du Biome
+	private GridPane grille;       		 // grille du Biome
 
 
 	// attributs lié au Biome courant :

@@ -65,14 +65,14 @@ public class MapProcedurale {
                     }
                     // si je suis tout en haut
                 }else if(i==0&&j>0) {
-                    if (a < 6) {
+                    if (a < 60) {
                         matricerandom[i][j] = matricerandom[i][j - 1];
                     } else{
                         matricerandom[i][j] = aleatoire.donneRandom();
                     }
                     // si je suis a gauche
                 }else if (i>0&&j==0){
-                    if (a < 6) {
+                    if (a < 60) {
                         matricerandom[i][j] = matricerandom[i-1][j];
                     } else{
                         matricerandom[i][j] = aleatoire.donneRandom();
