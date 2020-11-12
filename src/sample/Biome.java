@@ -20,18 +20,12 @@ public class Biome {
 
 	///////////////////////////////////////////////////////////////  attributs : ////////////////////////////////////////////////////////////////
 
-	// attributs en commun a tous les Biome petit:
+
+	// attributs en commun a tous les Biome zoomer:
 	private int l;                    // longueur biome
 	private int h;                    // hauteur biome
 	private int l2;                    // longueur grille dans Biome
 	private int h2;                    // hauteur grille dans Biome
-
-
-	// attributs en commun a tous les Biome zoomer:
-	private int lz;                    // longueur biome
-	private int hz;                    // hauteur biome
-	private int lz2;                    // longueur grille dans Biome
-	private int hz2;                    // hauteur grille dans Biome
 
 
 	// attributs lié au Biome courant :
@@ -54,21 +48,19 @@ public class Biome {
 	// pas définitif :
 	private Color couleur;            // couleur du Biome
 	private Color variationColor = Color.BLACK;
-	public static boolean bool = true;
+	public static boolean dezoom = true;
 
 
 	///////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
 
-	public Biome(int l, int h, int coordx, int coordy, Color couleur, int[] matriceVoisin) {
+	public Biome(int l2, int h2, int coordx, int coordy, Color couleur, int[] matriceVoisin) {
 
-		this.l = l;
-		this.h = h;
-		lz = 500;
-		hz = 500;
+		l = 500;
+		h = 500;
 		this.coordx = coordx;
 		this.coordy = coordy;
-		lz2 = l;
-		hz2 = h;
+		this.l2 = l2;
+		this.h2 = h2;
 		this.couleur = couleur;
 
 		nbAleatoire = matriceVoisin[0];
@@ -82,25 +74,18 @@ public class Biome {
 		voisinbd = matriceVoisin[8];
 
 		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
-		matricerandom = new int[lz2][hz2];
-
-		Main.gc.setFill(couleur);
-		Main.gc.fillRect(coordy*20, coordx*20, 20, 20);
+		matricerandom = new int[l2][h2];
 
 		remplirNbaleatoire();        // remplis la mtrice de nb aléatoire de sous-biome
+		remplirBiome();
 
 		//MapProcedurale.canvas.setOnMousePressed(mouseEvent -> aff2());
 		Main.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				if (bool){
-					if ((int) (e.getX() / 20) == coordx && (int) (e.getY() / 20) == coordy) {
-						aleatoire = new Aleatoire(nbAleatoire * ((int) (e.getX() / 20)) + (int) (e.getY() / 20), 100);
-						remplirNbaleatoire();
-						remplirBiome();
-						System.out.println("piou");
-						bool = false;
-					}
+				if (dezoom){
+					MapProcedurale map = new MapProcedurale(20,20,0);
+					dezoom = false;
 				}
 			}
 		});
@@ -114,8 +99,8 @@ public class Biome {
 
 	// remplir la matrice de nb pour les sous-Biome:
 	public void remplirNbaleatoire(){
-		for(int i = 0; i< lz2; i++){
-			for(int j = 0; j< hz2; j++){
+		for(int i = 0; i< l2; i++){
+			for(int j = 0; j< h2; j++){
 				matricerandom[i][j] = aleatoire.donneRandom();
 			}
 		}
@@ -123,8 +108,8 @@ public class Biome {
 
 	// remplir  les Biome d'un carré:
 	public void remplirBiome(){
-		for(int i = 0; i< lz2; i++){
-			for(int j = 0; j< hz2; j++){
+		for(int i = 0; i< l2; i++){
+			for(int j = 0; j< h2; j++){
 
 				Main.gc.setFill(choixcouleur(i,j));
 				Main.gc.fillRect(j*20, i*20, 20, 20);
@@ -150,11 +135,6 @@ public class Biome {
 
 	// getter :
 
-	/*public Rectangle getForme() {
-		return forme;
-	}*/
-
-
 	public int getCoordx() {
 		return coordx;
 	}
@@ -173,26 +153,4 @@ public class Biome {
 				'}';
 	}
 
-	//
-	public void aff(){
-		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
-		Stage biome = new Stage();
-		biome.setTitle("Biome " + coordx + " : " + coordy);
-		Group biomeGroup = new Group();
-		Scene biomeScene = new Scene(biomeGroup,500,500);
-		biome.setScene(biomeScene);
-		biome.show();
-		remplirNbaleatoire();
-		remplirBiome();
-
-		//biomeGroup.getChildren().add(grille);
-		//biomeGroup.getChildren().add(formez);
-	}
-
-	public void aff2(){
-		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
-		remplirNbaleatoire();
-		remplirBiome();
-
-	}
 }
