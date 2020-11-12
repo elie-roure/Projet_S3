@@ -19,6 +19,8 @@ public class MapProcedurale {
 
     private Aleatoire aleatoire;
 
+    private Biome biome;
+
 
     /////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
 
@@ -66,14 +68,14 @@ public class MapProcedurale {
                     }
                     // si je suis tout en haut
                 }else if(i==0&&j>0) {
-                    if (a < 60) {
+                    if (a < 6) {
                         matricerandom[i][j] = matricerandom[i][j - 1];
                     } else{
                         matricerandom[i][j] = aleatoire.donneRandom();
                     }
                     // si je suis a gauche
                 }else if (i>0&&j==0){
-                    if (a < 60) {
+                    if (a < 6) {
                         matricerandom[i][j] = matricerandom[i-1][j];
                     } else{
                         matricerandom[i][j] = aleatoire.donneRandom();
@@ -196,7 +198,7 @@ public class MapProcedurale {
             }
         }
 
-        Biome b = new Biome(20, 20, coordx, coordy,choisirCouleur(coordx, coordy), matriceVoisin);
+        biome = new Biome(20, 20, coordx, coordy,choisirCouleur(coordx, coordy), matriceVoisin);
         //grille.add(b.getForme(), coordy, coordx);
         //grille.add(b.getGrille(), coordy, coordx);
     }
@@ -230,6 +232,10 @@ public class MapProcedurale {
 
     // getter :
 
+
+    public Biome getBiome() {
+        return biome;
+    }
 
     // to String :
     @Override

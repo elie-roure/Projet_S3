@@ -163,6 +163,26 @@ public class Biome {
 		return coordy;
 	}
 
+	public Aleatoire getAleatoire() {
+		return aleatoire;
+	}
+
+	public int getNbAleatoire() {
+		return nbAleatoire;
+	}
+
+	public void setAleatoire(Aleatoire aleatoire) {
+		this.aleatoire = aleatoire;
+	}
+
+	public static boolean isBool() {
+		return bool;
+	}
+
+	public static void setBool(boolean bool) {
+		Biome.bool = bool;
+	}
+
 	// to String des coordonnées
 
 	@Override
@@ -195,4 +215,24 @@ public class Biome {
 		remplirBiome();
 
 	}
+
+	public void affdeplacement(int nbAleatoire, int coordx, int coordy){
+
+
+		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
+		Stage biome = new Stage();
+		biome.setTitle("Biome " + coordx + " : " + coordy);
+		Group biomeGroup = new Group();
+		Scene biomeScene = new Scene(biomeGroup,500,500);
+		biome.setScene(biomeScene);
+		biome.show();
+		remplirNbaleatoire();
+		remplirBiome();
+
+		//biomeGroup.getChildren().add(grille);
+		//biomeGroup.getChildren().add(formez);
+	}
+
+
+
 }

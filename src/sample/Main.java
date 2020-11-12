@@ -1,12 +1,19 @@
 package sample;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -35,8 +42,9 @@ public class Main extends Application {
 		mapStage.setScene(mapScene);
 
 		InterfaceJoueur interfaceJoueur = new InterfaceJoueur();
-		interfaceJoueur.demarrage(root,mapGroup,mapStage);
-		//demarrage(root, mapGroup, mapStage);
+		interfaceJoueur.demarrage(root, mapGroup, mapStage);
+		interfaceJoueur.deZoom(root);
+		interfaceJoueur.deplacementJoueur(root);
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -94,7 +102,7 @@ public class Main extends Application {
 					Biome.bool = true;
 				}
 			}
-		});*/
+		});
 
 
 
@@ -120,9 +128,9 @@ public class Main extends Application {
 
 
 		// MapProcedurale map = new MapProcedurale(20,20, 6);
-		//root.getChildren().addAll(longueur, hauteur, seed, generer, tHauteur, tLongueur, tSeed);
+	/*	root.getChildren().addAll(longueur, hauteur, seed, generer, tHauteur, tLongueur, tSeed);
 
-	//}
+	}*/
 
 
 
