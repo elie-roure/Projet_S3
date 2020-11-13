@@ -48,7 +48,8 @@ public class Biome {
 	// pas définitif :
 	private Color couleur;            // couleur du Biome
 	private Color variationColor = Color.BLACK;
-	public static boolean dezoom = true;
+	public boolean dezoom;
+	private boolean destructible;
 
 
 	///////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
@@ -76,21 +77,11 @@ public class Biome {
 		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
 		matricerandom = new int[l2][h2];
 
+		dezoom = true;
+		destructible = false;
+
 		remplirNbaleatoire();        // remplis la mtrice de nb aléatoire de sous-biome
 		remplirBiome();
-
-		//MapProcedurale.canvas.setOnMousePressed(mouseEvent -> aff2());
-		Main.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent e) {
-				if (dezoom){
-					MapProcedurale map = new MapProcedurale(20,20,0);
-					dezoom = false;
-					MapProcedurale.zoom = false;
-					System.out.println("biome");
-				}
-			}
-		});
 	}
 
 

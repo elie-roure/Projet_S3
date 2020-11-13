@@ -20,7 +20,8 @@ public class MapProcedurale {
     private Aleatoire aleatoire;
 
     // pas définitif :
-    public static boolean zoom = true;
+    public boolean zoom;
+    private boolean destructible;
 
     // pas encore utile :
     private int l2;         // nb de case dans une map
@@ -37,18 +38,20 @@ public class MapProcedurale {
         this.hauteur = hauteur-1;
         aleatoire = new Aleatoire(seed, 5);
         matricerandom = new int[longueur][hauteur];
+        zoom = true;
+        destructible = false;
 
         remplirNbAleatoire();	// remplie matriceRandom
-        //remplirDeBiome();		// remplie la fenetre de biome
         remplirDeCarre();       // remplie la fenetre de carré
 
         Main.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
                 if (e.getX() < (longueur)*(longueur)  && e.getY() < (hauteur)*(hauteur) && zoom){
-                    creerBiome((int)e.getX() / 20, (int)e.getY() / 20);
                     zoom = false;
-                    Biome.dezoom = false;
+                    destructible = true;
+                    InterfaceJoueur.dezoomable = true;
+                    creerBiome((int)e.getY() / 20, (int)e.getX() / 20);
                     System.out.println("map");
                 }
             }
@@ -207,7 +210,7 @@ public class MapProcedurale {
             }
         }
 
-        Biome b = new Biome(20, 20, coordx, coordy,choisirCouleur(coordx, coordy), matriceVoisin);
+        new Biome(20, 20, coordx, coordy,choisirCouleur(coordx, coordy), matriceVoisin);
     }
 
     // créateur de carré
