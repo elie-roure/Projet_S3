@@ -240,6 +240,14 @@ public class MapProcedurale {
         return hauteur;
     }
 
+    public int getL2() {
+        return l2;
+    }
+
+    public int getH2() {
+        return h2;
+    }
+
     // to String :
     @Override
     public String toString() {

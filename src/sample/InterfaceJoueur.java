@@ -21,6 +21,9 @@ public class InterfaceJoueur extends Parent {
 	public static boolean zoomable;
 	public static boolean centrable;
 	public static boolean mvmt_droite;
+	public static boolean mvmt_gauche;
+	public static boolean mvmt_haut;
+	public static boolean mvmt_bas;
 
 	// sauvegarde des coord du biome courant :
 	private int x;
@@ -32,6 +35,9 @@ public class InterfaceJoueur extends Parent {
 		zoomable = true;
 		centrable = false;
 		mvmt_droite = false;
+		mvmt_gauche = false;
+		mvmt_haut = false;
+		mvmt_bas = false;
 	}
 
 	public void deplacementJoueur(Group root){
@@ -54,6 +60,9 @@ public class InterfaceJoueur extends Parent {
 				zoomable = false;
 				dezoomable = true;
 				mvmt_droite = true;
+				mvmt_gauche = true;
+				mvmt_bas = true;
+				mvmt_haut = true;
 
 				// gestion d'affichage :
 				x = (int)e.getY() / (mapProcedurale.getLongueur()+1);
@@ -70,6 +79,9 @@ public class InterfaceJoueur extends Parent {
 				// action possible apres un centre :
 				centrable = false;
 				mvmt_droite = true;
+				mvmt_gauche = true;
+				mvmt_bas = true;
+				mvmt_haut = true;
 
 				// gestion d'affichage :
 				mapProcedurale.creerBiome(x, y);
@@ -79,10 +91,14 @@ public class InterfaceJoueur extends Parent {
 
 		// clic sur le bouton droite pour afficher le biome de droite
 		droite.setOnMouseClicked(mouseEvent -> {
-			if (mvmt_droite) {
+			if (mvmt_droite && y!= mapProcedurale.getLongueur()) {
 				// action possible apres un centre :
-				mvmt_droite = false;
+
 				centrable = true;
+				mvmt_droite = false;
+				mvmt_gauche = false;
+				mvmt_haut = false;
+				mvmt_bas = false;
 
 				// gestion d'affichage :
 				mapProcedurale.creerBiome(x, y+1);
@@ -91,29 +107,61 @@ public class InterfaceJoueur extends Parent {
 
 		});
 
-		gauche.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent mouseEvent) {
+		// clic sur le bouton gauche pour afficher le biome de gauche
+		gauche.setOnMouseClicked(mouseEvent -> {
+			if (mvmt_gauche && y!=0) {
+				// action possible apres un centre :
 
+				centrable = true;
+				mvmt_droite = false;
+				mvmt_gauche = false;
+				mvmt_haut = false;
+				mvmt_bas = false;
 
-
+				// gestion d'affichage :
+				mapProcedurale.creerBiome(x, y-1);
+				System.out.println("gauche");
 			}
+
 		});
 
-		haut.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent mouseEvent) {
 
 
+		// clic sur le bouton haut pour afficher le biome de haut
+		haut.setOnMouseClicked(mouseEvent -> {
+			if (mvmt_haut && x!=0) {
+
+				// action possible apres un centre :
+
+				centrable = true;
+				mvmt_droite = false;
+				mvmt_gauche = false;
+				mvmt_haut = false;
+				mvmt_bas = false;
+
+				// gestion d'affichage :
+				mapProcedurale.creerBiome(x-1, y);
+				System.out.println("haut");
 			}
+
 		});
 
-		bas.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent mouseEvent) {
+		// clic sur le bouton bas pour afficher le biome de bas
+		bas.setOnMouseClicked(mouseEvent -> {
+			if (mvmt_bas && x!= mapProcedurale.getHauteur()) {
+				// action possible apres un centre :
 
+				centrable = true;
+				mvmt_droite = false;
+				mvmt_gauche = false;
+				mvmt_haut = false;
+				mvmt_bas = false;
 
+				// gestion d'affichage :
+				mapProcedurale.creerBiome(x+1, y);
+				System.out.println("bas");
 			}
+
 		});
 
 		root.getChildren().addAll(droite,gauche,haut,bas,centre);
