@@ -1,7 +1,9 @@
 package sample;
 
+import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -13,42 +15,40 @@ public class MapProcedurale {
 
 
     private int[][] matricerandom;
-
     private int longueur;
     private int hauteur;
-
     private Aleatoire aleatoire;
 
-    private Biome biome;
+    // pas définitif :
+    public boolean zoom;
+    private boolean destructible;
 
-    private Color[] couleurs;
+    // pas encore utile :
+    private int l2;         // nb de case dans une map
+    private int h2;         // nb de case dans une map
+    private int nbniveau;   // nb de niveau de la map (nb de niveau de précision possible)
+
 
     /////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
 
-    public MapProcedurale(int longueur, int hauteur, int seed) {
 
-        couleurs= new Color[5];
-        couleurs[0]=Color.GOLDENROD;
-        couleurs[1]=Color.RED;
-        couleurs[2]=Color.GREEN;
-        couleurs[3]=Color.BLUE;
-        couleurs[4]=Color.YELLOW;
+    public MapProcedurale(int longueur, int hauteur, int seed) {
 
         this.longueur = longueur-1;
         this.hauteur = hauteur-1;
         aleatoire = new Aleatoire(seed, 5);
-
         matricerandom = new int[longueur][hauteur];
-
-
-        //remplirBis();			// remplie matriceRandom et la grille de carré
+        zoom = true;
+        destructible = false;
 
         remplirNbAleatoire();	// remplie matriceRandom
-        remplirDeBiome();		// remplie la grille de Biome
+        remplirDeCarre();       // remplie la fenetre de carré
+
     }
 
 
     /////////////////////////////////////////////////////////  méthodes de remplissages : ///////////////////////////////////////////////////////
+
 
     //remplissage de la matrice matricerandom
     public void remplirNbAleatoire(){
@@ -97,6 +97,7 @@ public class MapProcedurale {
         lisserCouleur();
     }
 
+    //adapte les chiffre pour obtenir des zones de meme nb plus cohérente (appeler dans remplirNbAleatoire)
     public void lisserCouleur(){
         for(int i=0 ;i<=longueur;i++){
             for(int j=0 ; j<=hauteur ; j++) {
@@ -155,20 +156,10 @@ public class MapProcedurale {
         }
     }
 
-    //remplissage de Biome dans la grille
-    public void remplirDeBiome(){
-        for(int i=0 ;i<=longueur;i++){
-            for(int j=0 ; j<=hauteur ; j++){
-                creerBiome(i,j);
-            }
-        }
-    }
-
     //remplissage de la matrice .matricerandom et de la grille (en carré)
-    public void remplirBis(){
+    public void remplirDeCarre(){
         for(int i=0 ;i<=longueur;i++){
             for(int j=0 ; j<=hauteur ; j++){
-                matricerandom[i][j] = aleatoire.donneRandom();
                 creerCarre(i,j);
             }
         }
@@ -177,10 +168,11 @@ public class MapProcedurale {
 
     //////////////////////////////////////////////////  méthodes de création d'élément javaFX : ////////////////////////////////////////////////
 
+
     // créateur de Biome :
     public void creerBiome(int coordx, int coordy){
 
-        // gestion des voisins
+        // gestion des voisins (pas opti)
         int [] matriceVoisin = new int[9];
         matriceVoisin[0] = matricerandom[coordx][coordy];
         if (coordx > 0){
@@ -206,9 +198,7 @@ public class MapProcedurale {
             }
         }
 
-        biome = new Biome(20, 20, coordx, coordy,choisirCouleur(coordx, coordy), matriceVoisin);
-        //grille.add(b.getForme(), coordy, coordx);
-        //grille.add(b.getGrille(), coordy, coordx);
+        new Biome(20, 20, coordx, coordy,choisirCouleur(coordx, coordy), matriceVoisin);
     }
 
     // créateur de carré
@@ -220,18 +210,34 @@ public class MapProcedurale {
 
     ////////////////////////////////////////////////////////  méthodes de choix du visuel : //////////////////////////////////////////////////////
 
-    // choix couleur du carré et du biome :
+
+    // choix couleur du carré et du biome : (on peut aussi mettre cette fonction dans Biome)
     public Color choisirCouleur(int i,int j) {
-        return couleurs[matricerandom[i][j]];
+        if (matricerandom[i][j] == 0) {
+            return Color.GOLDENROD;
+        } else if (matricerandom[i][j] == 1) {
+            return Color.RED;
+        } else if (matricerandom[i][j] == 2) {
+            return Color.GREEN;
+        } else if (matricerandom[i][j] == 3) {
+            return Color.BLUE;
+        } else {
+            return Color.YELLOW;
+        }
     }
+
 
     ////////////////////////////////////////////////////////  getter, setter et toString : ///////////////////////////////////////////////////////
 
     // getter :
 
 
-    public Biome getBiome() {
-        return biome;
+    public int getLongueur() {
+        return longueur;
+    }
+
+    public int getHauteur() {
+        return hauteur;
     }
 
     // to String :

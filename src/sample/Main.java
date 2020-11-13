@@ -127,7 +127,7 @@ public class Main extends Application {
 
 
 
-		// MapProcedurale map = new MapProcedurale(20,20, 6);
+	// MapProcedurale map = new MapProcedurale(20,20, 6);
 	/*	root.getChildren().addAll(longueur, hauteur, seed, generer, tHauteur, tLongueur, tSeed);
 
 	}*/
