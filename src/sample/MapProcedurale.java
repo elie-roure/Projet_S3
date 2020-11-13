@@ -44,18 +44,6 @@ public class MapProcedurale {
         remplirNbAleatoire();	// remplie matriceRandom
         remplirDeCarre();       // remplie la fenetre de carré
 
-        Main.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                if (e.getX() < (longueur)*(longueur)  && e.getY() < (hauteur)*(hauteur) && zoom){
-                    zoom = false;
-                    destructible = true;
-                    InterfaceJoueur.dezoomable = true;
-                    creerBiome((int)e.getY() / 20, (int)e.getX() / 20);
-                    System.out.println("map");
-                }
-            }
-        });
     }
 
 
@@ -241,6 +229,16 @@ public class MapProcedurale {
 
     ////////////////////////////////////////////////////////  getter, setter et toString : ///////////////////////////////////////////////////////
 
+    // getter :
+
+
+    public int getLongueur() {
+        return longueur;
+    }
+
+    public int getHauteur() {
+        return hauteur;
+    }
 
     // to String :
     @Override

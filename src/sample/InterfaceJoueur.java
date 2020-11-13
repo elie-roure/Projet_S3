@@ -12,13 +12,26 @@ import javafx.stage.Stage;
 import static sample.Main.canvas;
 
 public class InterfaceJoueur extends Parent {
-	private MapProcedurale mapProcedurale;
-	public static boolean dezoomable;
 
+	// map principale
+	private MapProcedurale mapProcedurale;
+
+	// autorisation des actions possible :
+	public static boolean dezoomable;
+	public static boolean zoomable;
+	public static boolean centrable;
+	public static boolean mvmt_droite;
+
+	// sauvegarde des coord du biome courant :
+	private int x;
+	private int y;
 
 
 	public InterfaceJoueur() {
 		dezoomable = false;
+		zoomable = true;
+		centrable = false;
+		mvmt_droite = false;
 	}
 
 	public void deplacementJoueur(Group root){
@@ -31,22 +44,51 @@ public class InterfaceJoueur extends Parent {
 		placement(250, 425, droite );
 		placement(200, 400, haut );
 		placement(200, 450, bas );
+		placement(187, 425, centre );
 
-		centre.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent mouseEvent) {
+		// zoom en cliquant sur un carré du canvas
+		Main.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+			if (e.getX() < (mapProcedurale.getLongueur()+1)*(mapProcedurale.getLongueur()+1)  && e.getY() < (mapProcedurale.getHauteur()+1)*(mapProcedurale.getHauteur()+1) && zoomable){
+				// action possible apres un zoom :
+				centrable = false;
+				zoomable = false;
+				dezoomable = true;
+				mvmt_droite = true;
 
-
-
-
+				// gestion d'affichage :
+				x = (int)e.getY() / (mapProcedurale.getLongueur()+1);
+				y = (int)e.getX() / (mapProcedurale.getHauteur()+1);
+				mapProcedurale.creerBiome(x,y);
+				System.out.println("zoom");
 			}
 		});
-		droite.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent mouseEvent) {
 
+		// clic sur le bouton centre pour revenir au biome du centre
+		centre.setOnMouseClicked(mouseEvent -> {
 
+			if (centrable) {
+				// action possible apres un centre :
+				centrable = false;
+				mvmt_droite = true;
+
+				// gestion d'affichage :
+				mapProcedurale.creerBiome(x, y);
+				System.out.println("centre");
 			}
+		});
+
+		// clic sur le bouton droite pour afficher le biome de droite
+		droite.setOnMouseClicked(mouseEvent -> {
+			if (mvmt_droite) {
+				// action possible apres un centre :
+				mvmt_droite = false;
+				centrable = true;
+
+				// gestion d'affichage :
+				mapProcedurale.creerBiome(x, y+1);
+				System.out.println("droite");
+			}
+
 		});
 
 		gauche.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -80,31 +122,44 @@ public class InterfaceJoueur extends Parent {
 	public void deZoom(Group root){
 		Button dezoom = new Button("Dezoomer");
 
+		// dezoome en cliquant a coté de la map
 		dezoom.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				if ((e.getX() > 400 || e.getY() > 400) && dezoomable){
+				if (dezoomable){
+					// action possible apres un dezoom :
 					dezoomable = false;
+					zoomable = true;
+					mvmt_droite = false;
+
+					// crétation map :
 					new MapProcedurale(20,20,0);
-					System.out.println("biome");
+					System.out.println("dezoome");
 				}
 			}
 		});
-
 		placement(150,0,dezoom);
+
+		// dezoome en appuyant sur le bouton dezoome
 		Main.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
 				if ((e.getX() > 400 || e.getY() > 400) && dezoomable){
+					// action possible apres un dezoom :
 					dezoomable = false;
+					zoomable = true;
+					mvmt_droite = false;
+
+					// crétation map :
 					new MapProcedurale(20,20,0);
-					System.out.println("biome");
+					System.out.println("dezoome");
 				}
 			}
 		});
 		root.getChildren().add(dezoom);
 	}
 
+	// initialisation de la 1ere fenetre (fenetre de controle)
 	public void demarrage(Group root, Group mapGroup, Stage mapStage) {
 		//On creer les texte d'indication
 		Text tLongueur = new Text("Saisir la longueur de la carte (entre 0 et 1500)");
