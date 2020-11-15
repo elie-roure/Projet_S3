@@ -1,12 +1,18 @@
 package sample;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import javafx.scene.layout.GridPane;
 =======
+=======
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+<<<<<<< HEAD
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
+=======
 >>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -14,6 +20,7 @@ import javafx.scene.shape.Rectangle;
 import java.util.Arrays;
 
 public class MapProcedurale {
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     //////////////////////////////////////////////////////////////// attributs : ////////////////////////////////////////////////////////////////
@@ -26,14 +33,23 @@ public class MapProcedurale {
 >>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 
 
+=======
+
+    //////////////////////////////////////////////////////////////// attributs : ////////////////////////////////////////////////////////////////
+
+
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
     private int[][] matricerandom;
     private int longueur;
     private int hauteur;
     private Aleatoire aleatoire;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private Color[] couleurs;
 =======
+=======
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
     // pas définitif :
     public boolean zoom;
     private boolean destructible;
@@ -42,12 +58,19 @@ public class MapProcedurale {
     private int l2;         // nb de case dans une map
     private int h2;         // nb de case dans une map
     private int nbniveau;   // nb de niveau de la map (nb de niveau de précision possible)
+<<<<<<< HEAD
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
+=======
 >>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 
 
     /////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 =======
 
 >>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
@@ -57,6 +80,7 @@ public class MapProcedurale {
         this.hauteur = hauteur-1;
         aleatoire = new Aleatoire(seed, 5);
         matricerandom = new int[longueur][hauteur];
+<<<<<<< HEAD
 <<<<<<< HEAD
         grille = new GridPane();
 
@@ -85,12 +109,23 @@ public class MapProcedurale {
     /////////////////////////////////////////////////////////  méthodes de remplissages : ///////////////////////////////////////////////////////
 
 =======
+=======
+        zoom = true;
+        destructible = false;
+
+        remplirNbAleatoire();	// remplie matriceRandom
+        remplirDeCarre();       // remplie la fenetre de carré
+
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
     }
 
 
     /////////////////////////////////////////////////////////  méthodes de remplissages : ///////////////////////////////////////////////////////
 
 
+<<<<<<< HEAD
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
+=======
 >>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
     //remplissage de la matrice matricerandom
     public void remplirNbAleatoire(){
@@ -135,11 +170,18 @@ public class MapProcedurale {
                     matricerandom[i][j] = aleatoire.donneRandom();
                 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
             }
         }
         lisserCouleur();
     }
 
+<<<<<<< HEAD
+=======
+    //adapte les chiffre pour obtenir des zones de meme nb plus cohérente (appeler dans remplirNbAleatoire)
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
     public void lisserCouleur(){
         for(int i=0 ;i<=longueur;i++){
             for(int j=0 ; j<=hauteur ; j++) {
@@ -194,6 +236,9 @@ public class MapProcedurale {
                     }
                 }
                 a finir*/
+<<<<<<< HEAD
+=======
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 =======
 >>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
             }
@@ -201,6 +246,7 @@ public class MapProcedurale {
         lisserCouleur();
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 
@@ -423,11 +469,63 @@ public class MapProcedurale {
 >>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 
         new Biome(20, 20, coordx, coordy,choisirCouleur(coordx, coordy), matriceVoisin);
+=======
+    //remplissage de la matrice .matricerandom et de la grille (en carré)
+    public void remplirDeCarre(){
+        for(int i=0 ;i<=longueur;i++){
+            for(int j=0 ; j<=hauteur ; j++){
+                creerCarre(i,j);
+            }
+        }
+    }
+
+
+    //////////////////////////////////////////////////  méthodes de création d'élément javaFX : ////////////////////////////////////////////////
+
+
+    // créateur de Biome :
+    public void creerBiome(int coordx, int coordy){
+
+        // gestion des voisins (pas opti)
+        int [] matriceVoisin = new int[9];
+        matriceVoisin[0] = matricerandom[coordx][coordy];
+        if (coordx > 0){
+            matriceVoisin[3] = matricerandom[coordx-1][coordy];
+            if (coordy > 0) {
+                matriceVoisin[1] = matricerandom[coordx][coordy-1];
+                matriceVoisin[5] = matricerandom[coordx-1][coordy-1];
+            }
+            if (coordy < hauteur) {
+                matriceVoisin[2] = matricerandom[coordx][coordy+1];
+                matriceVoisin[7] = matricerandom[coordx - 1][coordy + 1];
+            }
+        }
+        if (coordx < longueur){
+            matriceVoisin[4] = matricerandom[coordx+1][coordy];
+            if (coordy > 0) {
+                matriceVoisin[1] = matricerandom[coordx][coordy-1];
+                matriceVoisin[6] = matricerandom[coordx+1][coordy-1];
+            }
+            if (coordy < hauteur) {
+                matriceVoisin[2] = matricerandom[coordx][coordy+1];
+                matriceVoisin[8] = matricerandom[coordx+1][coordy+1];
+            }
+        }
+
+        new Biome(20, 20, coordx, coordy,choisirCouleur(coordx, coordy), matriceVoisin);
+    }
+
+    // créateur de carré
+    public void creerCarre(double coordx, double coordy){
+        Main.gc.setFill(choisirCouleur((int)coordx, (int)coordy));
+        Main.gc.fillRect(coordy*20, coordx*20, 20, 20);
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
     }
 
 <<<<<<< HEAD
     ////////////////////////////////////////////////////////  méthodes de choix du visuel : //////////////////////////////////////////////////////
 
+<<<<<<< HEAD
     // choix couleur du carré et du biome :
     public Color choisirCouleur(int i,int j) {
         return couleurs[matricerandom[i][j]];
@@ -488,6 +586,11 @@ public class MapProcedurale {
     ////////////////////////////////////////////////////////  méthodes de choix du visuel : //////////////////////////////////////////////////////
 
 
+=======
+    ////////////////////////////////////////////////////////  méthodes de choix du visuel : //////////////////////////////////////////////////////
+
+
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
     // choix couleur du carré et du biome : (on peut aussi mettre cette fonction dans Biome)
     public Color choisirCouleur(int i,int j) {
         if (matricerandom[i][j] == 0) {
@@ -519,6 +622,7 @@ public class MapProcedurale {
     }*/
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     ////////////////////////////////////////////////////////  getter, setter et toString : ///////////////////////////////////////////////////////
 
@@ -530,6 +634,10 @@ public class MapProcedurale {
 =======
     ////////////////////////////////////////////////////////  getter, setter et toString : ///////////////////////////////////////////////////////
 
+=======
+    ////////////////////////////////////////////////////////  getter, setter et toString : ///////////////////////////////////////////////////////
+
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
     // getter :
 
 
@@ -539,16 +647,28 @@ public class MapProcedurale {
 
     public int getHauteur() {
         return hauteur;
+<<<<<<< HEAD
     }
 
     public int getL2() {
         return l2;
     }
 
+=======
+    }
+
+    public int getL2() {
+        return l2;
+    }
+
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
     public int getH2() {
         return h2;
     }
 
+<<<<<<< HEAD
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
+=======
 >>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
     // to String :
     @Override
@@ -559,7 +679,11 @@ public class MapProcedurale {
 
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 =======
 }
 >>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79

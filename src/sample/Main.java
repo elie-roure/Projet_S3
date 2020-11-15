@@ -28,6 +28,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception{
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         Group root = new Group();
         Scene scene = new Scene(root, 1000, 1000, Color.WHITE);
 
@@ -72,6 +73,31 @@ public class Main extends Application {
 =======
 	}
 >>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
+=======
+		primaryStage.setTitle("Génération");
+
+
+		root = new Group();
+		scene = new Scene(root, 500, 500, Color.WHITE);
+
+
+		//On creer un nouveau stage ou sera afficher la carte uniquement pour qu'on puisse la modifier en directe avec l'autre stage
+		Stage mapStage = new Stage();
+		mapStage.setTitle("Map");
+		Group mapGroup = new Group();
+		Scene mapScene = new Scene(mapGroup,500,500);
+		mapStage.setScene(mapScene);
+
+		InterfaceJoueur interfaceJoueur = new InterfaceJoueur();
+		interfaceJoueur.demarrage(root, mapGroup, mapStage);
+		interfaceJoueur.deZoom(root);
+		interfaceJoueur.deplacementJoueur(root);
+
+		primaryStage.setScene(scene);
+		primaryStage.show();
+
+	}
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 
 	/*public void demarrage(Group root, Group mapGroup, Stage mapStage){
 		//On creer les texte d'indication
@@ -93,6 +119,7 @@ public class Main extends Application {
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         //On creer un bouton generer qui va creer une map avec les paramettres precedement remplis ou les parrametres par default
         Button generer = new Button("Generer la map");
         generer.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -109,11 +136,17 @@ public class Main extends Application {
 		hauteur.minWidth(100);
 		seed.minWidth(100);
 >>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
+=======
+		longueur.minHeight(100);
+		hauteur.minWidth(100);
+		seed.minWidth(100);
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 
 		placement(100,100, longueur);
 		placement(100,200,hauteur);
 		placement(100,300,seed);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         /**Lorsqu'on clique sur la map, cela recupère les coordonnées de la GridPane, et reccrer une carte à partir
          * de ces dernier
@@ -129,6 +162,9 @@ public class Main extends Application {
                 mapGroup.getChildren().add(maplv2.getGrille());
             }
         });
+=======
+		mapGroup.getChildren().add(canvas);
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 =======
 		mapGroup.getChildren().add(canvas);
 >>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
@@ -160,6 +196,7 @@ public class Main extends Application {
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void placement (int x, int y, Node node){
         node.setTranslateX(x);
         node.setTranslateY(y);
@@ -168,6 +205,8 @@ public class Main extends Application {
         launch(args);
     }
 =======
+=======
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 		/**Lorsqu'on clique sur la map, cela recupère les coordonnées de la GridPane, et reccrer une carte à partir
 		 * de ces dernier
 		 * */
@@ -208,5 +247,8 @@ public class Main extends Application {
 	/*public static void aff(Biome b){
 		System.out.println(b.getCoordx() + " , " + b.getCoordy());
 	}*/
+<<<<<<< HEAD
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
+=======
 >>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 }

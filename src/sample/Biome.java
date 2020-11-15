@@ -19,10 +19,16 @@ Principe :
 public class Biome {
 
 	///////////////////////////////////////////////////////////////  attributs : ////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 	// attributs en commun a tous les Biome :
 =======
+
+	// attributs en commun a tous les Biome zoomer:
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
+=======
+
 
 	// attributs en commun a tous les Biome zoomer:
 >>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
@@ -31,7 +37,11 @@ public class Biome {
 	private int l2;                    // longueur grille dans Biome
 	private int h2;                    // hauteur grille dans Biome
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private GridPane grille;        // grille du Biome
+=======
+
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 =======
 
 >>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
@@ -58,12 +68,17 @@ public class Biome {
 	private Color variationColor = Color.BLACK;
 	public boolean dezoom;
 	private boolean destructible;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 
 	///////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
 <<<<<<< HEAD
 
+	///////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
 
+<<<<<<< HEAD
 
 	public Biome(int l, int h, int coordx, int coordy, Color couleur, int[] matriceVoisin) {
 =======
@@ -71,13 +86,22 @@ public class Biome {
 	public Biome(int l2, int h2, int coordx, int coordy, Color couleur, int[] matriceVoisin) {
 >>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 
+=======
+	public Biome(int l2, int h2, int coordx, int coordy, Color couleur, int[] matriceVoisin) {
+
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 		l = 500;
 		h = 500;
 		this.coordx = coordx;
 		this.coordy = coordy;
 <<<<<<< HEAD
+<<<<<<< HEAD
 		l2 = 10;
 		h2 = 10;
+=======
+		this.l2 = l2;
+		this.h2 = h2;
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 =======
 		this.l2 = l2;
 		this.h2 = h2;
@@ -95,7 +119,11 @@ public class Biome {
 		voisinbd = matriceVoisin[8];
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 5);
+=======
+		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 =======
 		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
 >>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
@@ -106,11 +134,22 @@ public class Biome {
 
 		remplirNbaleatoire();        // remplis la mtrice de nb aléatoire de sous-biome
 <<<<<<< HEAD
+<<<<<<< HEAD
 		remplirBiome();                // remplis la matrice de sous-biome avec des carré de couleur
 	}
 
 
 	/////////////////////////////////////////////////////////  méthodes de remplissages : ///////////////////////////////////////////////////////
+=======
+		remplirBiome();
+	}
+
+
+	/////////////////////////////////////////////////////////  méthodes de remplissages  : ///////////////////////////////////////////////////////
+
+
+	///////////////////////////////////////////////////////// zoomé :
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 =======
 		remplirBiome();
 	}
@@ -136,8 +175,14 @@ public class Biome {
 		for(int i = 0; i< l2; i++){
 			for(int j = 0; j< h2; j++){
 <<<<<<< HEAD
+<<<<<<< HEAD
 				Rectangle r = new Rectangle(2,2, choixcouleur(i,j));
 				grille.add(r, j, i);
+=======
+
+				Main.gc.setFill(choixcouleur(i,j));
+				Main.gc.fillRect(j*20, i*20, 20, 20);
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 =======
 
 				Main.gc.setFill(choixcouleur(i,j));
@@ -153,14 +198,20 @@ public class Biome {
 	// Attribution de la couleur des sous-biome :
 	public Color choixcouleur(int i,int j){
 <<<<<<< HEAD
+<<<<<<< HEAD
 		return  couleur;
 =======
+=======
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 		if (matricerandom[i][j] < 5){
 			return Color.BLACK;
 		}
 		else {
 			return  couleur;
 		}
+<<<<<<< HEAD
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
+=======
 >>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 	}
 
@@ -175,6 +226,7 @@ public class Biome {
 
 	public int getCoordy() {
 		return coordy;
+<<<<<<< HEAD
 	}
 
 <<<<<<< HEAD
@@ -184,6 +236,11 @@ public class Biome {
 
 	// setter :
 =======
+	// to String des coordonnées
+>>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
+=======
+	}
+
 	// to String des coordonnées
 >>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
 
