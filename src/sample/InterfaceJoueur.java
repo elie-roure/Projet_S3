@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import static sample.Main.canvas;
+import static sample.Main.gc;
 
 public class InterfaceJoueur extends Parent {
 
@@ -17,6 +18,7 @@ public class InterfaceJoueur extends Parent {
 	private MapProcedurale mapProcedurale;
 
 	// autorisation des actions possible :
+	public static boolean generationMap;
 	public static boolean dezoomable;
 	public static boolean zoomable;
 	public static boolean centrable;
@@ -38,6 +40,7 @@ public class InterfaceJoueur extends Parent {
 		mvmt_gauche = false;
 		mvmt_haut = false;
 		mvmt_bas = false;
+		generationMap = true;
 	}
 
 	public void deplacementJoueur(Group root){
@@ -171,7 +174,7 @@ public class InterfaceJoueur extends Parent {
 	public void deZoom(Group root){
 		Button dezoom = new Button("Dezoomer");
 
-		// dezoome en cliquant a coté de la map
+		// dezoome en appuyant sur le bouton dezoom
 		dezoom.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
@@ -182,6 +185,7 @@ public class InterfaceJoueur extends Parent {
 					mvmt_droite = false;
 
 					// crétation map :
+					gc.clearRect(0,0,1500,1500);
 					new MapProcedurale(20,20,0);
 					System.out.println("dezoome");
 				}
@@ -189,22 +193,6 @@ public class InterfaceJoueur extends Parent {
 		});
 		placement(150,0,dezoom);
 
-		// dezoome en appuyant sur le bouton dezoome
-		Main.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent e) {
-				if ((e.getX() > 400 || e.getY() > 400) && dezoomable){
-					// action possible apres un dezoom :
-					dezoomable = false;
-					zoomable = true;
-					mvmt_droite = false;
-
-					// crétation map :
-					new MapProcedurale(20,20,0);
-					System.out.println("dezoome");
-				}
-			}
-		});
 		root.getChildren().add(dezoom);
 	}
 
@@ -224,6 +212,7 @@ public class InterfaceJoueur extends Parent {
 				// gestion d'affichage :
 				x = (int)e.getY() / (mapProcedurale.getLongueur()+1);
 				y = (int)e.getX() / (mapProcedurale.getHauteur()+1);
+				gc.clearRect(0,0,1500,1500);
 				mapProcedurale.creerBiome(x,y);
 				System.out.println("zoom");
 			}
@@ -264,9 +253,11 @@ public class InterfaceJoueur extends Parent {
 		generer.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent mouseEvent) {
-				mapStage.show();
-				mapProcedurale = new MapProcedurale(longueur.getValue(), hauteur.getValue(), seed.getValue());
-
+				if (generationMap){
+					mapStage.show();
+					mapProcedurale = new MapProcedurale(longueur.getValue(), hauteur.getValue(), seed.getValue());
+					generationMap = false;
+				}
 				//root.getChildren().removeAll(longueur,hauteur,seed,generer, tHauteur, tLongueur, tSeed);
 			}
 		});
