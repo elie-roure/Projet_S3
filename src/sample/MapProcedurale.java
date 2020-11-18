@@ -1,137 +1,268 @@
 package sample;
 
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
+import javafx.event.EventHandler;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-
-import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MapProcedurale extends Parent {
+public class MapProcedurale {
 
-    // arguments :
-    private GridPane grille;
+    //////////////////////////////////////////////////////////////// attributs : ////////////////////////////////////////////////////////////////
+
+
     private int[][] matricerandom;
-
     private int longueur;
     private int hauteur;
-
     private Aleatoire aleatoire;
 
+<<<<<<< HEAD
     private Color[] couleurs;
 
     // constructeur :
     public MapProcedurale(int longueur, int hauteur, int seed) {
 
         couleurs= new Color[5];
+=======
+    // pas définitif :
+    public boolean zoom;
+    private boolean destructible;
+
+    // pas encore utile :
+    private int l2;         // nb de case dans une map
+    private int h2;         // nb de case dans une map
+    private int nbniveau;   // nb de niveau de la map (nb de niveau de précision possible)
+
+    private Color[] couleurs;
+
+
+    /////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
+
+
+    public MapProcedurale(int longueur, int hauteur, int seed) {
+
+        Color[] c1 = {Color.GOLDENROD,Color.RED,Color.GREEN,Color.BLUE,Color.YELLOW};
+        couleurs=c1;
+
+        //couleurs={Color.GOLDENROD,Color.RED,Color.GREEN,Color.BLUE,Color.YELLOW}; //test
+        /*couleurs= new Color[5];
+>>>>>>> 69321f1ba62b1784200fbe84000fc63c7d1dfd53
         couleurs[0]=Color.GOLDENROD;
         couleurs[1]=Color.RED;
         couleurs[2]=Color.GREEN;
         couleurs[3]=Color.BLUE;
+<<<<<<< HEAD
         couleurs[4]=Color.YELLOW;
+=======
+        couleurs[4]=Color.YELLOW;*/
+>>>>>>> 69321f1ba62b1784200fbe84000fc63c7d1dfd53
 
         this.longueur = longueur-1;
         this.hauteur = hauteur-1;
         aleatoire = new Aleatoire(seed, 5);
-
         matricerandom = new int[longueur][hauteur];
-        grille = new GridPane();
+        zoom = true;
+        destructible = false;
 
-        remplirBis();
-
-        remplirNbAleatoire();
-        //remplirDeBiome();
-
-
-        //remplir(0, 0);
-
-        this.getChildren().add(grille);
+        remplirNbAleatoire();	// remplie matriceRandom
+        remplirDeCarre();       // remplie la fenetre de carré
 
     }
 
 
-    //remplissage de la matrice .matricerandom (itératif)
+    /////////////////////////////////////////////////////////  méthodes de remplissages : ///////////////////////////////////////////////////////
+
+
+    //remplissage de la matrice matricerandom
     public void remplirNbAleatoire(){
+        Aleatoire proba=new Aleatoire(aleatoire.donneRandom(),100);
+        for(int j=0 ;j<=longueur;j++){
+            for(int i=0 ; i<=hauteur ; i++){
+                int a= proba.donneRandom();
+                //si je ne suis pas au bord
+                if (j>0&&i>0) {
+                    //si je suis entouré par une couleur
+                    if (matricerandom[j - 1][i] == matricerandom[j][i - 1]) {
+                        if (a<80){
+                            matricerandom[j][i] = matricerandom[j - 1][i];
+                        }else {
+                            matricerandom[j][i] = aleatoire.donneRandom();
+                        }
+                    }else {
+                        if (a<40){
+                            matricerandom[j][i] = matricerandom[j - 1][i];
+                        }else if(a<80){
+                            matricerandom[j][i] = matricerandom[j][i-1];
+                        }else {
+                            matricerandom[j][i] = aleatoire.donneRandom();
+                        }
+                    }
+                    // si je suis tout en haut
+                }else if(j==0&&i>0) {
+                    if (a < 6) {
+                        matricerandom[j][i] = matricerandom[j][i - 1];
+                    } else{
+                        matricerandom[j][i] = aleatoire.donneRandom();
+                    }
+                    // si je suis a gauche
+                }else if (j>0&&i==0){
+                    if (a < 6) {
+                        matricerandom[j][i] = matricerandom[j-1][i];
+                    } else{
+                        matricerandom[j][i] = aleatoire.donneRandom();
+                    }
+                    // si je suis au départ
+                }else {
+                    matricerandom[j][i] = aleatoire.donneRandom();
+                }
+            }
+        }
+        lisserCouleur();
+    }
+
+    //adapte les chiffre pour obtenir des zones de meme nb plus cohérente (appeler dans remplirNbAleatoire)
+    public void lisserCouleur(){
+        for(int i=0 ;i<=longueur;i++){
+            for(int j=0 ; j<=hauteur ; j++) {
+                //si je suis au milieu
+                if (i>0&&j>0&&i<longueur-1&&j<hauteur-1) {
+                    //si je suis entouré par une couleur
+                    if (matricerandom[i - 1][j] == matricerandom[i][j - 1]  &&  matricerandom[i][j - 1]==matricerandom[i+1][j]  &&  matricerandom[i+1][j]==matricerandom[i][j+1]) {
+                        matricerandom[i][j]=matricerandom[i - 1][j];
+                    }
+                }
+                /*
+                // si je suis a gauche
+                if (i>0&&j==0&&i<longueur-1) {
+                    //si je suis entouré par une couleur
+                    if (matricerandom[i - 1][j] == matricerandom[i][j+1]  && matricerandom[i+1][j]==matricerandom[i][j+1]) {
+                        matricerandom[i][j]=matricerandom[i - 1][j];
+                    }
+                }
+                //si je suis a droite
+                if (i>0&&j==hauteur-1&&i<longueur-1) {
+                    //si je suis entouré par une couleur
+                    if (matricerandom[i - 1][j] == matricerandom[i][j-1]  && matricerandom[i+1][j]==matricerandom[i][j-1]) {
+                        matricerandom[i][j]=matricerandom[i - 1][j];
+                    }
+                }
+                //si je suis en haut
+                if (i==0&&j>0&&j<hauteur-1) {
+                    //si je suis entouré par une couleur
+                    if (matricerandom[i][j-1] == matricerandom[i][j + 1]  &&  matricerandom[i][j - 1]==matricerandom[i+1][j]) {
+                        matricerandom[i][j]=matricerandom[i + 1][j];
+                    }
+                }
+                //si je suis en bas
+                if (i==longueur-1&&j>0&&j<hauteur-1) {
+                    //si je suis entouré par une couleur
+                    if (matricerandom[i-1][j] == matricerandom[i][j - 1]  &&  matricerandom[i][j - 1]==matricerandom[i][j+1]) {
+                        matricerandom[i][j]=matricerandom[i - 1][j];
+                    }
+                }
+                //si je suis en haut a gauche
+                if (i==0&&j==0) {
+                    //si je suis entouré par une couleur
+                    if (matricerandom[i + 1][j] == matricerandom[i][j + 1]) {
+                        matricerandom[i][j]=matricerandom[i + 1][j];
+                    }
+                }
+                //si je suis en haut a droite
+                if (i==0&&j==hauteur-1) {
+                    //si je suis entouré par une couleur
+                    if (matricerandom[i][j-1] == matricerandom[i+1][j]) {
+                        matricerandom[i][j]=matricerandom[i + 1][j];
+                    }
+                }
+                a finir*/
+            }
+        }
+    }
+
+    //remplissage de la matrice .matricerandom et de la grille (en carré)
+    public void remplirDeCarre(){
         for(int i=0 ;i<=longueur;i++){
             for(int j=0 ; j<=hauteur ; j++){
-                matricerandom[i][j] = aleatoire.donneRandom();
-            }
-        }
-    }
-
-    //remplissage de Biome dans la grille (itératif)
-    public void remplirDeBiome(){
-        for(int i=0 ;i<=longueur;i++){
-            for(int j=0 ; j<=hauteur ; j++){
-                creerBiome(i,j);
-            }
-        }
-    }
-
-    // créateur de Biome :
-    public void creerBiome(int coordx, int coordy){
-        Biome b = new Biome(20, 20, coordx, coordy, matricerandom);
-        grille.add(b.getForme(), coordy, coordx);
-        grille.add(b.getGrille(), coordy, coordx);
-    }
-
-
-    // fonction brouillon / pas-optimale :
-
-    /*
-    // remplissage de la fenetre (en récursif)
-    // + remplissage matriceRandom
-    public void remplir(int i, int j){
-
-        if (!(i == longueur && j == hauteur)){
-
-            matricerandom[i][j] = aleatoire.donneRandom();
-            creerCarre(i,j);
-
-            if (i == longueur){
-                remplir(0,j+1);
-            }
-            else {
-                remplir(i+1,j);
-            }
-        }
-        else {
-            creerCarre(i,j);
-        }
-    }
-*/
-
-
-
-
-    //remplissage de la matrice .matricerandom (itératif)
-
-    public void remplirBis(){
-        for(int i=0 ;i<=longueur;i++){
-            for(int j=0 ; j<=hauteur ; j++){
-                matricerandom[i][j] = aleatoire.donneRandom();
                 creerCarre(i,j);
             }
         }
     }
 
 
-    // créateur de carré
-    public void creerCarre(int coordx, int coordy){
-        Rectangle r = new Rectangle(20, 20, choisirCouleur(coordx, coordy));
-        grille.add(r,coordy,coordx);
+    //////////////////////////////////////////////////  méthodes de création d'élément javaFX : ////////////////////////////////////////////////
 
+
+    // créateur de Biome :
+    public void creerBiome(int coordx, int coordy){
+
+        // gestion des voisins (pas opti)
+        int [] matriceVoisin = new int[9];
+        matriceVoisin[0] = matricerandom[coordx][coordy];
+        if (coordx > 0){
+            matriceVoisin[3] = matricerandom[coordx-1][coordy];
+            if (coordy > 0) {
+                matriceVoisin[1] = matricerandom[coordx][coordy-1];
+                matriceVoisin[5] = matricerandom[coordx-1][coordy-1];
+            }
+            if (coordy < hauteur) {
+                matriceVoisin[2] = matricerandom[coordx][coordy+1];
+                matriceVoisin[7] = matricerandom[coordx - 1][coordy + 1];
+            }
+        }
+        if (coordx < longueur){
+            matriceVoisin[4] = matricerandom[coordx+1][coordy];
+            if (coordy > 0) {
+                matriceVoisin[1] = matricerandom[coordx][coordy-1];
+                matriceVoisin[6] = matricerandom[coordx+1][coordy-1];
+            }
+            if (coordy < hauteur) {
+                matriceVoisin[2] = matricerandom[coordx][coordy+1];
+                matriceVoisin[8] = matricerandom[coordx+1][coordy+1];
+            }
+        }
+
+        new Biome(30, 30, coordx, coordy,choisirCouleur(coordx, coordy), matriceVoisin);
     }
 
-    // choix couleur du carré
+    // créateur de carré
+    public void creerCarre(double coordx, double coordy){
+        Main.gc.setFill(choisirCouleur((int)coordx, (int)coordy));
+        Main.gc.fillRect(coordy*20, coordx*20, 20, 20);
+    }
+
+
+    ////////////////////////////////////////////////////////  méthodes de choix du visuel : //////////////////////////////////////////////////////
+
+
+    // choix couleur du carré et du biome : (on peut aussi mettre cette fonction dans Biome)
     public Color choisirCouleur(int i,int j) {
         return couleurs[matricerandom[i][j]];
     }
 
 
+    ////////////////////////////////////////////////////////  getter, setter et toString : ///////////////////////////////////////////////////////
+
+    // getter :
+
+<<<<<<< HEAD
+    // choix couleur du carré
+    public Color choisirCouleur(int i,int j) {
+        return couleurs[matricerandom[i][j]];
+=======
+
+    public int getLongueur() {
+        return longueur;
+>>>>>>> 69321f1ba62b1784200fbe84000fc63c7d1dfd53
+    }
+
+    public int getHauteur() {
+        return hauteur;
+    }
+
+<<<<<<< HEAD
 
 
         @Override
@@ -139,7 +270,22 @@ public class MapProcedurale extends Parent {
             return "MapProcedurale{" +
                     "matricerandom=" + Arrays.toString(matricerandom) +
                     '}';
+=======
+    public int getL2() {
+        return l2;
+    }
+>>>>>>> 69321f1ba62b1784200fbe84000fc63c7d1dfd53
 
-        }
+    public int getH2() {
+        return h2;
     }
 
+    // to String :
+    @Override
+    public String toString() {
+        return "MapProcedurale{" +
+                "matricerandom=" + Arrays.toString(matricerandom) +
+                '}';
+
+    }
+}
