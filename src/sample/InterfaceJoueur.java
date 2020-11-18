@@ -167,7 +167,7 @@ public class InterfaceJoueur extends Parent {
 
 					// crétation map :
 					gc.clearRect(0,0,1500,1500);
-					new MapProcedurale(mapProcedurale.getLongueur(),mapProcedurale.getHauteur(),0);
+					new MapProcedurale(mapProcedurale.getLongueur()+1,mapProcedurale.getHauteur()+1,0);
 					System.out.println("dezoome");
 				}
 			}
@@ -195,7 +195,7 @@ public class InterfaceJoueur extends Parent {
 				y = (int)e.getX() / (mapProcedurale.getHauteur()+1);
 				gc.clearRect(0,0,1500,1500);
 				mapProcedurale.creerBiome(x,y);
-				System.out.println("zoom");
+				System.out.println("zoom : " + x + ";" + y);
 			}
 		});
 	}
