@@ -28,11 +28,24 @@ public class MapProcedurale {
     private int h2;         // nb de case dans une map
     private int nbniveau;   // nb de niveau de la map (nb de niveau de précision possible)
 
+    private Color[] couleurs;
+
 
     /////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
 
 
     public MapProcedurale(int longueur, int hauteur, int seed) {
+
+        Color[] c1 = {Color.GOLDENROD,Color.RED,Color.GREEN,Color.BLUE,Color.YELLOW};
+        couleurs=c1;
+
+        //couleurs={Color.GOLDENROD,Color.RED,Color.GREEN,Color.BLUE,Color.YELLOW}; //test
+        /*couleurs= new Color[5];
+        couleurs[0]=Color.GOLDENROD;
+        couleurs[1]=Color.RED;
+        couleurs[2]=Color.GREEN;
+        couleurs[3]=Color.BLUE;
+        couleurs[4]=Color.YELLOW;*/
 
         this.longueur = longueur-1;
         this.hauteur = hauteur-1;
@@ -53,44 +66,44 @@ public class MapProcedurale {
     //remplissage de la matrice matricerandom
     public void remplirNbAleatoire(){
         Aleatoire proba=new Aleatoire(aleatoire.donneRandom(),100);
-        for(int i=0 ;i<=longueur;i++){
-            for(int j=0 ; j<=hauteur ; j++){
+        for(int j=0 ;j<=longueur;j++){
+            for(int i=0 ; i<=hauteur ; i++){
                 int a= proba.donneRandom();
                 //si je ne suis pas au bord
-                if (i>0&&j>0) {
+                if (j>0&&i>0) {
                     //si je suis entouré par une couleur
-                    if (matricerandom[i - 1][j] == matricerandom[i][j - 1]) {
+                    if (matricerandom[j - 1][i] == matricerandom[j][i - 1]) {
                         if (a<80){
-                            matricerandom[i][j] = matricerandom[i - 1][j];
+                            matricerandom[j][i] = matricerandom[j - 1][i];
                         }else {
-                            matricerandom[i][j] = aleatoire.donneRandom();
+                            matricerandom[j][i] = aleatoire.donneRandom();
                         }
                     }else {
                         if (a<40){
-                            matricerandom[i][j] = matricerandom[i - 1][j];
+                            matricerandom[j][i] = matricerandom[j - 1][i];
                         }else if(a<80){
-                            matricerandom[i][j] = matricerandom[i][j-1];
+                            matricerandom[j][i] = matricerandom[j][i-1];
                         }else {
-                            matricerandom[i][j] = aleatoire.donneRandom();
+                            matricerandom[j][i] = aleatoire.donneRandom();
                         }
                     }
                     // si je suis tout en haut
-                }else if(i==0&&j>0) {
+                }else if(j==0&&i>0) {
                     if (a < 6) {
-                        matricerandom[i][j] = matricerandom[i][j - 1];
+                        matricerandom[j][i] = matricerandom[j][i - 1];
                     } else{
-                        matricerandom[i][j] = aleatoire.donneRandom();
+                        matricerandom[j][i] = aleatoire.donneRandom();
                     }
                     // si je suis a gauche
-                }else if (i>0&&j==0){
+                }else if (j>0&&i==0){
                     if (a < 6) {
-                        matricerandom[i][j] = matricerandom[i-1][j];
+                        matricerandom[j][i] = matricerandom[j-1][i];
                     } else{
-                        matricerandom[i][j] = aleatoire.donneRandom();
+                        matricerandom[j][i] = aleatoire.donneRandom();
                     }
                     // si je suis au départ
                 }else {
-                    matricerandom[i][j] = aleatoire.donneRandom();
+                    matricerandom[j][i] = aleatoire.donneRandom();
                 }
             }
         }
@@ -198,7 +211,7 @@ public class MapProcedurale {
             }
         }
 
-        new Biome(20, 20, coordx, coordy,choisirCouleur(coordx, coordy), matriceVoisin);
+        new Biome(30, 30, coordx, coordy,choisirCouleur(coordx, coordy), matriceVoisin);
     }
 
     // créateur de carré
@@ -213,17 +226,7 @@ public class MapProcedurale {
 
     // choix couleur du carré et du biome : (on peut aussi mettre cette fonction dans Biome)
     public Color choisirCouleur(int i,int j) {
-        if (matricerandom[i][j] == 0) {
-            return Color.GOLDENROD;
-        } else if (matricerandom[i][j] == 1) {
-            return Color.RED;
-        } else if (matricerandom[i][j] == 2) {
-            return Color.GREEN;
-        } else if (matricerandom[i][j] == 3) {
-            return Color.BLUE;
-        } else {
-            return Color.YELLOW;
-        }
+        return couleurs[matricerandom[i][j]];
     }
 
 
