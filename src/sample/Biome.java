@@ -143,9 +143,11 @@ public class Biome {
 	}
 
 	public Color choisirCouleurVoisin(int i,int j) {
-		if (matricerandom[i][j] == 0) {
+		if (matricerandom[i][j] == -1) {
+			return Color.LIGHTSTEELBLUE;		// couleur du bord
+		} else if (matricerandom[i][j] == 0) {
 			return Color.GOLDENROD;
-		} else if (matricerandom[i][j] == 1) {
+		}else if (matricerandom[i][j] == 1) {
 			return Color.RED;
 		} else if (matricerandom[i][j] == 2) {
 			return Color.GREEN;

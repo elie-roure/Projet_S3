@@ -186,7 +186,7 @@ public class MapProcedurale {
     public void creerBiome(int coordx, int coordy){
 
         // gestion des voisins (pas opti)
-        int [] matriceVoisin = new int[9];
+        int [] matriceVoisin = {-1,-1,-1,-1,-1,-1,-1,-1,-1};
         matriceVoisin[0] = matricerandom[coordx][coordy];
         if (coordx > 0){
             matriceVoisin[3] = matricerandom[coordx-1][coordy];
