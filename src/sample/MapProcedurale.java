@@ -17,6 +17,7 @@ public class MapProcedurale {
     private int[][] matricerandom;
     private int longueur;
     private int hauteur;
+    public static int seed;
     private Aleatoire aleatoire;
 
     // pas définitif :
@@ -49,10 +50,12 @@ public class MapProcedurale {
 
         this.longueur = longueur-1;
         this.hauteur = hauteur-1;
+        MapProcedurale.seed = seed;
         aleatoire = new Aleatoire(seed, 5);
         matricerandom = new int[longueur][hauteur];
         zoom = true;
         destructible = false;
+
 
         remplirNbAleatoire();	// remplie matriceRandom
         remplirDeCarre();       // remplie la fenetre de carré

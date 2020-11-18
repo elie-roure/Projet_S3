@@ -56,25 +56,6 @@ public class InterfaceJoueur extends Parent {
 		placement(187, 425, centre );
 
 		zoom();
-		// zoom en cliquant sur un carré du canvas
-		/*Main.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-			if (e.getX() < (mapProcedurale.getLongueur()+1)*(mapProcedurale.getLongueur()+1)  && e.getY() < (mapProcedurale.getHauteur()+1)*(mapProcedurale.getHauteur()+1) && zoomable){
-				// action possible apres un zoom :
-				centrable = false;
-				zoomable = false;
-				dezoomable = true;
-				mvmt_droite = true;
-				mvmt_gauche = true;
-				mvmt_bas = true;
-				mvmt_haut = true;
-
-				// gestion d'affichage :
-				x = (int)e.getY() / (mapProcedurale.getLongueur()+1);
-				y = (int)e.getX() / (mapProcedurale.getHauteur()+1);
-				mapProcedurale.creerBiome(x,y);
-				System.out.println("zoom");
-			}
-		});*/
 
 		// clic sur le bouton centre pour revenir au biome du centre
 		centre.setOnMouseClicked(mouseEvent -> {
@@ -186,7 +167,7 @@ public class InterfaceJoueur extends Parent {
 
 					// crétation map :
 					gc.clearRect(0,0,1500,1500);
-					new MapProcedurale(20,20,0);
+					new MapProcedurale(mapProcedurale.getLongueur(),mapProcedurale.getHauteur(),0);
 					System.out.println("dezoome");
 				}
 			}
