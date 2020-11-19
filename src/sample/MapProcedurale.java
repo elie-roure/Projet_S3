@@ -7,8 +7,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MapProcedurale {
@@ -17,15 +15,11 @@ public class MapProcedurale {
 
 
     private int[][] matricerandom;
-
     private int longueur;
     private int hauteur;
-
+    public static int seed;
     private Aleatoire aleatoire;
 
-    private Color[] couleurs;
-
-    // constructeur :
     // pas définitif :
     public boolean zoom;
     private boolean destructible;
@@ -35,25 +29,33 @@ public class MapProcedurale {
     private int h2;         // nb de case dans une map
     private int nbniveau;   // nb de niveau de la map (nb de niveau de précision possible)
 
+    private Color[] couleurs;
+
 
     /////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
 
 
     public MapProcedurale(int longueur, int hauteur, int seed) {
 
-        couleurs= new Color[5];
+        Color[] c1 = {Color.GOLDENROD,Color.RED,Color.GREEN,Color.BLUE,Color.YELLOW};
+        couleurs=c1;
+
+        //couleurs={Color.GOLDENROD,Color.RED,Color.GREEN,Color.BLUE,Color.YELLOW}; //test
+        /*couleurs= new Color[5];
         couleurs[0]=Color.GOLDENROD;
         couleurs[1]=Color.RED;
         couleurs[2]=Color.GREEN;
         couleurs[3]=Color.BLUE;
-        couleurs[4]=Color.YELLOW;
+        couleurs[4]=Color.YELLOW;*/
 
         this.longueur = longueur-1;
         this.hauteur = hauteur-1;
+        MapProcedurale.seed = seed;
         aleatoire = new Aleatoire(seed, 5);
         matricerandom = new int[longueur][hauteur];
         zoom = true;
         destructible = false;
+
 
         remplirNbAleatoire();	// remplie matriceRandom
         remplirDeCarre();       // remplie la fenetre de carré
@@ -67,44 +69,44 @@ public class MapProcedurale {
     //remplissage de la matrice matricerandom
     public void remplirNbAleatoire(){
         Aleatoire proba=new Aleatoire(aleatoire.donneRandom(),100);
-        for(int i=0 ;i<=longueur;i++){
-            for(int j=0 ; j<=hauteur ; j++){
+        for(int j=0 ;j<=longueur;j++){
+            for(int i=0 ; i<=hauteur ; i++){
                 int a= proba.donneRandom();
                 //si je ne suis pas au bord
-                if (i>0&&j>0) {
+                if (j>0&&i>0) {
                     //si je suis entouré par une couleur
-                    if (matricerandom[i - 1][j] == matricerandom[i][j - 1]) {
+                    if (matricerandom[j - 1][i] == matricerandom[j][i - 1]) {
                         if (a<80){
-                            matricerandom[i][j] = matricerandom[i - 1][j];
+                            matricerandom[j][i] = matricerandom[j - 1][i];
                         }else {
-                            matricerandom[i][j] = aleatoire.donneRandom();
+                            matricerandom[j][i] = aleatoire.donneRandom();
                         }
                     }else {
                         if (a<40){
-                            matricerandom[i][j] = matricerandom[i - 1][j];
+                            matricerandom[j][i] = matricerandom[j - 1][i];
                         }else if(a<80){
-                            matricerandom[i][j] = matricerandom[i][j-1];
+                            matricerandom[j][i] = matricerandom[j][i-1];
                         }else {
-                            matricerandom[i][j] = aleatoire.donneRandom();
+                            matricerandom[j][i] = aleatoire.donneRandom();
                         }
                     }
                     // si je suis tout en haut
-                }else if(i==0&&j>0) {
+                }else if(j==0&&i>0) {
                     if (a < 6) {
-                        matricerandom[i][j] = matricerandom[i][j - 1];
+                        matricerandom[j][i] = matricerandom[j][i - 1];
                     } else{
-                        matricerandom[i][j] = aleatoire.donneRandom();
+                        matricerandom[j][i] = aleatoire.donneRandom();
                     }
                     // si je suis a gauche
-                }else if (i>0&&j==0){
+                }else if (j>0&&i==0){
                     if (a < 6) {
-                        matricerandom[i][j] = matricerandom[i-1][j];
+                        matricerandom[j][i] = matricerandom[j-1][i];
                     } else{
-                        matricerandom[i][j] = aleatoire.donneRandom();
+                        matricerandom[j][i] = aleatoire.donneRandom();
                     }
                     // si je suis au départ
                 }else {
-                    matricerandom[i][j] = aleatoire.donneRandom();
+                    matricerandom[j][i] = aleatoire.donneRandom();
                 }
             }
         }
@@ -174,7 +176,6 @@ public class MapProcedurale {
     public void remplirDeCarre(){
         for(int i=0 ;i<=longueur;i++){
             for(int j=0 ; j<=hauteur ; j++){
-                matricerandom[i][j] = aleatoire.donneRandom();
                 creerCarre(i,j);
             }
         }
@@ -188,7 +189,7 @@ public class MapProcedurale {
     public void creerBiome(int coordx, int coordy){
 
         // gestion des voisins (pas opti)
-        int [] matriceVoisin = new int[9];
+        int [] matriceVoisin = {-1,-1,-1,-1,-1,-1,-1,-1,-1};
         matriceVoisin[0] = matricerandom[coordx][coordy];
         if (coordx > 0){
             matriceVoisin[3] = matricerandom[coordx-1][coordy];
@@ -213,7 +214,7 @@ public class MapProcedurale {
             }
         }
 
-        new Biome(20, 20, coordx, coordy,choisirCouleur(coordx, coordy), matriceVoisin);
+        new Biome(30, 30, coordx, coordy,choisirCouleur(coordx, coordy), matriceVoisin);
     }
 
     // créateur de carré
