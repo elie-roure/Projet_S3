@@ -35,6 +35,8 @@ public class MapProcedurale {
     /////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
 
 
+
+
     public MapProcedurale(int longueur, int hauteur, int seed) {
 
         Color[] c1 = {Color.GOLDENROD,Color.RED,Color.GREEN,Color.BLUE,Color.YELLOW};
@@ -252,6 +254,10 @@ public class MapProcedurale {
 
     public int getH2() {
         return h2;
+    }
+
+    public int getSeed() {
+        return seed;
     }
 
     // to String :

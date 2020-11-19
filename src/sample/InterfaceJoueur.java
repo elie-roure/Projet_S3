@@ -4,7 +4,6 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -32,11 +31,11 @@ public class InterfaceJoueur extends Parent {
 	private final Button bGenerer = new Button("Generer la map");
 	private final Button bFullScreen = new Button("FullScreen");
 	//text field génération
-	private final Text tLongueur = new Text("Saisir la longueur de la carte (entre 0 et 1500)");
-	private final Text tHauteur = new Text("Saisir la hauteur de la carte (entre 0 et 1500)");
+	private final Text tHauteur = new Text("Saisir la hauteur de la carte (entre 0 et " +(int)((0.90*hauteurEcran-40)/20)+ ")");
+	private final Text tLargeur = new Text("Saisir la largeur de la carte (entre 0 et " + (int)((0.70*largeurEcran-40)/20) +")");
 	private final Text tSeed = new Text("Saisir la seed de la carte ( entre 0 et 999)");
-	private final IntField longueur = new IntField(0, 1500, 20);
-	private final IntField hauteur = new IntField(0, 1500, 20);
+	private final IntField hauteur = new IntField(0, (int)((0.90*hauteurEcran-40)/20), 20);
+	private final IntField largeur = new IntField(0, (int)((0.70*largeurEcran-40)/20), 20);
 	private final IntField seed = new IntField(0, 999, 0);
 
 
@@ -48,7 +47,7 @@ public class InterfaceJoueur extends Parent {
 	private final Button bDezoom = new Button("Dezoomer");
 
 	//Decalage de la map sur le caneva
-	public static int contour = 200;
+	public static int contour = 20;
 
 	public InterfaceJoueur() {
 		dezoomable = false;
@@ -56,7 +55,7 @@ public class InterfaceJoueur extends Parent {
 	}
 
 	public void autorisation(Group root){
-		root.getChildren().removeAll(bGenerer,tLongueur,tHauteur,tSeed,longueur,hauteur,seed);
+		root.getChildren().removeAll(bGenerer, tHauteur, tLargeur,tSeed, hauteur, largeur,seed);
 
 		if (!dezoomable) root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche,bDezoom);
 		else root.getChildren().add(bDezoom);
@@ -177,8 +176,8 @@ public class InterfaceJoueur extends Parent {
 					// crétation map :
 					gc.clearRect(contour,contour,mapProcedurale.getLongueur(), mapProcedurale.getHauteur());
 					gc.setFill(Color.BLUE);
-					gc.fillRect(0,0,999,999);
-					new MapProcedurale(mapProcedurale.getLongueur(),mapProcedurale.getHauteur(),mapProcedurale.seed);
+					gc.fillRect(0,0,0.70*largeurEcran ,0.90*hauteurEcran);
+					new MapProcedurale(mapProcedurale.getLongueur()+1,mapProcedurale.getHauteur()+1,mapProcedurale.seed);
 					System.out.println("dezoome");
 
 				}
@@ -207,7 +206,8 @@ public class InterfaceJoueur extends Parent {
 				x = (int)(e.getY() -contour )/ (mapProcedurale.getLongueur()+1);
 				y = (int)(e.getX() -contour )/ (mapProcedurale.getHauteur()+1);
 				gc.setFill(Color.WHITE);
-				gc.fillRect(0,0, 999,999);
+				gc.fillRect(0,0,0.70*largeurEcran ,0.90*hauteurEcran);
+
 				mapProcedurale.creerBiome(x  ,y );
 				System.out.println("zoom");
 
@@ -227,17 +227,17 @@ public class InterfaceJoueur extends Parent {
 		//IntField hauteur = new IntField(0,1000,20);
 
 		//On positionne le tout
-		placement(100, 75, tLongueur);
-		placement(100, 175, tHauteur);
+		placement(100, 75, tHauteur);
+		placement(100, 175, tLargeur);
 		placement(100, 275, tSeed);
 
 
-		longueur.minHeight(100);
-		hauteur.minWidth(100);
+		hauteur.minHeight(100);
+		largeur.minWidth(100);
 		seed.minWidth(100);
 
-		placement(100, 100, longueur);
-		placement(100, 200, hauteur);
+		placement(100, 100, hauteur);
+		placement(100, 200, largeur);
 		placement(100, 300, seed);
 		placement(100,0,bGenerer);
 		placement(500,(int)(hauteurEcran*0.05),canvas);
@@ -260,16 +260,18 @@ public class InterfaceJoueur extends Parent {
 			@Override
 			public void handle(MouseEvent mouseEvent) {
 				//mapStage.show();
-				mapProcedurale = new MapProcedurale(longueur.getValue(), hauteur.getValue(), seed.getValue());
+				gc.setFill(Color.BLUE);
+				gc.fillRect(0,0,0.70*largeurEcran ,0.90*hauteurEcran);
+				mapProcedurale = new MapProcedurale(hauteur.getValue(), largeur.getValue(), seed.getValue());
 
 
-				autorisation(root);
+				//autorisation(root);
 				//SANS AUTORISATION : root.getChildren().removeAll(bGenerer,tLongueur,tHauteur,tSeed,longueur,hauteur,seed);
 
 			}
 		});
 
-		root.getChildren().addAll(longueur, hauteur, seed, bGenerer, tHauteur, tLongueur, tSeed,bFullScreen);
+		root.getChildren().addAll(hauteur, largeur, seed, bGenerer, tLargeur, tHauteur, tSeed,bFullScreen);
 	}
 
 	public void placement (int x, int y, Node node){
