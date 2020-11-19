@@ -17,16 +17,9 @@ public class MapProcedurale {
     private int[][] matricerandom;
     private int longueur;
     private int hauteur;
+    public static int seed;
     private Aleatoire aleatoire;
-
-<<<<<<< HEAD
-    private Color[] couleurs;
-
-    // constructeur :
-    public MapProcedurale(int longueur, int hauteur, int seed) {
-
-        couleurs= new Color[5];
-=======
+    private int longueurCarre = 20;
     // pas définitif :
     public boolean zoom;
     private boolean destructible;
@@ -49,23 +42,20 @@ public class MapProcedurale {
 
         //couleurs={Color.GOLDENROD,Color.RED,Color.GREEN,Color.BLUE,Color.YELLOW}; //test
         /*couleurs= new Color[5];
->>>>>>> 69321f1ba62b1784200fbe84000fc63c7d1dfd53
         couleurs[0]=Color.GOLDENROD;
         couleurs[1]=Color.RED;
         couleurs[2]=Color.GREEN;
         couleurs[3]=Color.BLUE;
-<<<<<<< HEAD
-        couleurs[4]=Color.YELLOW;
-=======
         couleurs[4]=Color.YELLOW;*/
->>>>>>> 69321f1ba62b1784200fbe84000fc63c7d1dfd53
 
         this.longueur = longueur-1;
         this.hauteur = hauteur-1;
+        MapProcedurale.seed = seed;
         aleatoire = new Aleatoire(seed, 5);
         matricerandom = new int[longueur][hauteur];
         zoom = true;
         destructible = false;
+
 
         remplirNbAleatoire();	// remplie matriceRandom
         remplirDeCarre();       // remplie la fenetre de carré
@@ -199,7 +189,7 @@ public class MapProcedurale {
     public void creerBiome(int coordx, int coordy){
 
         // gestion des voisins (pas opti)
-        int [] matriceVoisin = new int[9];
+        int [] matriceVoisin = {-1,-1,-1,-1,-1,-1,-1,-1,-1};
         matriceVoisin[0] = matricerandom[coordx][coordy];
         if (coordx > 0){
             matriceVoisin[3] = matricerandom[coordx-1][coordy];
@@ -230,7 +220,7 @@ public class MapProcedurale {
     // créateur de carré
     public void creerCarre(double coordx, double coordy){
         Main.gc.setFill(choisirCouleur((int)coordx, (int)coordy));
-        Main.gc.fillRect(coordy*20, coordx*20, 20, 20);
+        Main.gc.fillRect(coordy*longueurCarre, coordx*longueurCarre, longueurCarre, longueurCarre);
     }
 
 
@@ -247,38 +237,23 @@ public class MapProcedurale {
 
     // getter :
 
-<<<<<<< HEAD
-    // choix couleur du carré
-    public Color choisirCouleur(int i,int j) {
-        return couleurs[matricerandom[i][j]];
-=======
 
     public int getLongueur() {
         return longueur;
->>>>>>> 69321f1ba62b1784200fbe84000fc63c7d1dfd53
     }
 
     public int getHauteur() {
         return hauteur;
     }
 
-<<<<<<< HEAD
-
-
-        @Override
-        public String toString() {
-            return "MapProcedurale{" +
-                    "matricerandom=" + Arrays.toString(matricerandom) +
-                    '}';
-=======
     public int getL2() {
         return l2;
     }
->>>>>>> 69321f1ba62b1784200fbe84000fc63c7d1dfd53
 
     public int getH2() {
         return h2;
     }
+
 
     // to String :
     @Override
@@ -287,5 +262,9 @@ public class MapProcedurale {
                 "matricerandom=" + Arrays.toString(matricerandom) +
                 '}';
 
+    }
+
+    public int getLongueurCarre() {
+        return longueurCarre;
     }
 }

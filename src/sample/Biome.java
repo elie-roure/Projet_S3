@@ -70,7 +70,7 @@ public class Biome {
 		voisinhautdroite = matriceVoisin[7];
 		voisinbasdroite = matriceVoisin[8];
 
-		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
+		aleatoire = new Aleatoire(Integer.parseInt("" + nbAleatoire + coordx + coordy), 100); //concatene les coordonées et evite les doublons
 		matricerandom = new int[l2][h2];
 
 		dezoom = true;
@@ -143,9 +143,11 @@ public class Biome {
 	}
 
 	public Color choisirCouleurVoisin(int i,int j) {
-		if (matricerandom[i][j] == 0) {
+		if (matricerandom[i][j] == -1) {
+			return Color.LIGHTSTEELBLUE;		// couleur du bord
+		} else if (matricerandom[i][j] == 0) {
 			return Color.GOLDENROD;
-		} else if (matricerandom[i][j] == 1) {
+		}else if (matricerandom[i][j] == 1) {
 			return Color.RED;
 		} else if (matricerandom[i][j] == 2) {
 			return Color.GREEN;

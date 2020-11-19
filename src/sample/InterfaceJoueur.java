@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import static sample.Main.canvas;
+import static sample.Main.gc;
 
 public class InterfaceJoueur extends Parent {
 
@@ -17,6 +18,7 @@ public class InterfaceJoueur extends Parent {
 	private MapProcedurale mapProcedurale;
 
 	// autorisation des actions possible :
+	public static boolean generationMap;
 	public static boolean dezoomable;
 	public static boolean zoomable;
 	public static boolean centrable;
@@ -38,6 +40,7 @@ public class InterfaceJoueur extends Parent {
 		mvmt_gauche = false;
 		mvmt_haut = false;
 		mvmt_bas = false;
+		generationMap = true;
 	}
 
 	public void deplacementJoueur(Group root){
@@ -53,25 +56,6 @@ public class InterfaceJoueur extends Parent {
 		placement(187, 425, centre );
 
 		zoom();
-		// zoom en cliquant sur un carré du canvas
-		/*Main.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-			if (e.getX() < (mapProcedurale.getLongueur()+1)*(mapProcedurale.getLongueur()+1)  && e.getY() < (mapProcedurale.getHauteur()+1)*(mapProcedurale.getHauteur()+1) && zoomable){
-				// action possible apres un zoom :
-				centrable = false;
-				zoomable = false;
-				dezoomable = true;
-				mvmt_droite = true;
-				mvmt_gauche = true;
-				mvmt_bas = true;
-				mvmt_haut = true;
-
-				// gestion d'affichage :
-				x = (int)e.getY() / (mapProcedurale.getLongueur()+1);
-				y = (int)e.getX() / (mapProcedurale.getHauteur()+1);
-				mapProcedurale.creerBiome(x,y);
-				System.out.println("zoom");
-			}
-		});*/
 
 		// clic sur le bouton centre pour revenir au biome du centre
 		centre.setOnMouseClicked(mouseEvent -> {
@@ -171,7 +155,7 @@ public class InterfaceJoueur extends Parent {
 	public void deZoom(Group root){
 		Button dezoom = new Button("Dezoomer");
 
-		// dezoome en cliquant a coté de la map
+		// dezoome en appuyant sur le bouton dezoom
 		dezoom.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
@@ -182,36 +166,21 @@ public class InterfaceJoueur extends Parent {
 					mvmt_droite = false;
 
 					// crétation map :
-					new MapProcedurale(20,20,0);
+					gc.clearRect(0,0,1500,1500);
+					new MapProcedurale(mapProcedurale.getLongueur()+1,mapProcedurale.getHauteur()+1,0);
 					System.out.println("dezoome");
 				}
 			}
 		});
 		placement(150,0,dezoom);
 
-		// dezoome en appuyant sur le bouton dezoome
-		Main.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent e) {
-				if ((e.getX() > 400 || e.getY() > 400) && dezoomable){
-					// action possible apres un dezoom :
-					dezoomable = false;
-					zoomable = true;
-					mvmt_droite = false;
-
-					// crétation map :
-					new MapProcedurale(20,20,0);
-					System.out.println("dezoome");
-				}
-			}
-		});
 		root.getChildren().add(dezoom);
 	}
 
 	public void zoom(){
 		// zoom en cliquant sur un carré du canvas
 		Main.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-			if (e.getX() < (mapProcedurale.getLongueur()+1)*(mapProcedurale.getLongueur()+1)  && e.getY() < (mapProcedurale.getHauteur()+1)*(mapProcedurale.getHauteur()+1) && zoomable){
+			if (e.getY() < (mapProcedurale.getLongueur()+1)*(mapProcedurale.getLongueur()+1)  && e.getX() < (mapProcedurale.getHauteur()+1)*(mapProcedurale.getHauteur()+1) && zoomable){
 				// action possible apres un zoom :
 				centrable = false;
 				zoomable = false;
@@ -222,10 +191,11 @@ public class InterfaceJoueur extends Parent {
 				mvmt_haut = true;
 
 				// gestion d'affichage :
-				x = (int)e.getY() / (mapProcedurale.getLongueur()+1);
-				y = (int)e.getX() / (mapProcedurale.getHauteur()+1);
+				x = (int)e.getY() / mapProcedurale.getLongueurCarre();
+				y = (int)e.getX() / mapProcedurale.getLongueurCarre();
+				gc.clearRect(0,0,1500,1500);
 				mapProcedurale.creerBiome(x,y);
-				System.out.println("zoom");
+				System.out.println("zoom : " + x + ";" + y);
 			}
 		});
 	}
@@ -264,9 +234,11 @@ public class InterfaceJoueur extends Parent {
 		generer.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent mouseEvent) {
-				mapStage.show();
-				mapProcedurale = new MapProcedurale(longueur.getValue(), hauteur.getValue(), seed.getValue());
-
+				if (generationMap){
+					mapStage.show();
+					mapProcedurale = new MapProcedurale(longueur.getValue(), hauteur.getValue(), seed.getValue());
+					generationMap = false;
+				}
 				//root.getChildren().removeAll(longueur,hauteur,seed,generer, tHauteur, tLongueur, tSeed);
 			}
 		});

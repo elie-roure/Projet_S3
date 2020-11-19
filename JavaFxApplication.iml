@@ -7,19 +7,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-    <orderEntry type="library" name="lib1" level="project" />
-    <orderEntry type="library" name="lib1" level="project" />
-    <orderEntry type="library" name="libvrai" level="project" />
-<<<<<<< HEAD
->>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
-=======
->>>>>>> 90c6f289c940711cd9b6b8abc79dbc4f78d0fd79
     <orderEntry type="library" name="lib" level="project" />
->>>>>>> 69321f1ba62b1784200fbe84000fc63c7d1dfd53
   </component>
 </module>
-
