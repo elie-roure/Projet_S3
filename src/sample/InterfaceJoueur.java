@@ -31,11 +31,11 @@ public class InterfaceJoueur extends Parent {
 	private final Button bGenerer = new Button("Generer la map");
 	private final Button bFullScreen = new Button("FullScreen");
 	//text field génération
-	private final Text tHauteur = new Text("Saisir la hauteur de la carte (entre 0 et " +(int)((0.90*hauteurEcran-40)/20)+ ")");
-	private final Text tLargeur = new Text("Saisir la largeur de la carte (entre 0 et " + (int)((0.70*largeurEcran-40)/20) +")");
+	private final Text tLargeur = new Text("Saisir la hauteur de la carte (entre 0 et " +(int)((0.90*hauteurEcran-40)/20)+ ")");
+	private final Text tHauteur = new Text("Saisir la largeur de la carte (entre 0 et " + (int)((0.70*largeurEcran-40)/20) +")");
 	private final Text tSeed = new Text("Saisir la seed de la carte ( entre 0 et 999)");
-	private final IntField hauteur = new IntField(0, (int)((0.90*hauteurEcran-40)/20), 20);
-	private final IntField largeur = new IntField(0, (int)((0.70*largeurEcran-40)/20), 20);
+	private final IntField hauteur = new IntField(0, (int)((0.70*largeurEcran-40)/20), 20);
+	private final IntField largeur = new IntField(0, (int)((0.90*hauteurEcran-40)/20), 20);
 	private final IntField seed = new IntField(0, 999, 0);
 
 
@@ -84,7 +84,7 @@ public class InterfaceJoueur extends Parent {
 
 		// clic sur le bouton droite pour afficher le biome de droite
 		bDroite.setOnMouseClicked(mouseEvent -> {
-			if (y!= mapProcedurale.getLongueur()) {
+			if (y < mapProcedurale.getHauteur()) {
 				// action possible apres un centre :
 
 
@@ -104,7 +104,7 @@ public class InterfaceJoueur extends Parent {
 
 		// clic sur le bouton gauche pour afficher le biome de gauche
 		bGauche.setOnMouseClicked(mouseEvent -> {
-			if ( y!=0) {
+			if ( y>0) {
 				// action possible apres un centre :
 
 				// gestion d'affichage :
@@ -122,7 +122,7 @@ public class InterfaceJoueur extends Parent {
 
 		// clic sur le bouton haut pour afficher le biome de haut
 		bHaut.setOnMouseClicked(mouseEvent -> {
-			if ( x!=0) {
+			if ( x>0) {
 
 				// action possible apres un centre :
 
@@ -142,7 +142,7 @@ public class InterfaceJoueur extends Parent {
 
 		// clic sur le bouton bas pour afficher le biome de bas
 		bBas.setOnMouseClicked(mouseEvent -> {
-			if ( x!= mapProcedurale.getHauteur()) {
+			if ( x<mapProcedurale.getLargeur()) {
 				// action possible apres un centre :
 
 				// gestion d'affichage :
@@ -174,16 +174,16 @@ public class InterfaceJoueur extends Parent {
 					zoomable = true;
 
 					// crétation map :
-					gc.clearRect(contour,contour,mapProcedurale.getLongueur(), mapProcedurale.getHauteur());
+					gc.clearRect(contour,contour,mapProcedurale.getLargeur(), mapProcedurale.getHauteur());
 					gc.setFill(Color.BLUE);
 					gc.fillRect(0,0,0.70*largeurEcran ,0.90*hauteurEcran);
-					new MapProcedurale(mapProcedurale.getLongueur()+1,mapProcedurale.getHauteur()+1,mapProcedurale.seed);
+					new MapProcedurale(mapProcedurale.getLargeur()+1,mapProcedurale.getHauteur()+1,mapProcedurale.seed);
 					System.out.println("dezoome");
 
 				}
 
 
-				autorisation(root);
+				//autorisation(root);
 
 				//SANS AUTORISATION : root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche,bCentre,bDezoom);
 			}
@@ -196,15 +196,18 @@ public class InterfaceJoueur extends Parent {
 		// zoom en cliquant sur un carré du canvas
 		Main.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
 
-			if ( contour < e.getX() && e.getX()   < contour +(mapProcedurale.getHauteur()+1)*20  &&  contour < e.getY() && e.getY()  < contour +(mapProcedurale.getLongueur()+1)*20  && zoomable){
+			if ( contour < e.getX() && e.getX()   < contour +(mapProcedurale.getHauteur()+1)*20  &&  contour < e.getY() && e.getY()  < contour +(mapProcedurale.getLargeur()+1)*20  && zoomable){
 				// action possible apres un zoom :
 				zoomable = false;
 				dezoomable = true;
 
 
 				// gestion d'affichage :
-				x = (int)(e.getY() -contour )/ (mapProcedurale.getLongueur()+1);
-				y = (int)(e.getX() -contour )/ (mapProcedurale.getHauteur()+1);
+				x = (int)(e.getY() -contour )/ (20);
+				System.out.println(x);
+				y = (int)(e.getX() -contour )/ (20);
+				System.out.println(y);
+
 				gc.setFill(Color.WHITE);
 				gc.fillRect(0,0,0.70*largeurEcran ,0.90*hauteurEcran);
 
@@ -239,7 +242,7 @@ public class InterfaceJoueur extends Parent {
 		placement(100, 100, hauteur);
 		placement(100, 200, largeur);
 		placement(100, 300, seed);
-		placement(100,0,bGenerer);
+		placement(100,30,bGenerer);
 		placement(500,(int)(hauteurEcran*0.05),canvas);
 		gc.setFill(Color.BLUE);
 		root.getChildren().add(canvas);
@@ -262,7 +265,7 @@ public class InterfaceJoueur extends Parent {
 				//mapStage.show();
 				gc.setFill(Color.BLUE);
 				gc.fillRect(0,0,0.70*largeurEcran ,0.90*hauteurEcran);
-				mapProcedurale = new MapProcedurale(hauteur.getValue(), largeur.getValue(), seed.getValue());
+				mapProcedurale = new MapProcedurale(largeur.getValue(), hauteur.getValue(), seed.getValue());
 
 
 				//autorisation(root);

@@ -1,11 +1,6 @@
 package sample;
 
-import javafx.event.EventHandler;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 import java.util.Arrays;
 
@@ -15,7 +10,7 @@ public class MapProcedurale {
 
 
     private int[][] matricerandom;
-    private int longueur;
+    private int largeur;
     private int hauteur;
     public static int seed;
     private Aleatoire aleatoire;
@@ -37,7 +32,7 @@ public class MapProcedurale {
 
 
 
-    public MapProcedurale(int longueur, int hauteur, int seed) {
+    public MapProcedurale(int largeur, int hauteur, int seed) {
 
         Color[] c1 = {Color.GOLDENROD,Color.RED,Color.GREEN,Color.BLUE,Color.YELLOW};
         couleurs=c1;
@@ -50,11 +45,11 @@ public class MapProcedurale {
         couleurs[3]=Color.BLUE;
         couleurs[4]=Color.YELLOW;*/
 
-        this.longueur = longueur-1;
+        this.largeur = largeur-1;
         this.hauteur = hauteur-1;
         MapProcedurale.seed = seed;
         aleatoire = new Aleatoire(seed, 5);
-        matricerandom = new int[longueur][hauteur];
+        matricerandom = new int[largeur][hauteur];
         zoom = true;
         destructible = false;
 
@@ -71,7 +66,7 @@ public class MapProcedurale {
     //remplissage de la matrice matricerandom
     public void remplirNbAleatoire(){
         Aleatoire proba=new Aleatoire(aleatoire.donneRandom(),100);
-        for(int j=0 ;j<=longueur;j++){
+        for(int j = 0; j<= largeur; j++){
             for(int i=0 ; i<=hauteur ; i++){
                 int a= proba.donneRandom();
                 //si je ne suis pas au bord
@@ -117,10 +112,10 @@ public class MapProcedurale {
 
     //adapte les chiffre pour obtenir des zones de meme nb plus cohérente (appeler dans remplirNbAleatoire)
     public void lisserCouleur(){
-        for(int i=0 ;i<=longueur;i++){
+        for(int i = 0; i<= largeur; i++){
             for(int j=0 ; j<=hauteur ; j++) {
                 //si je suis au milieu
-                if (i>0&&j>0&&i<longueur-1&&j<hauteur-1) {
+                if (i>0&&j>0&&i< largeur -1&&j<hauteur-1) {
                     //si je suis entouré par une couleur
                     if (matricerandom[i - 1][j] == matricerandom[i][j - 1]  &&  matricerandom[i][j - 1]==matricerandom[i+1][j]  &&  matricerandom[i+1][j]==matricerandom[i][j+1]) {
                         matricerandom[i][j]=matricerandom[i - 1][j];
@@ -176,7 +171,7 @@ public class MapProcedurale {
 
     //remplissage de la matrice .matricerandom et de la grille (en carré)
     public void remplirDeCarre(){
-        for(int i=0 ;i<=longueur;i++){
+        for(int i = 0; i<= largeur; i++){
             for(int j=0 ; j<=hauteur ; j++){
                 creerCarre(i,j);
             }
@@ -204,7 +199,7 @@ public class MapProcedurale {
                 matriceVoisin[7] = matricerandom[coordx - 1][coordy + 1];
             }
         }
-        if (coordx < longueur){
+        if (coordx < largeur){
             matriceVoisin[4] = matricerandom[coordx+1][coordy];
             if (coordy > 0) {
                 matriceVoisin[1] = matricerandom[coordx][coordy-1];
@@ -240,8 +235,8 @@ public class MapProcedurale {
     // getter :
 
 
-    public int getLongueur() {
-        return longueur;
+    public int getLargeur() {
+        return largeur;
     }
 
     public int getHauteur() {
