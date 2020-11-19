@@ -34,18 +34,23 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception{
-		primaryStage2 = primaryStage;
-		gc.setFill(Color.BLUE);
-		gc.fillRect(0,0,0.66*largeurEcran ,0.90*hauteurEcran);
 
-		primaryStage.setTitle("Génération");
+		//pour editer le primarystage faut utiliser primaryStage2
+		primaryStage2 = primaryStage;
+
+		//Poour colorier la zone en bleu, avec les dimentions
+		gc.setFill(Color.BLUE);
+		gc.fillRect(0,0,0.70*largeurEcran ,0.90*hauteurEcran);
+		primaryStage.setFullScreen(true);
+
+		primaryStage.setTitle("Map Procedurale");
 
 
 		root = new Group();
 
 		scene = new Scene(root, largeurEcran, hauteurEcran);
 
-		primaryStage.setFullScreen(true);
+
 
 
 		//On creer un nouveau stage ou sera afficher la carte uniquement pour qu'on puisse la modifier en directe avec l'autre stage

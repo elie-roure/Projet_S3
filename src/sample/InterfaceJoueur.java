@@ -239,6 +239,7 @@ public class InterfaceJoueur extends Parent {
 		placement(100, 100, longueur);
 		placement(100, 200, hauteur);
 		placement(100, 300, seed);
+		placement(100,0,bGenerer);
 		placement(500,(int)(hauteurEcran*0.05),canvas);
 		gc.setFill(Color.BLUE);
 		root.getChildren().add(canvas);
@@ -247,7 +248,9 @@ public class InterfaceJoueur extends Parent {
 		bFullScreen.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent mouseEvent) {
-				primaryStage2.setFullScreen(true);
+				primaryStage2.setFullScreen(!estFullScreen);
+				estFullScreen = !estFullScreen;
+
 			}
 		});
 
