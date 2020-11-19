@@ -196,16 +196,16 @@ public class InterfaceJoueur extends Parent {
 		// zoom en cliquant sur un carré du canvas
 		Main.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
 
-			if ( contour < e.getX() && e.getX()   < contour +(mapProcedurale.getHauteur()+1)*20  &&  contour < e.getY() && e.getY()  < contour +(mapProcedurale.getLargeur()+1)*20  && zoomable){
+			if ( contour < e.getX() && e.getX()   < contour +(mapProcedurale.getLargeur()+1)*20  &&  contour < e.getY() && e.getY()  < contour +(mapProcedurale.getHauteur()+1)*20  && zoomable){
 				// action possible apres un zoom :
 				zoomable = false;
 				dezoomable = true;
 
 
 				// gestion d'affichage :
-				x = (int)(e.getX() -contour )/ (mapProcedurale.getLargeur()+1);
+				x = (int)(e.getY() -contour )/ (mapProcedurale.getLargeur()+1);
 				System.out.println(x);
-				y = (int)(e.getY() -contour )/ (mapProcedurale.getHauteur()+1);
+				y = (int)(e.getX() -contour )/ ((mapProcedurale.getHauteur()+1));
 				System.out.println(y);
 
 				gc.setFill(Color.WHITE);
