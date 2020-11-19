@@ -7,6 +7,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MapProcedurale {
@@ -15,10 +17,15 @@ public class MapProcedurale {
 
 
     private int[][] matricerandom;
+
     private int longueur;
     private int hauteur;
+
     private Aleatoire aleatoire;
 
+    private Color[] couleurs;
+
+    // constructeur :
     // pas définitif :
     public boolean zoom;
     private boolean destructible;
@@ -33,6 +40,13 @@ public class MapProcedurale {
 
 
     public MapProcedurale(int longueur, int hauteur, int seed) {
+
+        couleurs= new Color[5];
+        couleurs[0]=Color.GOLDENROD;
+        couleurs[1]=Color.RED;
+        couleurs[2]=Color.GREEN;
+        couleurs[3]=Color.BLUE;
+        couleurs[4]=Color.YELLOW;
 
         this.longueur = longueur-1;
         this.hauteur = hauteur-1;
@@ -160,6 +174,7 @@ public class MapProcedurale {
     public void remplirDeCarre(){
         for(int i=0 ;i<=longueur;i++){
             for(int j=0 ; j<=hauteur ; j++){
+                matricerandom[i][j] = aleatoire.donneRandom();
                 creerCarre(i,j);
             }
         }
@@ -213,17 +228,7 @@ public class MapProcedurale {
 
     // choix couleur du carré et du biome : (on peut aussi mettre cette fonction dans Biome)
     public Color choisirCouleur(int i,int j) {
-        if (matricerandom[i][j] == 0) {
-            return Color.GOLDENROD;
-        } else if (matricerandom[i][j] == 1) {
-            return Color.RED;
-        } else if (matricerandom[i][j] == 2) {
-            return Color.GREEN;
-        } else if (matricerandom[i][j] == 3) {
-            return Color.BLUE;
-        } else {
-            return Color.YELLOW;
-        }
+        return couleurs[matricerandom[i][j]];
     }
 
 
