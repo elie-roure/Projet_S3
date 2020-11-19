@@ -220,7 +220,7 @@ public class MapProcedurale {
     // créateur de carré
     public void creerCarre(double coordx, double coordy){
         Main.gc.setFill(choisirCouleur((int)coordx, (int)coordy));
-        Main.gc.fillRect(coordy*20, coordx*20, 20, 20);
+        Main.gc.fillRect(coordy*20+InterfaceJoueur.contour, coordx*20+InterfaceJoueur.contour, 20, 20);
     }
 
 

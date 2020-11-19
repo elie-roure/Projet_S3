@@ -16,6 +16,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.awt.*;
+
 public class Main extends Application {
 
 	public static Group root;
@@ -23,15 +25,27 @@ public class Main extends Application {
 	public static Canvas canvas  = new Canvas(5000,5000);;
 	public static GraphicsContext gc = canvas.getGraphicsContext2D();
 
+	public static Stage primaryStage2;
+
+	public static int hauteurEcran = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	public static int largeurEcran = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+
+
 
 	@Override
 	public void start(Stage primaryStage) throws Exception{
+		primaryStage2 = primaryStage;
+		gc.setFill(Color.BLUE);
+		gc.fillRect(0,0,0.66*largeurEcran ,0.90*hauteurEcran);
 
 		primaryStage.setTitle("Génération");
 
 
 		root = new Group();
-		scene = new Scene(root, 500, 500, Color.WHITE);
+
+		scene = new Scene(root, largeurEcran, hauteurEcran);
+
+		primaryStage.setFullScreen(true);
 
 
 		//On creer un nouveau stage ou sera afficher la carte uniquement pour qu'on puisse la modifier en directe avec l'autre stage
@@ -52,16 +66,9 @@ public class Main extends Application {
 	}
 
 
-	public void placement (int x, int y, Node node){
-		node.setTranslateX(x);
-		node.setTranslateY(y);
-	}
 	public static void main(String[] args) {
 		launch(args);
 	}
 
-	// affiche les coord qu'ont lui passe
-	/*public static void aff(Biome b){
-		System.out.println(b.getCoordx() + " , " + b.getCoordy());
-	}*/
+
 }
