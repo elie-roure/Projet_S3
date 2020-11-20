@@ -6,11 +6,16 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+<<<<<<< HEAD
 import static sample.Main.canvas;
 import static sample.Main.gc;
+=======
+import static sample.Main.*;
+>>>>>>> 81c30383c2855dae371abfd3e24f97b56c638854
 
 public class InterfaceJoueur extends Parent {
 
@@ -21,29 +26,68 @@ public class InterfaceJoueur extends Parent {
 	public static boolean generationMap;
 	public static boolean dezoomable;
 	public static boolean zoomable;
-	public static boolean centrable;
-	public static boolean mvmt_droite;
-	public static boolean mvmt_gauche;
-	public static boolean mvmt_haut;
-	public static boolean mvmt_bas;
+	public static boolean estFullScreen = true;
 
 	// sauvegarde des coord du biome courant :
 	private int x;
 	private int y;
 
 
+	//bouton generation
+	private final Button bGenerer = new Button("Generer la map");
+	private final Button bFullScreen = new Button("FullScreen");
+	//text field génération
+	private final Text tLargeur = new Text("Saisir la hauteur de la carte (entre 0 et " +(int)((0.90*hauteurEcran-40)/20)+ ")");
+	private final Text tHauteur = new Text("Saisir la largeur de la carte (entre 0 et " + (int)((0.70*largeurEcran-40)/20) +")");
+	private final Text tSeed = new Text("Saisir la seed de la carte ( entre 0 et 999)");
+	private final IntField hauteur = new IntField(0, (int)((0.70*largeurEcran-40)/20), 20);
+	private final IntField largeur = new IntField(0, (int)((0.90*hauteurEcran-40)/20), 20);
+	private final IntField seed = new IntField(0, 999, 0);
+
+
+	//Bouton de deplacement :
+	private final Button bDroite = new Button("droite");
+	private final Button bGauche = new Button("gauche");
+	private final Button bHaut = new Button("haut");
+	private final Button bBas = new Button("bas");
+	private final Button bDezoom = new Button("Dezoomer");
+
+	//Decalage de la map sur le caneva
+	public static int contour = 20;
+
 	public InterfaceJoueur() {
 		dezoomable = false;
 		zoomable = true;
+<<<<<<< HEAD
 		centrable = false;
 		mvmt_droite = false;
 		mvmt_gauche = false;
 		mvmt_haut = false;
 		mvmt_bas = false;
 		generationMap = true;
+=======
+>>>>>>> 81c30383c2855dae371abfd3e24f97b56c638854
 	}
 
+	public void autorisation(Group root){
+		root.getChildren().removeAll(bGenerer, tHauteur, tLargeur,tSeed, hauteur, largeur,seed);
+
+		if (!dezoomable) root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche,bDezoom);
+		else root.getChildren().add(bDezoom);
+
+	}
+
+	public void autorisationHBGD(Group root){
+		root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche);
+	}
+
+	public void autorisationCentre(Group root){
+		root.getChildren().addAll(bHaut,bBas,bDroite,bGauche);
+	}
+
+
 	public void deplacementJoueur(Group root){
+<<<<<<< HEAD
 		Button droite = new Button("droite");
 		Button gauche = new Button("gauche");
 		Button haut = new Button("haut");
@@ -56,194 +100,246 @@ public class InterfaceJoueur extends Parent {
 		placement(187, 425, centre );
 
 		zoom();
+=======
 
-		// clic sur le bouton centre pour revenir au biome du centre
-		centre.setOnMouseClicked(mouseEvent -> {
+		placement(125, 425, bGauche);
+		placement(250, 425, bDroite);
+		placement(200, 400, bHaut);
+		placement(200, 450, bBas);
+>>>>>>> 81c30383c2855dae371abfd3e24f97b56c638854
 
-			if (centrable) {
-				// action possible apres un centre :
-				centrable = false;
-				mvmt_droite = true;
-				mvmt_gauche = true;
-				mvmt_bas = true;
-				mvmt_haut = true;
 
-				// gestion d'affichage :
-				mapProcedurale.creerBiome(x, y);
-				System.out.println("centre");
-			}
-		});
+		zoom(root);
+
 
 		// clic sur le bouton droite pour afficher le biome de droite
-		droite.setOnMouseClicked(mouseEvent -> {
-			if (mvmt_droite && y!= mapProcedurale.getLongueur()) {
+		bDroite.setOnMouseClicked(mouseEvent -> {
+			if (y < mapProcedurale.getHauteur()) {
 				// action possible apres un centre :
 
-				centrable = true;
-				mvmt_droite = false;
-				mvmt_gauche = false;
-				mvmt_haut = false;
-				mvmt_bas = false;
 
 				// gestion d'affichage :
-				mapProcedurale.creerBiome(x, y+1);
+				y +=1 ;
+				mapProcedurale.creerBiome(x, y);
 				System.out.println("droite");
 			}
+
+			//autorisationHBGD(root);
+			/*SANS AUTORISATION :
+			root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche);
+			root.getChildren().add(bCentre);
+			*/
 
 		});
 
 		// clic sur le bouton gauche pour afficher le biome de gauche
-		gauche.setOnMouseClicked(mouseEvent -> {
-			if (mvmt_gauche && y!=0) {
+		bGauche.setOnMouseClicked(mouseEvent -> {
+			if ( y>0) {
 				// action possible apres un centre :
 
-				centrable = true;
-				mvmt_droite = false;
-				mvmt_gauche = false;
-				mvmt_haut = false;
-				mvmt_bas = false;
-
 				// gestion d'affichage :
-				mapProcedurale.creerBiome(x, y-1);
+				y-=1;
+				mapProcedurale.creerBiome(x, y);
 				System.out.println("gauche");
 			}
+			//autorisationHBGD(root);
+			/*SANS AUTORISATION :
+			root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche);
+			root.getChildren().add(bCentre);
+			*/
 
 		});
 
-
-
 		// clic sur le bouton haut pour afficher le biome de haut
-		haut.setOnMouseClicked(mouseEvent -> {
-			if (mvmt_haut && x!=0) {
+		bHaut.setOnMouseClicked(mouseEvent -> {
+			if ( x>0) {
 
 				// action possible apres un centre :
 
-				centrable = true;
-				mvmt_droite = false;
-				mvmt_gauche = false;
-				mvmt_haut = false;
-				mvmt_bas = false;
-
 				// gestion d'affichage :
-				mapProcedurale.creerBiome(x-1, y);
+				x-=1;
+				mapProcedurale.creerBiome(x, y);
 				System.out.println("haut");
+
 			}
+			//autorisationHBGD(root);
+			/*SANS AUTORISATION :
+			root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche);
+			root.getChildren().add(bCentre);
+			*/
 
 		});
 
 		// clic sur le bouton bas pour afficher le biome de bas
-		bas.setOnMouseClicked(mouseEvent -> {
-			if (mvmt_bas && x!= mapProcedurale.getHauteur()) {
+		bBas.setOnMouseClicked(mouseEvent -> {
+			if ( x<mapProcedurale.getLargeur()) {
 				// action possible apres un centre :
 
-				centrable = true;
-				mvmt_droite = false;
-				mvmt_gauche = false;
-				mvmt_haut = false;
-				mvmt_bas = false;
-
 				// gestion d'affichage :
-				mapProcedurale.creerBiome(x+1, y);
+				x+=1;
+				mapProcedurale.creerBiome(x, y);
 				System.out.println("bas");
 			}
+			//autorisationHBGD(root);
+			/*SANS AUTORISATION :
+			root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche);
+			root.getChildren().add(bCentre);
+			*/
 
 		});
 
-		root.getChildren().addAll(droite,gauche,haut,bas,centre);
+
 	}
 
 	public void deZoom(Group root){
-		Button dezoom = new Button("Dezoomer");
 
+<<<<<<< HEAD
 		// dezoome en appuyant sur le bouton dezoom
 		dezoom.setOnMouseClicked(new EventHandler<MouseEvent>() {
+=======
+
+		// dezoome en cliquant sur le boutton dezoome
+		bDezoom.setOnMouseClicked(new EventHandler<MouseEvent>() {
+>>>>>>> 81c30383c2855dae371abfd3e24f97b56c638854
 			@Override
 			public void handle(MouseEvent e) {
 				if (dezoomable){
 					// action possible apres un dezoom :
 					dezoomable = false;
 					zoomable = true;
-					mvmt_droite = false;
 
 					// crétation map :
+<<<<<<< HEAD
 					gc.clearRect(0,0,1500,1500);
 					new MapProcedurale(mapProcedurale.getLongueur()+1,mapProcedurale.getHauteur()+1,0);
+=======
+					gc.clearRect(contour,contour,mapProcedurale.getLargeur(), mapProcedurale.getHauteur());
+					gc.setFill(Color.BLUE);
+					gc.fillRect(0,0,0.70*largeurEcran ,0.90*hauteurEcran);
+					new MapProcedurale(mapProcedurale.getLargeur()+1,mapProcedurale.getHauteur()+1,mapProcedurale.seed);
+>>>>>>> 81c30383c2855dae371abfd3e24f97b56c638854
 					System.out.println("dezoome");
+
 				}
+
+<<<<<<< HEAD
+		root.getChildren().add(dezoom);
+=======
+
+				//autorisation(root);
+
+				//SANS AUTORISATION : root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche,bCentre,bDezoom);
 			}
 		});
-		placement(150,0,dezoom);
+		placement(150,0, bDezoom);
 
-		root.getChildren().add(dezoom);
+>>>>>>> 81c30383c2855dae371abfd3e24f97b56c638854
 	}
 
-	public void zoom(){
+	public void zoom(Group root){
 		// zoom en cliquant sur un carré du canvas
 		Main.canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+<<<<<<< HEAD
 			if (e.getY() < (mapProcedurale.getLongueur()+1)*(mapProcedurale.getLongueur()+1)  && e.getX() < (mapProcedurale.getHauteur()+1)*(mapProcedurale.getHauteur()+1) && zoomable){
+=======
+
+			if ( contour < e.getX() && e.getX()   < contour +(mapProcedurale.getHauteur()+1)*20  &&  contour < e.getY() && e.getY()  < contour +(mapProcedurale.getLargeur()+1)*20  && zoomable){
+>>>>>>> 81c30383c2855dae371abfd3e24f97b56c638854
 				// action possible apres un zoom :
-				centrable = false;
 				zoomable = false;
 				dezoomable = true;
-				mvmt_droite = true;
-				mvmt_gauche = true;
-				mvmt_bas = true;
-				mvmt_haut = true;
+
 
 				// gestion d'affichage :
+<<<<<<< HEAD
 				x = (int)e.getY() / mapProcedurale.getLongueurCarre();
 				y = (int)e.getX() / mapProcedurale.getLongueurCarre();
 				gc.clearRect(0,0,1500,1500);
 				mapProcedurale.creerBiome(x,y);
 				System.out.println("zoom : " + x + ";" + y);
+=======
+				x = (int)(e.getY() -contour )/ (20);
+				System.out.println(x);
+				y = (int)(e.getX() -contour )/ (20);
+				System.out.println(y);
+
+				gc.setFill(Color.WHITESMOKE);
+				gc.fillRect(0,0,0.70*largeurEcran ,0.90*hauteurEcran);
+
+				mapProcedurale.creerBiome(x  ,y );
+				System.out.println("zoom");
+
+				root.getChildren().addAll(bHaut,bBas,bDroite,bGauche,bDezoom);
+>>>>>>> 81c30383c2855dae371abfd3e24f97b56c638854
 			}
 		});
 	}
+
 	// initialisation de la 1ere fenetre (fenetre de controle)
 	public void demarrage(Group root, Group mapGroup, Stage mapStage) {
 		//On creer les texte d'indication
-		Text tLongueur = new Text("Saisir la longueur de la carte (entre 0 et 1500)");
-		Text tHauteur = new Text("Saisir la hauteur de la carte (entre 0 et 1500)");
-		Text tSeed = new Text("Saisir la seed de la carte ( entre 0 et 999)");
+
 
 		//On creer les case ou saisir les valeurs
-		IntField longueur = new IntField(0, 1500, 20);
-		IntField hauteur = new IntField(0, 1500, 20);
+
 		//IntField longueur = new IntField(0,1000,20);
 		//IntField hauteur = new IntField(0,1000,20);
-		IntField seed = new IntField(0, 999, 0);
 
 		//On positionne le tout
-		placement(100, 75, tLongueur);
-		placement(100, 175, tHauteur);
+		placement(100, 75, tHauteur);
+		placement(100, 175, tLargeur);
 		placement(100, 275, tSeed);
 
 
-		longueur.minHeight(100);
-		hauteur.minWidth(100);
+		hauteur.minHeight(100);
+		largeur.minWidth(100);
 		seed.minWidth(100);
 
-		placement(100, 100, longueur);
-		placement(100, 200, hauteur);
+		placement(100, 100, hauteur);
+		placement(100, 200, largeur);
 		placement(100, 300, seed);
+		placement(100,30,bGenerer);
+		placement(500,(int)(hauteurEcran*0.05),canvas);
+		gc.setFill(Color.BLUE);
+		root.getChildren().add(canvas);
 
-		mapGroup.getChildren().add(canvas);
 
-		//On creer un bouton generer qui va creer une map avec les paramettres precedement remplis ou les parrametres par default
-		Button generer = new Button("Generer la map");
-		generer.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		bFullScreen.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent mouseEvent) {
+				primaryStage2.setFullScreen(!estFullScreen);
+				estFullScreen = !estFullScreen;
+
+			}
+		});
+
+
+		//On creer un bouton generer qui va creer une map avec les paramettres precedement remplis ou les parrametres par default
+		bGenerer.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+<<<<<<< HEAD
 				if (generationMap){
 					mapStage.show();
 					mapProcedurale = new MapProcedurale(longueur.getValue(), hauteur.getValue(), seed.getValue());
 					generationMap = false;
 				}
 				//root.getChildren().removeAll(longueur,hauteur,seed,generer, tHauteur, tLongueur, tSeed);
+=======
+				//mapStage.show();
+				gc.setFill(Color.BLUE);
+				gc.fillRect(0,0,0.70*largeurEcran ,0.90*hauteurEcran);
+				mapProcedurale = new MapProcedurale(largeur.getValue(), hauteur.getValue(), seed.getValue());
+
+
+				//autorisation(root);
+				//SANS AUTORISATION : root.getChildren().removeAll(bGenerer,tLongueur,tHauteur,tSeed,longueur,hauteur,seed);
+
+>>>>>>> 81c30383c2855dae371abfd3e24f97b56c638854
 			}
 		});
 
-		root.getChildren().addAll(longueur, hauteur, seed, generer, tHauteur, tLongueur, tSeed);
+		root.getChildren().addAll(hauteur, largeur, seed, bGenerer, tLargeur, tHauteur, tSeed,bFullScreen);
 	}
 
 	public void placement (int x, int y, Node node){

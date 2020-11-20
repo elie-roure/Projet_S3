@@ -2,6 +2,8 @@ package sample;
 
 import javafx.scene.paint.Color;
 
+import static sample.InterfaceJoueur.contour;
+
 /*
 Principe :
     - 1 fragment de MapProcédurale.
@@ -120,10 +122,10 @@ public class Biome {
 			for(int j = 0; j< h2; j++){
 				if (i<25&&i>4&&j<25&&j>4) {
 					Main.gc.setFill(choixcouleur(i, j));
-					Main.gc.fillRect(j * 20, i * 20, 20, 20);
+					Main.gc.fillRect(j * 20 + contour, i * 20 + contour, 20, 20);
 				}else {
 					Main.gc.setFill(choisirCouleurVoisin(i,j));
-					Main.gc.fillRect(j * 20, i * 20, 20, 20);
+					Main.gc.fillRect(j * 20 + contour, i * 20 + contour, 20, 20);
 				}
 			}
 		}
@@ -144,7 +146,11 @@ public class Biome {
 
 	public Color choisirCouleurVoisin(int i,int j) {
 		if (matricerandom[i][j] == -1) {
+<<<<<<< HEAD
 			return Color.LIGHTSTEELBLUE;		// couleur du bord
+=======
+			return Color.BLUE;		// couleur du bord
+>>>>>>> 81c30383c2855dae371abfd3e24f97b56c638854
 		} else if (matricerandom[i][j] == 0) {
 			return Color.GOLDENROD;
 		}else if (matricerandom[i][j] == 1) {
