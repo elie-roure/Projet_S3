@@ -48,7 +48,7 @@ public class Main extends Application {
 
 		root = new Group();
 
-		scene = new Scene(root, largeurEcran, hauteurEcran,Color.WHITESMOKE);
+		scene = new Scene(root, largeurEcran, hauteurEcran,Color.LIGHTGREY);
 
 
 

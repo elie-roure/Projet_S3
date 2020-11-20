@@ -183,7 +183,7 @@ public class InterfaceJoueur extends Parent {
 				}
 
 
-				//autorisation(root);
+				autorisation(root);
 
 				//SANS AUTORISATION : root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche,bCentre,bDezoom);
 			}
@@ -268,7 +268,7 @@ public class InterfaceJoueur extends Parent {
 				mapProcedurale = new MapProcedurale(largeur.getValue(), hauteur.getValue(), seed.getValue());
 
 
-				//autorisation(root);
+				autorisation(root);
 				//SANS AUTORISATION : root.getChildren().removeAll(bGenerer,tLongueur,tHauteur,tSeed,longueur,hauteur,seed);
 
 			}
