@@ -208,7 +208,7 @@ public class InterfaceJoueur extends Parent {
 				y = (int)(e.getX() -contour )/ (20);
 				System.out.println(y);
 
-				gc.setFill(Color.WHITE);
+				gc.setFill(Color.WHITESMOKE);
 				gc.fillRect(0,0,0.70*largeurEcran ,0.90*hauteurEcran);
 
 				mapProcedurale.creerBiome(x  ,y );
