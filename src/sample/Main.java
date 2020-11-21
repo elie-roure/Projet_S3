@@ -10,6 +10,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -29,7 +30,6 @@ public class Main extends Application {
 
 	public static int hauteurEcran = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	public static int largeurEcran = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-
 
 
 	@Override
@@ -61,6 +61,8 @@ public class Main extends Application {
 		mapStage.setScene(mapScene);
 
 		InterfaceJoueur interfaceJoueur = new InterfaceJoueur();
+
+
 		interfaceJoueur.demarrage(root, mapGroup, mapStage);
 		interfaceJoueur.deZoom(root);
 		interfaceJoueur.deplacementJoueur(root);

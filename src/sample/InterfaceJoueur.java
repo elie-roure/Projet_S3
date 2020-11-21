@@ -5,6 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -13,6 +14,8 @@ import javafx.stage.Stage;
 import static sample.Main.*;
 
 public class InterfaceJoueur extends Parent {
+
+	///////////////////////////////////////////////////////////////  attributs : ////////////////////////////////////////////////////////////////
 
 	// map principale
 	private MapProcedurale mapProcedurale;
@@ -26,7 +29,6 @@ public class InterfaceJoueur extends Parent {
 	private int x;
 	private int y;
 
-
 	//bouton generation
 	private final Button bGenerer = new Button("Generer la map");
 	private final Button bFullScreen = new Button("FullScreen");
@@ -38,7 +40,6 @@ public class InterfaceJoueur extends Parent {
 	private final IntField largeur = new IntField(0, (int)((0.90*hauteurEcran-40)/20), 20);
 	private final IntField seed = new IntField(0, 999, 0);
 
-
 	//Bouton de deplacement :
 	private final Button bDroite = new Button("droite");
 	private final Button bGauche = new Button("gauche");
@@ -46,20 +47,25 @@ public class InterfaceJoueur extends Parent {
 	private final Button bBas = new Button("bas");
 	private final Button bDezoom = new Button("Dezoomer");
 
-	//Decalage de la map sur le caneva
+	//Decalage de la map sur le canvas
 	public static int contour = 20;
+
+
+	////////////////////////////////////////////////////////////  constructeur : /////////////////////////////////////////////////////////////
 
 	public InterfaceJoueur() {
 		dezoomable = false;
 		zoomable = true;
 	}
 
+
+	////////////////////////////////////////////////////////////  autorisation : /////////////////////////////////////////////////////////////
+
 	public void autorisation(Group root){
 		root.getChildren().removeAll(bGenerer, tHauteur, tLargeur,tSeed, hauteur, largeur,seed);
 
 		if (!dezoomable) root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche,bDezoom);
 		else root.getChildren().add(bDezoom);
-
 	}
 
 	public void autorisationHBGD(Group root){
@@ -71,6 +77,8 @@ public class InterfaceJoueur extends Parent {
 	}
 
 
+	////////////////////////////////////////////////////////////  déplacements : /////////////////////////////////////////////////////////////
+
 	public void deplacementJoueur(Group root){
 
 		placement(125, 425, bGauche);
@@ -78,92 +86,141 @@ public class InterfaceJoueur extends Parent {
 		placement(200, 400, bHaut);
 		placement(200, 450, bBas);
 
-
 		zoom(root);
 
+		///////////////////////////////////////////////////////////  event souris :
 
 		// clic sur le bouton droite pour afficher le biome de droite
 		bDroite.setOnMouseClicked(mouseEvent -> {
-			if (y < mapProcedurale.getHauteur()) {
-				// action possible apres un centre :
-
-
-				// gestion d'affichage :
-				y +=1 ;
-				mapProcedurale.creerBiome(x, y);
-				System.out.println("droite");
-			}
-
-			//autorisationHBGD(root);
-			/*SANS AUTORISATION :
-			root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche);
-			root.getChildren().add(bCentre);
-			*/
-
+			mvmtDroite(root);
 		});
 
 		// clic sur le bouton gauche pour afficher le biome de gauche
 		bGauche.setOnMouseClicked(mouseEvent -> {
-			if ( y>0) {
-				// action possible apres un centre :
-
-				// gestion d'affichage :
-				y-=1;
-				mapProcedurale.creerBiome(x, y);
-				System.out.println("gauche");
-			}
-			//autorisationHBGD(root);
-			/*SANS AUTORISATION :
-			root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche);
-			root.getChildren().add(bCentre);
-			*/
-
+			mvmtGauche(root);
 		});
 
 		// clic sur le bouton haut pour afficher le biome de haut
 		bHaut.setOnMouseClicked(mouseEvent -> {
-			if ( x>0) {
-
-				// action possible apres un centre :
-
-				// gestion d'affichage :
-				x-=1;
-				mapProcedurale.creerBiome(x, y);
-				System.out.println("haut");
-
-			}
-			//autorisationHBGD(root);
-			/*SANS AUTORISATION :
-			root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche);
-			root.getChildren().add(bCentre);
-			*/
-
+			mvmtHaut(root);
 		});
 
 		// clic sur le bouton bas pour afficher le biome de bas
 		bBas.setOnMouseClicked(mouseEvent -> {
-			if ( x<mapProcedurale.getLargeur()) {
-				// action possible apres un centre :
+			mvmtBas(root);
+		});
 
-				// gestion d'affichage :
-				x+=1;
-				mapProcedurale.creerBiome(x, y);
-				System.out.println("bas");
+		// clic sur le bouton deZoom
+		bDezoom.setOnMouseClicked(mouseEvent -> {
+			mvmtBas(root);
+		});
+
+		///////////////////////////////////////////////////////////  event clavier :
+
+		root.setOnKeyPressed(ke -> {
+			// ke représente une touche du clavier
+			// getCode() c'est pour récupérer l'ID d'une touche
+			// KeyCode.* c'est l'ID de la touche *
+
+			//TODO faudra mettre une autorisation pour que les actions en dessous puisse se faire uniquement quand on est zoomé
+
+			if(ke.getCode() == KeyCode.RIGHT || ke.getCode() == KeyCode.D){
+				mvmtDroite(root);
 			}
-			//autorisationHBGD(root);
+			if(ke.getCode() == KeyCode.LEFT || ke.getCode() == KeyCode.Q){
+				mvmtGauche(root);
+			}
+			if(ke.getCode() == KeyCode.UP || ke.getCode() == KeyCode.Z){
+				mvmtHaut(root);
+			}
+			if(ke.getCode() == KeyCode.DOWN || ke.getCode() == KeyCode.S){
+				mvmtBas(root);
+			}
+			if(ke.getCode() == KeyCode.A){
+				// pas tres opti mais j'ai pas réussi a faire un truc propre je maitrise pas de ouf cette classe *Gab
+				if (dezoomable){
+					// action possible apres un dezoom :
+					dezoomable = false;
+					zoomable = true;
+
+					// crétation map :
+					gc.clearRect(contour,contour,mapProcedurale.getLargeur(), mapProcedurale.getHauteur());
+					gc.setFill(Color.BLUE);
+					gc.fillRect(0,0,0.70*largeurEcran ,0.90*hauteurEcran);
+					new MapProcedurale(mapProcedurale.getLargeur()+1,mapProcedurale.getHauteur()+1,mapProcedurale.seed);
+					System.out.println("dezoome");
+
+				}
+				autorisation(root);
+			}
+		});
+	}
+
+	public void mvmtDroite(Group root){
+		if (y < mapProcedurale.getHauteur()) {
+			// action possible apres un centre :
+
+			// gestion d'affichage :
+			y +=1 ;
+			mapProcedurale.creerBiome(x, y);
+			System.out.println("droite");
+		}
+		//autorisationHBGD(root);
 			/*SANS AUTORISATION :
 			root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche);
 			root.getChildren().add(bCentre);
 			*/
+	}
 
-		});
+	public void mvmtGauche(Group root){
+		if ( y>0) {
+			// action possible apres un centre :
 
+			// gestion d'affichage :
+			y-=1;
+			mapProcedurale.creerBiome(x, y);
+			System.out.println("gauche");
+		}
+		//autorisationHBGD(root);
+			/*SANS AUTORISATION :
+			root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche);
+			root.getChildren().add(bCentre);
+			*/
+	}
 
+	public void mvmtHaut(Group root){
+		if ( x>0) {
+			// action possible apres un centre :
+
+			// gestion d'affichage :
+			x-=1;
+			mapProcedurale.creerBiome(x, y);
+			System.out.println("haut");
+		}
+		//autorisationHBGD(root);
+			/*SANS AUTORISATION :
+			root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche);
+			root.getChildren().add(bCentre);
+			*/
+	}
+
+	public void mvmtBas(Group root){
+		if ( x<mapProcedurale.getLargeur()) {
+			// action possible apres un centre :
+
+			// gestion d'affichage :
+			x+=1;
+			mapProcedurale.creerBiome(x, y);
+			System.out.println("bas");
+		}
+		//autorisationHBGD(root);
+			/*SANS AUTORISATION :
+			root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche);
+			root.getChildren().add(bCentre);
+			*/
 	}
 
 	public void deZoom(Group root){
-
-
 		// dezoome en cliquant sur le boutton dezoome
 		bDezoom.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
@@ -181,15 +238,12 @@ public class InterfaceJoueur extends Parent {
 					System.out.println("dezoome");
 
 				}
-
-
 				autorisation(root);
 
 				//SANS AUTORISATION : root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche,bCentre,bDezoom);
 			}
 		});
 		placement(150,0, bDezoom);
-
 	}
 
 	public void zoom(Group root){
@@ -200,7 +254,6 @@ public class InterfaceJoueur extends Parent {
 				// action possible apres un zoom :
 				zoomable = false;
 				dezoomable = true;
-
 
 				// gestion d'affichage :
 				x = (int)(e.getY() -contour )/ (20);
@@ -219,10 +272,12 @@ public class InterfaceJoueur extends Parent {
 		});
 	}
 
+
+	//////////////////////////////////////////////////////////  initialisation : ///////////////////////////////////////////////////////////
+
 	// initialisation de la 1ere fenetre (fenetre de controle)
 	public void demarrage(Group root, Group mapGroup, Stage mapStage) {
 		//On creer les texte d'indication
-
 
 		//On creer les case ou saisir les valeurs
 
@@ -233,7 +288,6 @@ public class InterfaceJoueur extends Parent {
 		placement(100, 75, tHauteur);
 		placement(100, 175, tLargeur);
 		placement(100, 275, tSeed);
-
 
 		hauteur.minHeight(100);
 		largeur.minWidth(100);
@@ -253,10 +307,8 @@ public class InterfaceJoueur extends Parent {
 			public void handle(MouseEvent mouseEvent) {
 				primaryStage2.setFullScreen(!estFullScreen);
 				estFullScreen = !estFullScreen;
-
 			}
 		});
-
 
 		//On creer un bouton generer qui va creer une map avec les paramettres precedement remplis ou les parrametres par default
 		bGenerer.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -267,15 +319,15 @@ public class InterfaceJoueur extends Parent {
 				gc.fillRect(0,0,0.70*largeurEcran ,0.90*hauteurEcran);
 				mapProcedurale = new MapProcedurale(largeur.getValue(), hauteur.getValue(), seed.getValue());
 
-
 				autorisation(root);
 				//SANS AUTORISATION : root.getChildren().removeAll(bGenerer,tLongueur,tHauteur,tSeed,longueur,hauteur,seed);
-
 			}
 		});
-
 		root.getChildren().addAll(hauteur, largeur, seed, bGenerer, tLargeur, tHauteur, tSeed,bFullScreen);
 	}
+
+
+	////////////////////////////////////////////////////////  méthode utilitaire : /////////////////////////////////////////////////////////
 
 	public void placement (int x, int y, Node node){
 		node.setTranslateX(x);
