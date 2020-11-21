@@ -5,6 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -87,74 +88,108 @@ public class InterfaceJoueur extends Parent {
 
 		zoom(root);
 
+		///////////////////////////////////////////////////////////  event souris :
+
 		// clic sur le bouton droite pour afficher le biome de droite
 		bDroite.setOnMouseClicked(mouseEvent -> {
-			if (y < mapProcedurale.getHauteur()) {
-				// action possible apres un centre :
-
-				// gestion d'affichage :
-				y +=1 ;
-				mapProcedurale.creerBiome(x, y);
-				System.out.println("droite");
-			}
-			//autorisationHBGD(root);
-			/*SANS AUTORISATION :
-			root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche);
-			root.getChildren().add(bCentre);
-			*/
+			mvmtDroite(root);
 		});
 
 		// clic sur le bouton gauche pour afficher le biome de gauche
 		bGauche.setOnMouseClicked(mouseEvent -> {
-			if ( y>0) {
-				// action possible apres un centre :
-
-				// gestion d'affichage :
-				y-=1;
-				mapProcedurale.creerBiome(x, y);
-				System.out.println("gauche");
-			}
-			//autorisationHBGD(root);
-			/*SANS AUTORISATION :
-			root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche);
-			root.getChildren().add(bCentre);
-			*/
+			mvmtGauche(root);
 		});
 
 		// clic sur le bouton haut pour afficher le biome de haut
 		bHaut.setOnMouseClicked(mouseEvent -> {
-			if ( x>0) {
-				// action possible apres un centre :
-
-				// gestion d'affichage :
-				x-=1;
-				mapProcedurale.creerBiome(x, y);
-				System.out.println("haut");
-			}
-			//autorisationHBGD(root);
-			/*SANS AUTORISATION :
-			root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche);
-			root.getChildren().add(bCentre);
-			*/
+			mvmtHaut(root);
 		});
 
 		// clic sur le bouton bas pour afficher le biome de bas
 		bBas.setOnMouseClicked(mouseEvent -> {
-			if ( x<mapProcedurale.getLargeur()) {
-				// action possible apres un centre :
+			mvmtBas(root);
+		});
 
-				// gestion d'affichage :
-				x+=1;
-				mapProcedurale.creerBiome(x, y);
-				System.out.println("bas");
+		///////////////////////////////////////////////////////////  event clavier :
+
+		canvas.setOnKeyPressed(ke -> {
+			if(ke.getCode() == KeyCode.RIGHT || ke.getCode() == KeyCode.D){
+				mvmtDroite(root);
 			}
-			//autorisationHBGD(root);
+			if(ke.getCode() == KeyCode.LEFT || ke.getCode() == KeyCode.Q){
+				mvmtGauche(root);
+			}
+			if(ke.getCode() == KeyCode.UP || ke.getCode() == KeyCode.Z){
+				mvmtHaut(root);
+			}
+			if(ke.getCode() == KeyCode.DOWN || ke.getCode() == KeyCode.S){
+				mvmtBas(root);
+			}
+		});
+	}
+
+	public void mvmtDroite(Group root){
+		if (y < mapProcedurale.getHauteur()) {
+			// action possible apres un centre :
+
+			// gestion d'affichage :
+			y +=1 ;
+			mapProcedurale.creerBiome(x, y);
+			System.out.println("droite");
+		}
+		//autorisationHBGD(root);
 			/*SANS AUTORISATION :
 			root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche);
 			root.getChildren().add(bCentre);
 			*/
+	}
 
-		});
+	public void mvmtGauche(Group root){
+		if ( y>0) {
+			// action possible apres un centre :
+
+			// gestion d'affichage :
+			y-=1;
+			mapProcedurale.creerBiome(x, y);
+			System.out.println("gauche");
+		}
+		//autorisationHBGD(root);
+			/*SANS AUTORISATION :
+			root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche);
+			root.getChildren().add(bCentre);
+			*/
+	}
+
+	public void mvmtHaut(Group root){
+		if ( x>0) {
+			// action possible apres un centre :
+
+			// gestion d'affichage :
+			x-=1;
+			mapProcedurale.creerBiome(x, y);
+			System.out.println("haut");
+		}
+		//autorisationHBGD(root);
+			/*SANS AUTORISATION :
+			root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche);
+			root.getChildren().add(bCentre);
+			*/
+	}
+
+	public void mvmtBas(Group root){
+		if ( x<mapProcedurale.getLargeur()) {
+			// action possible apres un centre :
+
+			// gestion d'affichage :
+			x+=1;
+			mapProcedurale.creerBiome(x, y);
+			System.out.println("bas");
+		}
+		//autorisationHBGD(root);
+			/*SANS AUTORISATION :
+			root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche);
+			root.getChildren().add(bCentre);
+			*/
 	}
 
 	public void deZoom(Group root){
@@ -236,7 +271,9 @@ public class InterfaceJoueur extends Parent {
 		placement(100,30,bGenerer);
 		placement(500,(int)(hauteurEcran*0.05),canvas);
 		gc.setFill(Color.BLUE);
+		canvas.setFocusTraversable(true);
 		root.getChildren().add(canvas);
+
 
 		bFullScreen.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
