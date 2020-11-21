@@ -112,7 +112,13 @@ public class InterfaceJoueur extends Parent {
 
 		///////////////////////////////////////////////////////////  event clavier :
 
-		canvas.setOnKeyPressed(ke -> {
+		root.setOnKeyPressed(ke -> {
+			// ke représente une touche du clavier
+			// getCode() c'est pour récupérer l'ID d'une touche
+			// KeyCode.* c'est l'ID de la touche *
+
+			//TODO faudra mettre une autorisation pour que les actions en dessous puisse se faire uniquement quand on est zoomé
+
 			if(ke.getCode() == KeyCode.RIGHT || ke.getCode() == KeyCode.D){
 				mvmtDroite(root);
 			}
@@ -271,7 +277,6 @@ public class InterfaceJoueur extends Parent {
 		placement(100,30,bGenerer);
 		placement(500,(int)(hauteurEcran*0.05),canvas);
 		gc.setFill(Color.BLUE);
-		canvas.setFocusTraversable(true);
 		root.getChildren().add(canvas);
 
 
