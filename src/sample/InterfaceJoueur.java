@@ -110,6 +110,11 @@ public class InterfaceJoueur extends Parent {
 			mvmtBas(root);
 		});
 
+		// clic sur le bouton deZoom
+		bDezoom.setOnMouseClicked(mouseEvent -> {
+			mvmtBas(root);
+		});
+
 		///////////////////////////////////////////////////////////  event clavier :
 
 		root.setOnKeyPressed(ke -> {
@@ -130,6 +135,23 @@ public class InterfaceJoueur extends Parent {
 			}
 			if(ke.getCode() == KeyCode.DOWN || ke.getCode() == KeyCode.S){
 				mvmtBas(root);
+			}
+			if(ke.getCode() == KeyCode.A){
+				// pas tres opti mais j'ai pas réussi a faire un truc propre je maitrise pas de ouf cette classe *Gab
+				if (dezoomable){
+					// action possible apres un dezoom :
+					dezoomable = false;
+					zoomable = true;
+
+					// crétation map :
+					gc.clearRect(contour,contour,mapProcedurale.getLargeur(), mapProcedurale.getHauteur());
+					gc.setFill(Color.BLUE);
+					gc.fillRect(0,0,0.70*largeurEcran ,0.90*hauteurEcran);
+					new MapProcedurale(mapProcedurale.getLargeur()+1,mapProcedurale.getHauteur()+1,mapProcedurale.seed);
+					System.out.println("dezoome");
+
+				}
+				autorisation(root);
 			}
 		});
 	}
