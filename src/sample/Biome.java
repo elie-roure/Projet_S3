@@ -24,19 +24,13 @@ public class Biome {
 	// attributs lié au Biome courant :
 	private Aleatoire aleatoire;
 	private int nbAleatoire;        	// nombre aléatoire du Biome
-	private int[][] matricerandom;
+	private int[][] matricerandom;		// matrice du biome (20*20)
 	private int coordx;                // coord x du nb du Biome dans MatriceMap
 	private int coordy;                // coord x du nb du Biome dans MatriceMap
+	private boolean central;
 
 	// les voisins:
-	private int voisingauche;
-	private int voisindroite;
-	private int voisinhaut;
-	private int voisinbas;
-	private int voisinhautgauche;
-	private int voisinbasgauche;
-	private int voisinhautdroite;
-	private int voisinbasdroite;
+	private int[][] matriceVoisin;
 
 	// pas définitif :
 	private Color couleur;            // couleur du Biome
@@ -49,7 +43,7 @@ public class Biome {
 
 	///////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
 
-	public Biome(int l2, int h2, int coordx, int coordy, Color couleur, int[] matriceVoisin) {
+	public Biome(int l2, int h2, int coordx, int coordy, Color couleur, int[][] matriceVoisin, boolean central) {
 
 		Color[] c1 = {Color.GOLDENROD,Color.RED,Color.GREEN,Color.BLUE,Color.YELLOW};
 		couleurs=c1;
@@ -61,25 +55,17 @@ public class Biome {
 		this.l2 = l2;
 		this.h2 = h2;
 		this.couleur = couleur;
+		this.central = central;
 
-		nbAleatoire = matriceVoisin[0];
-		voisingauche = matriceVoisin[1];
-		voisindroite = matriceVoisin[2];
-		voisinhaut = matriceVoisin[3];
-		voisinbas = matriceVoisin[4];
-		voisinhautgauche = matriceVoisin[5];
-		voisinbasgauche = matriceVoisin[6];
-		voisinhautdroite = matriceVoisin[7];
-		voisinbasdroite = matriceVoisin[8];
-
-		aleatoire = new Aleatoire(nbAleatoire * coordx + coordy, 100);
 		matricerandom = new int[l2][h2];
+		this.matriceVoisin = matriceVoisin;
 
 		dezoom = true;
 		destructible = false;
 
-		remplirNbaleatoire();        // remplis la mtrice de nb aléatoire de sous-biome
-		remplirBiome();
+		aleatoire = new Aleatoire(matriceVoisin[1][1] * coordx + coordy, 100);
+		remplirNbaleatoire(matriceVoisin[1][1]);
+		remplirBiome(1,1);
 	}
 
 
@@ -89,44 +75,22 @@ public class Biome {
 	///////////////////////////////////////////////////////// zoomé :
 
 	// remplir la matrice de nb pour les sous-Biome:
-	public void remplirNbaleatoire(){
-		for(int i = 0; i< l2; i++){
-			for(int j = 0; j< h2; j++){
-				if (i<5&&j<5){
-					matricerandom[i][j]= voisinhautgauche;
-				}else if (j>24&&i<5) {
-					matricerandom[i][j]= voisinhautdroite;
-				}else if(i>24&&j<5){
-					matricerandom[i][j]= voisinbasgauche;
-				}else if (i>24&&j>24){
-					matricerandom[i][j]= voisinbasdroite;
-				}else if (i<5&&j>4&&j<25){ //haut
-					matricerandom[i][j]= voisinhaut;
-				}else if (j>24&&i>4&&i<25){ //droite
-					matricerandom[i][j]= voisindroite;
-				}else if (i>24&&j>4&&j<25){//bas
-					matricerandom[i][j]= voisinbas;
-				}else if (j<5&&i>4&&i<25){//gauche
-					matricerandom[i][j]= voisingauche;
-				}else{
-					matricerandom[i][j] = aleatoire.donneRandom();
-				}
+	public void remplirNbaleatoire(int nb){
+		for (int i = 0; i < l2; i++) {
+			for (int j = 0; j < h2; j++) {
+				matricerandom[i][j] = aleatoire.donneRandom();
 			}
 		}
-
 	}
 
+
+
 	// remplir  les Biome d'un carré:
-	public void remplirBiome(){
+	public void remplirBiome(int placex, int placey){
 		for(int i = 0; i< l2; i++){
 			for(int j = 0; j< h2; j++){
-				if (i<25&&i>4&&j<25&&j>4) {
-					Main.gc.setFill(choixcouleur(i, j));
-					Main.gc.fillRect(j * 20 + contour, i * 20 + contour, 20, 20);
-				}else {
-					Main.gc.setFill(choisirCouleurVoisin(i,j));
-					Main.gc.fillRect(j * 20 + contour, i * 20 + contour, 20, 20);
-				}
+				Main.gc.setFill(choixcouleur(i, j));
+				Main.gc.fillRect(j * 20 + contour + 400*placex, i * 20 + contour + 400*placey, 20, 20);
 			}
 		}
 	}
@@ -136,29 +100,33 @@ public class Biome {
 
 	// Attribution de la couleur des sous-biome :
 	public Color choixcouleur(int i,int j){
-		if (matricerandom[i][j] < 5){
+		if (matricerandom[i][j] < 0){
+			return Color.WHITESMOKE;
+		}
+		else if (matricerandom[i][j] < 5){
 			return Color.BLACK;
 		}
 		else {
-			return  couleur;
+			return couleur;
 		}
 	}
-
-	public Color choisirCouleurVoisin(int i,int j) {
-		if (matricerandom[i][j] == -1) {
+/*
+	public Color choisirCouleurVoisin(int i) {
+		if (matriceVoisin[i] == -1) {
 			return Color.BLUE;		// couleur du bord
-		} else if (matricerandom[i][j] == 0) {
+		} else if (matriceVoisin[i] == 0) {
 			return Color.GOLDENROD;
-		}else if (matricerandom[i][j] == 1) {
+		}else if (matriceVoisin[i] == 1) {
 			return Color.RED;
-		} else if (matricerandom[i][j] == 2) {
+		} else if (matriceVoisin[i] == 2) {
 			return Color.GREEN;
-		} else if (matricerandom[i][j] == 3) {
+		} else if (matriceVoisin[i] == 3) {
 			return Color.BLUE;
 		} else {
 			return Color.YELLOW;
 		}
-	}
+	}*/
+
 
 
 	///////////////////////////////////////////////////////  getter, setter et toString : ////////////////////////////////////////////////////////

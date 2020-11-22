@@ -185,33 +185,19 @@ public class MapProcedurale {
     // créateur de Biome :
     public void creerBiome(int coordx, int coordy){
 
-        // gestion des voisins (pas opti)
-        int [] matriceVoisin = {-1,-1,-1,-1,-1,-1,-1,-1,-1};
-        matriceVoisin[0] = matricerandom[coordx][coordy];
-        if (coordx > 0){
-            matriceVoisin[3] = matricerandom[coordx-1][coordy];
-            if (coordy > 0) {
-                matriceVoisin[1] = matricerandom[coordx][coordy-1];
-                matriceVoisin[5] = matricerandom[coordx-1][coordy-1];
-            }
-            if (coordy < hauteur) {
-                matriceVoisin[2] = matricerandom[coordx][coordy+1];
-                matriceVoisin[7] = matricerandom[coordx - 1][coordy + 1];
-            }
-        }
-        if (coordx < largeur){
-            matriceVoisin[4] = matricerandom[coordx+1][coordy];
-            if (coordy > 0) {
-                matriceVoisin[1] = matricerandom[coordx][coordy-1];
-                matriceVoisin[6] = matricerandom[coordx+1][coordy-1];
-            }
-            if (coordy < hauteur) {
-                matriceVoisin[2] = matricerandom[coordx][coordy+1];
-                matriceVoisin[8] = matricerandom[coordx+1][coordy+1];
+        // gestion des voisins (opti)
+        int [][] matriceVoisin = {{-1,-1,-1}, {-1,-1,-1}, {-1,-1,-1}};
+
+        for (int i = 0; i < 3; i++){
+            for (int j = 0; j < 3; j++){
+                if (coordx<largeur || coordx>0 || coordy<largeur || coordy>0){
+                    matriceVoisin[i][j] = matricerandom[coordx+i-1][coordy+j-1];
+                    new Biome(20, 20, coordx+i-1, coordy+j-1,choisirCouleur(coordx+i-1, coordy+j-1), matriceVoisin, false);
+                }
             }
         }
 
-        new Biome(30, 30, coordx, coordy,choisirCouleur(coordx, coordy), matriceVoisin);
+        new Biome(20, 20, coordx, coordy,choisirCouleur(coordx, coordy), matriceVoisin, true);
     }
 
     // créateur de carré
