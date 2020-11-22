@@ -4,6 +4,7 @@ import javafx.scene.paint.Color;
 
 import java.util.Arrays;
 
+import static sample.InterfaceJoueur.contour;
 import static sample.Main.*;
 
 public class MapProcedurale {
@@ -205,6 +206,11 @@ public class MapProcedurale {
                 }
             }
         }
+        gc.setFill(Color.WHITE);
+        gc.fillRect(800,0,200+contour ,1000+contour);
+        gc.fillRect(0,800,800+contour ,200+contour);
+        gc.fillRect(0,0,800+contour ,contour);
+        gc.fillRect(0,0,contour ,800+contour);
     }
 
     // créateur de carré

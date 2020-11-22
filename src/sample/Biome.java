@@ -88,7 +88,7 @@ public class Biome {
 		for(int i = 0; i< l2; i++){
 			for(int j = 0; j< h2; j++){
 				Main.gc.setFill(choixcouleur(i, j));
-				Main.gc.fillRect(j * 20 + contour + 400*placex, i * 20 + contour + 400*placey, 20, 20);
+				Main.gc.fillRect(j * 20 + contour + 400*placex-200, i * 20 + contour + 400*placey-200, 20, 20);
 			}
 		}
 	}
