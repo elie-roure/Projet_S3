@@ -264,7 +264,7 @@ public class InterfaceJoueur extends Parent {
 				gc.setFill(Color.WHITESMOKE);
 				gc.fillRect(0,0,0.70*largeurEcran ,0.90*hauteurEcran);
 
-				mapProcedurale.creerBiome(x  ,y );
+				mapProcedurale.creerBiome(y  ,x );
 				System.out.println("zoom");
 
 				root.getChildren().addAll(bHaut,bBas,bDroite,bGauche,bDezoom);

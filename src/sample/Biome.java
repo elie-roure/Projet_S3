@@ -64,6 +64,14 @@ public class Biome {
 		aleatoire = new Aleatoire(matriceVoisin[1][1] * coordx + coordy, 100);
 		remplirNbaleatoire(matriceVoisin[1][1]);
 		remplirBiome(place[0],place[1]);
+
+		System.out.println("tab de : " + coordx + " ; " + coordy);
+		for (int i = 0; i < l2; i++) {
+			for (int j = 0; j < h2; j++) {
+				System.out.print(matricerandom[i][j] + " ");
+			}
+			System.out.println(" ");
+		}
 	}
 
 

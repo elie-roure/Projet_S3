@@ -202,7 +202,7 @@ public class MapProcedurale {
                     matriceVoisin[i][j] = matricerandom[coordx+i-1][coordy+j-1];
                     place[0] = i;
                     place[1] = j;
-                    new Biome(20, 20, coordx+i-1, coordy+j-1,choisirCouleur(coordx+i-1, coordy+j-1), matriceVoisin, place);
+                    new Biome(20, 20, coordx+i-1, coordy+j-1,choisirCouleur(coordy+j-1, coordx+i-1), matriceVoisin, place);
                 }
             }
         }
