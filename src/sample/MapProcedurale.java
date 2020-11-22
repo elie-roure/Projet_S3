@@ -4,6 +4,8 @@ import javafx.scene.paint.Color;
 
 import java.util.Arrays;
 
+import static sample.Main.*;
+
 public class MapProcedurale {
 
     //////////////////////////////////////////////////////////////// attributs : ////////////////////////////////////////////////////////////////
@@ -185,19 +187,24 @@ public class MapProcedurale {
     // créateur de Biome :
     public void creerBiome(int coordx, int coordy){
 
+        // nettoyage fenetre
+        gc.setFill(Color.WHITE);
+        gc.fillRect(0,0,0.70*largeurEcran ,0.90*hauteurEcran);
+
         // gestion des voisins (opti)
         int [][] matriceVoisin = {{-1,-1,-1}, {-1,-1,-1}, {-1,-1,-1}};
+        int[] place = new int[2];
 
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
-                if (coordx<largeur || coordx>0 || coordy<largeur || coordy>0){
+                if (coordx+i-1<=largeur && coordx+i-1>=0 && coordy+j-1<=hauteur && coordy+j-1>=0){
                     matriceVoisin[i][j] = matricerandom[coordx+i-1][coordy+j-1];
-                    new Biome(20, 20, coordx+i-1, coordy+j-1,choisirCouleur(coordx+i-1, coordy+j-1), matriceVoisin, false);
+                    place[0] = i;
+                    place[1] = j;
+                    new Biome(20, 20, coordx+i-1, coordy+j-1,choisirCouleur(coordx+i-1, coordy+j-1), matriceVoisin, place);
                 }
             }
         }
-
-        new Biome(20, 20, coordx, coordy,choisirCouleur(coordx, coordy), matriceVoisin, true);
     }
 
     // créateur de carré

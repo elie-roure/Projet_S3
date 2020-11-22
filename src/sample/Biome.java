@@ -27,7 +27,6 @@ public class Biome {
 	private int[][] matricerandom;		// matrice du biome (20*20)
 	private int coordx;                // coord x du nb du Biome dans MatriceMap
 	private int coordy;                // coord x du nb du Biome dans MatriceMap
-	private boolean central;
 
 	// les voisins:
 	private int[][] matriceVoisin;
@@ -43,7 +42,7 @@ public class Biome {
 
 	///////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
 
-	public Biome(int l2, int h2, int coordx, int coordy, Color couleur, int[][] matriceVoisin, boolean central) {
+	public Biome(int l2, int h2, int coordx, int coordy, Color couleur, int[][] matriceVoisin, int[] place) {
 
 		Color[] c1 = {Color.GOLDENROD,Color.RED,Color.GREEN,Color.BLUE,Color.YELLOW};
 		couleurs=c1;
@@ -55,7 +54,6 @@ public class Biome {
 		this.l2 = l2;
 		this.h2 = h2;
 		this.couleur = couleur;
-		this.central = central;
 
 		matricerandom = new int[l2][h2];
 		this.matriceVoisin = matriceVoisin;
@@ -65,7 +63,7 @@ public class Biome {
 
 		aleatoire = new Aleatoire(matriceVoisin[1][1] * coordx + coordy, 100);
 		remplirNbaleatoire(matriceVoisin[1][1]);
-		remplirBiome(1,1);
+		remplirBiome(place[0],place[1]);
 	}
 
 
