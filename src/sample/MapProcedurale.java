@@ -4,12 +4,15 @@ import javafx.scene.paint.Color;
 
 import java.util.Arrays;
 
+import static sample.InterfaceJoueur.contour;
+import static sample.Main.*;
+
 public class MapProcedurale {
 
     //////////////////////////////////////////////////////////////// attributs : ////////////////////////////////////////////////////////////////
 
 
-    private int[][] matricerandom;
+    public int[][] matricerandom;
     private int largeur;
     private int hauteur;
     public static int seed;
@@ -27,9 +30,8 @@ public class MapProcedurale {
     private Color[] couleurs;
 
 
+
     /////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
-
-
 
 
     public MapProcedurale(int largeur, int hauteur, int seed) {
@@ -56,7 +58,6 @@ public class MapProcedurale {
 
         remplirNbAleatoire();	// remplie matriceRandom
         remplirDeCarre();       // remplie la fenetre de carré
-
     }
 
 
@@ -182,36 +183,42 @@ public class MapProcedurale {
     //////////////////////////////////////////////////  méthodes de création d'élément javaFX : ////////////////////////////////////////////////
 
 
-    // créateur de Biome :
+    // créateur de Biome (9 biome créé):
     public void creerBiome(int coordx, int coordy){
 
-        // gestion des voisins (pas opti)
-        int [] matriceVoisin = {-1,-1,-1,-1,-1,-1,-1,-1,-1};
-        matriceVoisin[0] = matricerandom[coordx][coordy];
-        if (coordx > 0){
-            matriceVoisin[3] = matricerandom[coordx-1][coordy];
-            if (coordy > 0) {
-                matriceVoisin[1] = matricerandom[coordx][coordy-1];
-                matriceVoisin[5] = matricerandom[coordx-1][coordy-1];
-            }
-            if (coordy < hauteur) {
-                matriceVoisin[2] = matricerandom[coordx][coordy+1];
-                matriceVoisin[7] = matricerandom[coordx - 1][coordy + 1];
-            }
-        }
-        if (coordx < largeur){
-            matriceVoisin[4] = matricerandom[coordx+1][coordy];
-            if (coordy > 0) {
-                matriceVoisin[1] = matricerandom[coordx][coordy-1];
-                matriceVoisin[6] = matricerandom[coordx+1][coordy-1];
-            }
-            if (coordy < hauteur) {
-                matriceVoisin[2] = matricerandom[coordx][coordy+1];
-                matriceVoisin[8] = matricerandom[coordx+1][coordy+1];
+        // nettoyage fenetre
+        gc.setFill(Color.WHITE);
+        gc.fillRect(0,0,0.70*largeurEcran ,0.90*hauteurEcran);
+
+        // gestion des voisins (opti)
+        int [][] matriceVoisin = {{-1,-1,-1}, {-1,-1,-1}, {-1,-1,-1}};  // matrice de
+        int[] place = new int[2];
+
+        for (int i = 0; i < 3; i++){
+            for (int j = 0; j < 3; j++){
+                if (coordx+j-1<=largeur && coordx+j-1>=0 && coordy+i-1<=hauteur && coordy+i-1>=0){
+                    matriceVoisin[i][j] = matricerandom[coordy+i-1][coordx+j-1];
+                }
             }
         }
 
-        new Biome(30, 30, coordx, coordy,choisirCouleur(coordx, coordy), matriceVoisin);
+        // création des 9 biomes
+        for (int i = 0; i < 3; i++){
+            for (int j = 0; j < 3; j++){
+                if (coordx+j-1<=largeur && coordx+j-1>=0 && coordy+i-1<=hauteur && coordy+i-1>=0){  // si le biome existe
+                    place[0] = j;
+                    place[1] = i;
+                    new Biome(20, 20, coordx+j-1, coordy+i-1,choisirCouleur(coordy+i-1, coordx+j-1), matriceVoisin[i][j], matriceVoisin, place);
+                }
+            }
+        }
+
+        // nettoyage de la fenetre
+        gc.setFill(Color.WHITE);
+        gc.fillRect(800,0,200+contour ,1000+contour);
+        gc.fillRect(0,800,800+contour ,200+contour);
+        gc.fillRect(0,0,800+contour ,contour);
+        gc.fillRect(0,0,contour ,800+contour);
     }
 
     // créateur de carré
@@ -258,9 +265,14 @@ public class MapProcedurale {
     // to String :
     @Override
     public String toString() {
-        return "MapProcedurale{" +
-                "matricerandom=" + Arrays.toString(matricerandom) +
-                '}';
+        String phrase = "tab de la map : \n";
+        for (int i = 0; i < largeur; i++) {
+            for (int j = 0; j < hauteur; j++) {
+                phrase = phrase + (matricerandom[i][j] + " ");
+            }
+            phrase = phrase + "\n";
+        }
+        return phrase;
 
     }
 }

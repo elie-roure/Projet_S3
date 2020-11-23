@@ -112,7 +112,7 @@ public class InterfaceJoueur extends Parent {
 
 		// clic sur le bouton deZoom
 		bDezoom.setOnMouseClicked(mouseEvent -> {
-			mvmtBas(root);
+			deZoom(root);
 		});
 
 		///////////////////////////////////////////////////////////  event clavier :
@@ -157,11 +157,11 @@ public class InterfaceJoueur extends Parent {
 	}
 
 	public void mvmtDroite(Group root){
-		if (y < mapProcedurale.getHauteur()) {
+		if (x < mapProcedurale.getLargeur()) {
 			// action possible apres un centre :
 
 			// gestion d'affichage :
-			y +=1 ;
+			x +=1 ;
 			mapProcedurale.creerBiome(x, y);
 			System.out.println("droite");
 		}
@@ -173,11 +173,11 @@ public class InterfaceJoueur extends Parent {
 	}
 
 	public void mvmtGauche(Group root){
-		if ( y>0) {
+		if ( x>0) {
 			// action possible apres un centre :
 
 			// gestion d'affichage :
-			y-=1;
+			x-=1;
 			mapProcedurale.creerBiome(x, y);
 			System.out.println("gauche");
 		}
@@ -189,11 +189,11 @@ public class InterfaceJoueur extends Parent {
 	}
 
 	public void mvmtHaut(Group root){
-		if ( x>0) {
+		if ( y>0) {
 			// action possible apres un centre :
 
 			// gestion d'affichage :
-			x-=1;
+			y-=1;
 			mapProcedurale.creerBiome(x, y);
 			System.out.println("haut");
 		}
@@ -205,11 +205,11 @@ public class InterfaceJoueur extends Parent {
 	}
 
 	public void mvmtBas(Group root){
-		if ( x<mapProcedurale.getLargeur()) {
+		if ( y<mapProcedurale.getHauteur()) {
 			// action possible apres un centre :
 
 			// gestion d'affichage :
-			x+=1;
+			y+=1;
 			mapProcedurale.creerBiome(x, y);
 			System.out.println("bas");
 		}
@@ -256,9 +256,9 @@ public class InterfaceJoueur extends Parent {
 				dezoomable = true;
 
 				// gestion d'affichage :
-				x = (int)(e.getY() -contour )/ (20);
+				x = (int)(e.getX() -contour )/ (20);
 				System.out.println(x);
-				y = (int)(e.getX() -contour )/ (20);
+				y = (int)(e.getY() -contour )/ (20);
 				System.out.println(y);
 
 				gc.setFill(Color.WHITESMOKE);
