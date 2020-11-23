@@ -117,7 +117,7 @@ public class Biome {
 				}else if (i<(h2/4)&&j>(l2/4)-1&&j<(l2/4)*3){//haut
 					matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy-1,coordx),couleurInt);
 				}else if (i>(h2/4)-1&&i<(h2/4)*3&&j>(l2/4)-1&&j<(l2/4)*3){// centre
-					matricerandom[i][j] = aleatoire.donneRandom();
+					matricerandom[i][j] = couleurInt;/*aleatoire.donneRandom();*/
 				}
 			}
 		}
@@ -150,13 +150,13 @@ public class Biome {
 	public void remplirBiome(int placex, int placey){
 		for(int i = 0; i< l2; i++){
 			for(int j = 0; j< h2; j++){
-				if (i>(h2/4)-1&&i<(h2/4)*3&&j>(l2/4)-1&&j<(l2/4)*3) {
+				/*if (i>(h2/4)-1&&i<(h2/4)*3&&j>(l2/4)-1&&j<(l2/4)*3) {
 					Main.gc.setFill(choixcouleurCentre(i, j));
 					Main.gc.fillRect(j * 20 + contour + 400 * placex - 200, i * 20 + contour + 400 * placey - 200, 20, 20);
-				}else {
+				}else {*/
 					Main.gc.setFill(choisirCouleur(i, j));
 					Main.gc.fillRect(j * 20 + contour + 400 * placex - 200, i * 20 + contour + 400 * placey - 200, 20, 20);
-				}
+
 			}
 		}
 	}
@@ -178,7 +178,13 @@ public class Biome {
 	}
 
 	public Color choisirCouleur(int i,int j) {
-		return couleurs[matricerandom[i][j]];
+		Aleatoire proba=new Aleatoire(aleatoire.donneRandom(),100);
+		int nbAlea = proba.donneRandom();
+		if (nbAlea<3){
+			return Color.BLACK;
+		}else {
+			return couleurs[matricerandom[i][j]];
+		}
 	}
 
 	/*public Color choisirCouleur(int i,int j) {
