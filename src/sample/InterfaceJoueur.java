@@ -36,8 +36,8 @@ public class InterfaceJoueur extends Parent {
 	private final Text tLargeur = new Text("Saisir la hauteur de la carte (entre 0 et " +(int)((0.90*hauteurEcran-40)/20)+ ")");
 	private final Text tHauteur = new Text("Saisir la largeur de la carte (entre 0 et " + (int)((0.70*largeurEcran-40)/20) +")");
 	private final Text tSeed = new Text("Saisir la seed de la carte ( entre 0 et 999)");
-	private final IntField hauteur = new IntField(0, (int)((0.70*largeurEcran-40)/20), 20);
-	private final IntField largeur = new IntField(0, (int)((0.90*hauteurEcran-40)/20), 20);
+	private final IntField hauteur = new IntField(0, (int)((0.70*largeurEcran-40)/20), (int)((0.70*largeurEcran-40)/20));
+	private final IntField largeur = new IntField(0, (int)((0.90*hauteurEcran-40)/20), (int)((0.90*hauteurEcran-40)/20));
 	private final IntField seed = new IntField(0, 999, 0);
 
 	//Bouton de deplacement :
