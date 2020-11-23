@@ -42,7 +42,7 @@ public class Biome {
 
 	///////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
 
-	public Biome(int l2, int h2, int coordx, int coordy, Color couleur, int[][] matriceVoisin, int[] place) {
+	public Biome(int l2, int h2, int coordx, int coordy, Color couleur, int nbAleatoire, int[][] matriceVoisin, int[] place) {
 
 		Color[] c1 = {Color.GOLDENROD,Color.RED,Color.GREEN,Color.BLUE,Color.YELLOW};
 		couleurs=c1;
@@ -54,6 +54,7 @@ public class Biome {
 		this.l2 = l2;
 		this.h2 = h2;
 		this.couleur = couleur;
+		this.nbAleatoire = nbAleatoire;
 
 		matricerandom = new int[l2][h2];
 		this.matriceVoisin = matriceVoisin;
@@ -61,17 +62,15 @@ public class Biome {
 		dezoom = true;
 		destructible = false;
 
-		aleatoire = new Aleatoire(matriceVoisin[1][1] * coordx + coordy, 100);
-		remplirNbaleatoire(matriceVoisin[1][1]);
+		aleatoire = new Aleatoire(Integer.parseInt("" + nbAleatoire + coordx + coordy), 100);
+		System.out.print("Biome " + coordx +"," + coordy + "  seed : " + Integer.parseInt("" + nbAleatoire + coordx + coordy));
+		System.out.println("   nb aléatoire : " + nbAleatoire);
+		remplirNbaleatoire(nbAleatoire);
 		remplirBiome(place[0],place[1]);
 
-		System.out.println("tab de : " + coordx + " ; " + coordy);
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				System.out.print(matriceVoisin[i][j] + " ");
-			}
-			System.out.println(" ");
-		}
+		/*if (place[0] == 1 && place[1] == 1){
+			System.out.println(toString());
+		}*/
 	}
 
 
@@ -96,7 +95,7 @@ public class Biome {
 		for(int i = 0; i< l2; i++){
 			for(int j = 0; j< h2; j++){
 				Main.gc.setFill(choixcouleur(i, j));
-				Main.gc.fillRect(j * 20 + contour + 400*placex-200, i * 20 + contour + 400*placey-200, 20, 20);
+				Main.gc.fillRect(j * 20 + contour + 450*placex, i * 20 + contour + 450*placey, 20, 20);
 			}
 		}
 	}
@@ -147,14 +146,31 @@ public class Biome {
 		return coordy;
 	}
 
-	// to String des coordonnées
+	// to String du biome
 
 	@Override
 	public String toString() {
-		return "Biome{" +
-				"coordx=" + coordx +
-				", coordy=" + coordy +
-				'}';
+		String phrase = "Biome : " + coordx + " ; " + coordy + " de seed " + matriceVoisin[1][1] + "\nmatrice voisin : \n";
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				phrase += matriceVoisin[i][j] + " ";
+			}
+			phrase += "\n";
+		}
+
+		return phrase;
+	}
+
+	public String toStringContenue() {
+		String phrase = "Biome : " + coordx + " ; " + coordy + "\nmatrice interieur : \n";
+		for (int i = 0; i < h2; i++) {
+			for (int j = 0; j < l2; j++) {
+				phrase += matricerandom[i][j] + " ";
+			}
+			phrase += "\n";
+		}
+
+		return phrase;
 	}
 
 }

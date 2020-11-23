@@ -164,8 +164,6 @@ public class InterfaceJoueur extends Parent {
 			x +=1 ;
 			mapProcedurale.creerBiome(x, y);
 			System.out.println("droite");
-			System.out.println(x +";"+ y);
-			System.out.println(mapProcedurale.matricerandom[x][y]);
 		}
 		//autorisationHBGD(root);
 			/*SANS AUTORISATION :
