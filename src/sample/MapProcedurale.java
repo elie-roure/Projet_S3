@@ -30,9 +30,8 @@ public class MapProcedurale {
     private Color[] couleurs;
 
 
+
     /////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
-
-
 
 
     public MapProcedurale(int largeur, int hauteur, int seed) {
@@ -59,8 +58,6 @@ public class MapProcedurale {
 
         remplirNbAleatoire();	// remplie matriceRandom
         remplirDeCarre();       // remplie la fenetre de carré
-
-        System.out.println(toString());
     }
 
 
@@ -186,7 +183,7 @@ public class MapProcedurale {
     //////////////////////////////////////////////////  méthodes de création d'élément javaFX : ////////////////////////////////////////////////
 
 
-    // créateur de Biome :
+    // créateur de Biome (9 biome créé):
     public void creerBiome(int coordx, int coordy){
 
         // nettoyage fenetre
@@ -194,7 +191,7 @@ public class MapProcedurale {
         gc.fillRect(0,0,0.70*largeurEcran ,0.90*hauteurEcran);
 
         // gestion des voisins (opti)
-        int [][] matriceVoisin = {{-1,-1,-1}, {-1,-1,-1}, {-1,-1,-1}};
+        int [][] matriceVoisin = {{-1,-1,-1}, {-1,-1,-1}, {-1,-1,-1}};  // matrice de
         int[] place = new int[2];
 
         for (int i = 0; i < 3; i++){
@@ -204,24 +201,24 @@ public class MapProcedurale {
                 }
             }
         }
+
+        // création des 9 biomes
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
-                if (coordx+j-1<=largeur && coordx+j-1>=0 && coordy+i-1<=hauteur && coordy+i-1>=0){
+                if (coordx+j-1<=largeur && coordx+j-1>=0 && coordy+i-1<=hauteur && coordy+i-1>=0){  // si le biome existe
                     place[0] = j;
                     place[1] = i;
-                    /*int truc1 = coordx+j-1;
-                    int truc2 = coordy+i-1;
-                    System.out.println("coord : " + truc1 + "," + truc2);*/
                     new Biome(20, 20, coordx+j-1, coordy+i-1,choisirCouleur(coordy+i-1, coordx+j-1), matriceVoisin[i][j], matriceVoisin, place);
                 }
             }
         }
 
-        /*gc.setFill(Color.WHITE);
+        // nettoyage de la fenetre
+        gc.setFill(Color.WHITE);
         gc.fillRect(800,0,200+contour ,1000+contour);
         gc.fillRect(0,800,800+contour ,200+contour);
         gc.fillRect(0,0,800+contour ,contour);
-        gc.fillRect(0,0,contour ,800+contour);*/
+        gc.fillRect(0,0,contour ,800+contour);
     }
 
     // créateur de carré

@@ -112,7 +112,7 @@ public class InterfaceJoueur extends Parent {
 
 		// clic sur le bouton deZoom
 		bDezoom.setOnMouseClicked(mouseEvent -> {
-			mvmtBas(root);
+			deZoom(root);
 		});
 
 		///////////////////////////////////////////////////////////  event clavier :

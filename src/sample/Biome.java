@@ -40,6 +40,7 @@ public class Biome {
 
 	private Color[] couleurs;
 
+
 	///////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
 
 	public Biome(int l2, int h2, int coordx, int coordy, Color couleur, int nbAleatoire, int[][] matriceVoisin, int[] place) {
@@ -63,14 +64,9 @@ public class Biome {
 		destructible = false;
 
 		aleatoire = new Aleatoire(Integer.parseInt("" + nbAleatoire + coordx + coordy), 100);
-		System.out.print("Biome " + coordx +"," + coordy + "  seed : " + Integer.parseInt("" + nbAleatoire + coordx + coordy));
-		System.out.println("   nb aléatoire : " + nbAleatoire);
+
 		remplirNbaleatoire(nbAleatoire);
 		remplirBiome(place[0],place[1]);
-
-		/*if (place[0] == 1 && place[1] == 1){
-			System.out.println(toString());
-		}*/
 	}
 
 
@@ -88,14 +84,12 @@ public class Biome {
 		}
 	}
 
-
-
 	// remplir  les Biome d'un carré:
 	public void remplirBiome(int placex, int placey){
 		for(int i = 0; i< l2; i++){
 			for(int j = 0; j< h2; j++){
 				Main.gc.setFill(choixcouleur(i, j));
-				Main.gc.fillRect(j * 20 + contour + 450*placex, i * 20 + contour + 450*placey, 20, 20);
+				Main.gc.fillRect(j * 20 + contour + 400*placex-200, i * 20 + contour + 400*placey-200, 20, 20);
 			}
 		}
 	}
