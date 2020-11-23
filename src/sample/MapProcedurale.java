@@ -12,7 +12,7 @@ public class MapProcedurale {
     //////////////////////////////////////////////////////////////// attributs : ////////////////////////////////////////////////////////////////
 
 
-    private int[][] matricerandom;
+    public int[][] matricerandom;
     private int largeur;
     private int hauteur;
     public static int seed;
@@ -60,6 +60,7 @@ public class MapProcedurale {
         remplirNbAleatoire();	// remplie matriceRandom
         remplirDeCarre();       // remplie la fenetre de carré
 
+        //System.out.println(toString());
     }
 
 
@@ -200,12 +201,19 @@ public class MapProcedurale {
             for (int j = 0; j < 3; j++){
                 if (coordx+i-1<=largeur && coordx+i-1>=0 && coordy+j-1<=hauteur && coordy+j-1>=0){
                     matriceVoisin[i][j] = matricerandom[coordx+i-1][coordy+j-1];
+                }
+            }
+        }
+        for (int i = 0; i < 3; i++){
+            for (int j = 0; j < 3; j++){
+                if (coordx+i-1<=largeur && coordx+i-1>=0 && coordy+j-1<=hauteur && coordy+j-1>=0){
                     place[0] = i;
                     place[1] = j;
                     new Biome(20, 20, coordx+i-1, coordy+j-1,choisirCouleur(coordy+j-1, coordx+i-1), matriceVoisin, place);
                 }
             }
         }
+
         gc.setFill(Color.WHITE);
         gc.fillRect(800,0,200+contour ,1000+contour);
         gc.fillRect(0,800,800+contour ,200+contour);
@@ -257,9 +265,14 @@ public class MapProcedurale {
     // to String :
     @Override
     public String toString() {
-        return "MapProcedurale{" +
-                "matricerandom=" + Arrays.toString(matricerandom) +
-                '}';
+        String phrase = "tab de la map : \n";
+        for (int i = 0; i < largeur; i++) {
+            for (int j = 0; j < hauteur; j++) {
+                phrase = phrase + (matricerandom[i][j] + " ");
+            }
+            phrase = phrase + "\n";
+        }
+        return phrase;
 
     }
 }

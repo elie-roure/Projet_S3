@@ -164,6 +164,8 @@ public class InterfaceJoueur extends Parent {
 			x +=1 ;
 			mapProcedurale.creerBiome(x, y);
 			System.out.println("droite");
+			System.out.println(x +";"+ y);
+			System.out.println(mapProcedurale.matricerandom[x][y]);
 		}
 		//autorisationHBGD(root);
 			/*SANS AUTORISATION :
@@ -256,15 +258,15 @@ public class InterfaceJoueur extends Parent {
 				dezoomable = true;
 
 				// gestion d'affichage :
-				x = (int)(e.getY() -contour )/ (20);
+				x = (int)(e.getX() -contour )/ (20);
 				System.out.println(x);
-				y = (int)(e.getX() -contour )/ (20);
+				y = (int)(e.getY() -contour )/ (20);
 				System.out.println(y);
 
 				gc.setFill(Color.WHITESMOKE);
 				gc.fillRect(0,0,0.70*largeurEcran ,0.90*hauteurEcran);
 
-				mapProcedurale.creerBiome(y  ,x );
+				mapProcedurale.creerBiome(x  ,y );
 				System.out.println("zoom");
 
 				root.getChildren().addAll(bHaut,bBas,bDroite,bGauche,bDezoom);

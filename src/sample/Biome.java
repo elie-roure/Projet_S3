@@ -66,9 +66,9 @@ public class Biome {
 		remplirBiome(place[0],place[1]);
 
 		System.out.println("tab de : " + coordx + " ; " + coordy);
-		for (int i = 0; i < l2; i++) {
-			for (int j = 0; j < h2; j++) {
-				System.out.print(matricerandom[i][j] + " ");
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				System.out.print(matriceVoisin[i][j] + " ");
 			}
 			System.out.println(" ");
 		}
