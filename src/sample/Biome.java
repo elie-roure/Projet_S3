@@ -37,13 +37,16 @@ public class Biome {
 	public boolean dezoom;
 	private boolean destructible;
 
+	private MapProcedurale mapProcedurale;
+	private int couleurInt;
+
 
 	private Color[] couleurs;
 
 
 	///////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
 
-	public Biome(int l2, int h2, int coordx, int coordy, Color couleur, int nbAleatoire, int[][] matriceVoisin, int[] place) {
+	public Biome(int l2, int h2, int coordx, int coordy, Color couleur, int nbAleatoire, int[][] matriceVoisin, int[] place, MapProcedurale mapProcedurale) {
 
 		Color[] c1 = {Color.GOLDENROD,Color.RED,Color.GREEN,Color.BLUE,Color.YELLOW};
 		couleurs=c1;
@@ -56,7 +59,10 @@ public class Biome {
 		this.h2 = h2;
 		this.couleur = couleur;
 		this.nbAleatoire = nbAleatoire;
+		this.mapProcedurale=mapProcedurale;
+		this.couleurInt=couleurInt;
 
+		initialisetIntCouleur();
 		matricerandom = new int[l2][h2];
 		this.matriceVoisin = matriceVoisin;
 
@@ -69,6 +75,19 @@ public class Biome {
 		remplirBiome(place[0],place[1]);
 	}
 
+	private void initialisetIntCouleur(){
+		if (couleur==Color.GOLDENROD){
+			couleurInt= 0;
+		} else if (couleur==Color.RED) {
+			couleurInt= 1;
+		} else if (couleur==Color.GREEN) {
+			couleurInt= 2;
+		}else if (couleur==Color.BLUE){
+			couleurInt= 3;
+		}else {
+			couleurInt= 4;
+		}
+	}
 
 	/////////////////////////////////////////////////////////  méthodes de remplissages  : ///////////////////////////////////////////////////////
 
@@ -77,19 +96,67 @@ public class Biome {
 
 	// remplir la matrice de nb pour les sous-Biome:
 	public void remplirNbaleatoire(int nb){
+		Aleatoire proba=new Aleatoire(aleatoire.donneRandom(),100);
 		for (int i = 0; i < l2; i++) {
 			for (int j = 0; j < h2; j++) {
-				matricerandom[i][j] = aleatoire.donneRandom();
+				int a = proba.donneRandom();
+				if (i<(h2/4)&&j<(l2/4)){//en haut a gauche
+					matricerandom[i][j]= choixIntCouleurAngles(mapProcedurale.getIntCouleurBiome(coordy,coordx-1),mapProcedurale.getIntCouleurBiome(coordy-1,coordx-1),mapProcedurale.getIntCouleurBiome(coordy-1,coordx),couleurInt);
+				}else if (j>((l2/4)*3)-1&&i<(h2/4)) {//en haut a droite
+					matricerandom[i][j]= choixIntCouleurAngles(mapProcedurale.getIntCouleurBiome(coordy-1,coordx),mapProcedurale.getIntCouleurBiome(coordy-1,coordx+1),mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
+				}else if(i>(h2/4*3)-1&&j<(l2/4)){//en bas a gauche
+					matricerandom[i][j]=choixIntCouleurAngles(mapProcedurale.getIntCouleurBiome(coordy,coordx-1),mapProcedurale.getIntCouleurBiome(coordy+1,coordx-1),mapProcedurale.getIntCouleurBiome(coordy+1,coordx),couleurInt);
+				}else if (i>(h2/4*3)-1&&j>(l2/4*3)-1){//en bas a droite
+					matricerandom[i][j]= choixIntCouleurAngles(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),mapProcedurale.getIntCouleurBiome(coordy+1,coordx+1),mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
+				}else if (i>(h2/4)-1&&i<(h2/4)*3&&j<(l2/4)){ //gauche
+					matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy,coordx-1),couleurInt);
+				}else if (i>(h2/4)-1&&i<(h2/4)*3&&j>(l2/4*3)-1){ //droite
+					matricerandom[i][j]=  choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
+				}else if (i>(h2/4*3)-1&&j>(l2/4)-1&&j<(l2/4)*3){//bas
+					matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),couleurInt);
+				}else if (i<(h2/4)&&j>(l2/4)-1&&j<(l2/4)*3){//haut
+					matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy-1,coordx),couleurInt);
+				}else if (i>(h2/4)-1&&i<(h2/4)*3&&j>(l2/4)-1&&j<(l2/4)*3){// centre
+					matricerandom[i][j] = aleatoire.donneRandom();
+				}
 			}
 		}
 	}
+
+	public int choixIntCouleurAngles(int couleurVoisinA, int couleurVoisinB, int couleurVoiinC, int couleurBiome){
+		Aleatoire proba=new Aleatoire(aleatoire.donneRandom(),100);
+		int nbAlea = proba.donneRandom();
+		if (nbAlea<20){
+			return couleurVoisinA;
+		}else if (nbAlea<40){
+			return couleurVoisinB;
+		}else if(nbAlea<60){
+			return couleurVoiinC;
+		}else{
+			return couleurBiome;
+		}
+	}
+
+	public int choixIntCouleurCotes(int couleurVoisin, int couleurBiome){
+		Aleatoire proba=new Aleatoire(aleatoire.donneRandom(),100);
+		int nbAlea = proba.donneRandom();
+		if (nbAlea<35){
+			return couleurVoisin;
+		}else return couleurBiome;
+	}
+
 
 	// remplir  les Biome d'un carré:
 	public void remplirBiome(int placex, int placey){
 		for(int i = 0; i< l2; i++){
 			for(int j = 0; j< h2; j++){
-				Main.gc.setFill(choixcouleur(i, j));
-				Main.gc.fillRect(j * 20 + contour + 400*placex-200, i * 20 + contour + 400*placey-200, 20, 20);
+				if (i>(h2/4)-1&&i<(h2/4)*3&&j>(l2/4)-1&&j<(l2/4)*3) {
+					Main.gc.setFill(choixcouleurCentre(i, j));
+					Main.gc.fillRect(j * 20 + contour + 400 * placex - 200, i * 20 + contour + 400 * placey - 200, 20, 20);
+				}else {
+					Main.gc.setFill(choisirCouleur(i, j));
+					Main.gc.fillRect(j * 20 + contour + 400 * placex - 200, i * 20 + contour + 400 * placey - 200, 20, 20);
+				}
 			}
 		}
 	}
@@ -98,7 +165,7 @@ public class Biome {
 	////////////////////////////////////////////////////////  méthodes de choix du visuel : //////////////////////////////////////////////////////
 
 	// Attribution de la couleur des sous-biome :
-	public Color choixcouleur(int i,int j){
+	public Color choixcouleurCentre(int i,int j){
 		if (matricerandom[i][j] < 0){
 			return Color.WHITESMOKE;
 		}
@@ -109,6 +176,29 @@ public class Biome {
 			return couleur;
 		}
 	}
+
+	public Color choisirCouleur(int i,int j) {
+		return couleurs[matricerandom[i][j]];
+	}
+
+	/*public Color choisirCouleur(int i,int j) {
+		if (matricerandom[i][j]<0){
+			return Color.WHITESMOKE;
+		} else if (matricerandom[i][j] ==0) {
+			return Color.BLUE;		// couleur du bord
+		} else if (matricerandom[i][j] ==1) {
+			return Color.GOLDENROD;
+		}else if (matricerandom[i][j] ==2 ){
+			return Color.RED;
+		} else if (matricerandom[i][j] ==3) {
+			return Color.GREEN;
+		} else if (matricerandom[i][j] ==4) {
+			return Color.BLUE;
+		} else {
+			return Color.YELLOW;
+		}
+	}*/
+
 /*
 	public Color choisirCouleurVoisin(int i) {
 		if (matriceVoisin[i] == -1) {
@@ -125,6 +215,7 @@ public class Biome {
 			return Color.YELLOW;
 		}
 	}*/
+
 
 
 

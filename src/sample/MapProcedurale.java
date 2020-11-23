@@ -35,7 +35,6 @@ public class MapProcedurale {
 
 
     public MapProcedurale(int largeur, int hauteur, int seed) {
-
         Color[] c1 = {Color.GOLDENROD,Color.RED,Color.GREEN,Color.BLUE,Color.YELLOW};
         couleurs=c1;
 
@@ -208,7 +207,7 @@ public class MapProcedurale {
                 if (coordx+j-1<=largeur && coordx+j-1>=0 && coordy+i-1<=hauteur && coordy+i-1>=0){  // si le biome existe
                     place[0] = j;
                     place[1] = i;
-                    new Biome(20, 20, coordx+j-1, coordy+i-1,choisirCouleur(coordy+i-1, coordx+j-1), matriceVoisin[i][j], matriceVoisin, place);
+                    new Biome(20, 20, coordx+j-1, coordy+i-1,choisirCouleur(coordy+i-1, coordx+j-1), matriceVoisin[i][j], matriceVoisin, place,this);
                 }
             }
         }
@@ -248,6 +247,10 @@ public class MapProcedurale {
 
     public int getHauteur() {
         return hauteur;
+    }
+
+    public int getIntCouleurBiome(int i, int j){
+        return matricerandom[i][j];
     }
 
     public int getL2() {
