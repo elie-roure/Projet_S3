@@ -126,11 +126,11 @@ public class Biome {
 	public int choixIntCouleurAngles(int couleurVoisinA, int couleurVoisinB, int couleurVoiinC, int couleurBiome){
 		Aleatoire proba=new Aleatoire(aleatoire.donneRandom(),100);
 		int nbAlea = proba.donneRandom();
-		if (nbAlea<20){
+		if (nbAlea<15){
 			return couleurVoisinA;
-		}else if (nbAlea<40){
+		}else if (nbAlea<30){
 			return couleurVoisinB;
-		}else if(nbAlea<60){
+		}else if(nbAlea<45){
 			return couleurVoiinC;
 		}else{
 			return couleurBiome;
@@ -140,7 +140,7 @@ public class Biome {
 	public int choixIntCouleurCotes(int couleurVoisin, int couleurBiome){
 		Aleatoire proba=new Aleatoire(aleatoire.donneRandom(),100);
 		int nbAlea = proba.donneRandom();
-		if (nbAlea<35){
+		if (nbAlea<25){
 			return couleurVoisin;
 		}else return couleurBiome;
 	}
