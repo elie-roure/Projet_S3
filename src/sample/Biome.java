@@ -180,7 +180,9 @@ public class Biome {
 	public Color choisirCouleur(int i,int j) {
 		Aleatoire proba=new Aleatoire(aleatoire.donneRandom(),100);
 		int nbAlea = proba.donneRandom();
-		if (nbAlea<3){
+		/*if (matricerandom[i][j] < 0){
+			return Color.WHITESMOKE;
+		}else*/ if (nbAlea<3){
 			return Color.BLACK;
 		}else {
 			return couleurs[matricerandom[i][j]];
