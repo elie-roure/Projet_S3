@@ -280,6 +280,3 @@ public class MapProcedurale {
 
     }
 }
-
-
-
