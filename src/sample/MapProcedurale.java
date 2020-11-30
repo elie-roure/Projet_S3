@@ -35,6 +35,7 @@ public class MapProcedurale {
 
 
     public MapProcedurale(int largeur, int hauteur, int seed) {
+
         Color[] c1 = {Color.GOLDENROD,Color.RED,Color.GREEN,Color.BLUE,Color.YELLOW};
         couleurs=c1;
 
@@ -279,3 +280,6 @@ public class MapProcedurale {
 
     }
 }
+
+
+

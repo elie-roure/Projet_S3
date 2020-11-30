@@ -60,7 +60,6 @@ public class Biome {
 		this.couleur = couleur;
 		this.nbAleatoire = nbAleatoire;
 		this.mapProcedurale=mapProcedurale;
-		this.couleurInt=couleurInt;
 
 		initialisetIntCouleur();
 		matricerandom = new int[l2][h2];
@@ -100,25 +99,115 @@ public class Biome {
 		for (int i = 0; i < l2; i++) {
 			for (int j = 0; j < h2; j++) {
 				int a = proba.donneRandom();
-				if (i<(h2/4)&&j<(l2/4)){//en haut a gauche
-					matricerandom[i][j]= choixIntCouleurAngles(mapProcedurale.getIntCouleurBiome(coordy,coordx-1),mapProcedurale.getIntCouleurBiome(coordy-1,coordx-1),mapProcedurale.getIntCouleurBiome(coordy-1,coordx),couleurInt);
-				}else if (j>((l2/4)*3)-1&&i<(h2/4)) {//en haut a droite
-					matricerandom[i][j]= choixIntCouleurAngles(mapProcedurale.getIntCouleurBiome(coordy-1,coordx),mapProcedurale.getIntCouleurBiome(coordy-1,coordx+1),mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
-				}else if(i>(h2/4*3)-1&&j<(l2/4)){//en bas a gauche
-					matricerandom[i][j]=choixIntCouleurAngles(mapProcedurale.getIntCouleurBiome(coordy,coordx-1),mapProcedurale.getIntCouleurBiome(coordy+1,coordx-1),mapProcedurale.getIntCouleurBiome(coordy+1,coordx),couleurInt);
-				}else if (i>(h2/4*3)-1&&j>(l2/4*3)-1){//en bas a droite
-					matricerandom[i][j]= choixIntCouleurAngles(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),mapProcedurale.getIntCouleurBiome(coordy+1,coordx+1),mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
-				}else if (i>(h2/4)-1&&i<(h2/4)*3&&j<(l2/4)){ //gauche
-					matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy,coordx-1),couleurInt);
-				}else if (i>(h2/4)-1&&i<(h2/4)*3&&j>(l2/4*3)-1){ //droite
-					matricerandom[i][j]=  choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
-				}else if (i>(h2/4*3)-1&&j>(l2/4)-1&&j<(l2/4)*3){//bas
-					matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),couleurInt);
-				}else if (i<(h2/4)&&j>(l2/4)-1&&j<(l2/4)*3){//haut
-					matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy-1,coordx),couleurInt);
-				}else if (i>(h2/4)-1&&i<(h2/4)*3&&j>(l2/4)-1&&j<(l2/4)*3){// centre
-					matricerandom[i][j] = couleurInt;/*aleatoire.donneRandom();*/
-				}
+				 if (coordx==0&&coordy==0){//en haut a gauche
+					 if (i<(h2/4)&&j<(l2/4)){//en haut a gauche
+						 matricerandom[i][j] = couleurInt;
+					 }else if (j>((l2/4)*3)-1&&i<(h2/4)) {//en haut a droite
+						 matricerandom[i][j]=  choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
+					 }else if(i>(h2/4*3)-1&&j<(l2/4)){//en bas a gauche
+						 matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),couleurInt);
+					 }else if (i>(h2/4*3)-1&&j>(l2/4*3)-1){//en bas a droite
+						 matricerandom[i][j]= choixIntCouleurAngles(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),mapProcedurale.getIntCouleurBiome(coordy+1,coordx+1),mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
+					 }else if (i>(h2/4)-1&&i<(h2/4)*3&&j<(l2/4)){ //gauche
+						 matricerandom[i][j] = couleurInt;
+					 }else if (i>(h2/4)-1&&i<(h2/4)*3&&j>(l2/4*3)-1){ //droite
+						 matricerandom[i][j]=  choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
+					 }else if (i>(h2/4*3)-1&&j>(l2/4)-1&&j<(l2/4)*3){//bas
+						 matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),couleurInt);
+					 }else if (i<(h2/4)&&j>(l2/4)-1&&j<(l2/4)*3){//haut
+						 matricerandom[i][j] = couleurInt;
+					 }else if (i>(h2/4)-1&&i<(h2/4)*3&&j>(l2/4)-1&&j<(l2/4)*3){// centre
+						 matricerandom[i][j] = couleurInt;
+					 }
+				 }else if (coordx==mapProcedurale.getLargeur()-1&&coordy==0){//en haut a droite
+					 matricerandom[i][j] = couleurInt;
+				 }else if(coordx==0&&coordy==mapProcedurale.getHauteur()-1){// en bas a gauche
+					 /*if (i<(h2/4)&&j<(l2/4)){//en haut a gauche
+						 matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy-1,coordx),couleurInt);
+					 }else if (j>((l2/4)*3)-1&&i<(h2/4)) {//en haut a droite
+						 matricerandom[i][j]= choixIntCouleurAngles(mapProcedurale.getIntCouleurBiome(coordy-1,coordx),mapProcedurale.getIntCouleurBiome(coordy-1,coordx+1),mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
+					 }else if(i>(h2/4*3)-1&&j<(l2/4)){//en bas a gauche
+						 matricerandom[i][j] = couleurInt;
+					 }else if (i>(h2/4*3)-1&&j>(l2/4*3)-1){//en bas a droite
+						 matricerandom[i][j]=  choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
+					 }else if (i>(h2/4)-1&&i<(h2/4)*3&&j<(l2/4)){ //gauche
+						 matricerandom[i][j] = couleurInt;
+					 }else if (i>(h2/4)-1&&i<(h2/4)*3&&j>(l2/4*3)-1){ //droite
+						 matricerandom[i][j]=  choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
+					 }else if (i>(h2/4*3)-1&&j>(l2/4)-1&&j<(l2/4)*3){//bas
+						 matricerandom[i][j] = couleurInt;
+					 }else if (i<(h2/4)&&j>(l2/4)-1&&j<(l2/4)*3){//haut
+						 matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy-1,coordx),couleurInt);
+					 }else if (i>(h2/4)-1&&i<(h2/4)*3&&j>(l2/4)-1&&j<(l2/4)*3){// centre
+						 matricerandom[i][j] = couleurInt;
+					 }*/
+				 }else if(coordx==mapProcedurale.getLargeur()-1&&coordy==mapProcedurale.getHauteur()-1){// en bas a droite
+					 matricerandom[i][j] = couleurInt;
+				 }else if (coordy<mapProcedurale.getHauteur()&&coordy>0&&coordx<mapProcedurale.getLargeur()&&coordx>0){ //si je suis au milieu
+					 if (i<(h2/4)&&j<(l2/4)){//en haut a gauche
+						 matricerandom[i][j]= choixIntCouleurAngles(mapProcedurale.getIntCouleurBiome(coordy,coordx-1),mapProcedurale.getIntCouleurBiome(coordy-1,coordx-1),mapProcedurale.getIntCouleurBiome(coordy-1,coordx),couleurInt);
+					 }else if (j>((l2/4)*3)-1&&i<(h2/4)) {//en haut a droite
+						 matricerandom[i][j]= choixIntCouleurAngles(mapProcedurale.getIntCouleurBiome(coordy-1,coordx),mapProcedurale.getIntCouleurBiome(coordy-1,coordx+1),mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
+					 }else if(i>(h2/4*3)-1&&j<(l2/4)){//en bas a gauche
+						 matricerandom[i][j]=choixIntCouleurAngles(mapProcedurale.getIntCouleurBiome(coordy,coordx-1),mapProcedurale.getIntCouleurBiome(coordy+1,coordx-1),mapProcedurale.getIntCouleurBiome(coordy+1,coordx),couleurInt);
+					 }else if (i>(h2/4*3)-1&&j>(l2/4*3)-1){//en bas a droite
+						 matricerandom[i][j]= choixIntCouleurAngles(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),mapProcedurale.getIntCouleurBiome(coordy+1,coordx+1),mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
+					 }else if (i>(h2/4)-1&&i<(h2/4)*3&&j<(l2/4)){ //gauche
+						 matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy,coordx-1),couleurInt);
+					 }else if (i>(h2/4)-1&&i<(h2/4)*3&&j>(l2/4*3)-1){ //droite
+						 matricerandom[i][j]=  choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
+					 }else if (i>(h2/4*3)-1&&j>(l2/4)-1&&j<(l2/4)*3){//bas
+						 matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),couleurInt);
+					 }else if (i<(h2/4)&&j>(l2/4)-1&&j<(l2/4)*3){//haut
+						 matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy-1,coordx),couleurInt);
+					 }else if (i>(h2/4)-1&&i<(h2/4)*3&&j>(l2/4)-1&&j<(l2/4)*3){// centre
+						 matricerandom[i][j] = couleurInt;
+					 }
+				 }else if(coordx==0&&coordy>0&&coordy<mapProcedurale.getHauteur()){//gauche
+					 if (i<(h2/4)&&j<(l2/4)){//en haut a gauche
+						 matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy-1,coordx),couleurInt);
+					 }else if (j>((l2/4)*3)-1&&i<(h2/4)) {//en haut a droite
+						 matricerandom[i][j]= choixIntCouleurAngles(mapProcedurale.getIntCouleurBiome(coordy-1,coordx),mapProcedurale.getIntCouleurBiome(coordy-1,coordx+1),mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
+					 }else if(i>(h2/4*3)-1&&j<(l2/4)){//en bas a gauche
+						 matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),couleurInt);
+					 }else if (i>(h2/4*3)-1&&j>(l2/4*3)-1){//en bas a droite
+						 matricerandom[i][j]= choixIntCouleurAngles(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),mapProcedurale.getIntCouleurBiome(coordy+1,coordx+1),mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
+					 }else if (i>(h2/4)-1&&i<(h2/4)*3&&j<(l2/4)){ //gauche
+						 matricerandom[i][j] = couleurInt;
+					 }else if (i>(h2/4)-1&&i<(h2/4)*3&&j>(l2/4*3)-1){ //droite
+						 matricerandom[i][j]=  choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
+					 }else if (i>(h2/4*3)-1&&j>(l2/4)-1&&j<(l2/4)*3){//bas
+						 matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),couleurInt);
+					 }else if (i<(h2/4)&&j>(l2/4)-1&&j<(l2/4)*3){//haut
+						 matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy-1,coordx),couleurInt);
+					 }else if (i>(h2/4)-1&&i<(h2/4)*3&&j>(l2/4)-1&&j<(l2/4)*3){// centre
+						 matricerandom[i][j] = couleurInt;
+					 }
+				 }else if(coordx==mapProcedurale.getLargeur()-1&&coordy>0&&coordy<mapProcedurale.getHauteur()-1){//droite
+					 matricerandom[i][j] = couleurInt;
+				 }else if(coordy==0&&coordx>0&&coordx<mapProcedurale.getLargeur()){ //haut
+					 if (i<(h2/4)&&j<(l2/4)){//en haut a gauche
+						 matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy,coordx-1),couleurInt);
+					 }else if (j>((l2/4)*3)-1&&i<(h2/4)) {//en haut a droite
+						 matricerandom[i][j]=  choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
+					 }else if(i>(h2/4*3)-1&&j<(l2/4)){//en bas a gauche
+						 matricerandom[i][j]=choixIntCouleurAngles(mapProcedurale.getIntCouleurBiome(coordy,coordx-1),mapProcedurale.getIntCouleurBiome(coordy+1,coordx-1),mapProcedurale.getIntCouleurBiome(coordy+1,coordx),couleurInt);
+					 }else if (i>(h2/4*3)-1&&j>(l2/4*3)-1){//en bas a droite
+						 matricerandom[i][j]= choixIntCouleurAngles(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),mapProcedurale.getIntCouleurBiome(coordy+1,coordx+1),mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
+					 }else if (i>(h2/4)-1&&i<(h2/4)*3&&j<(l2/4)){ //gauche
+						 matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy,coordx-1),couleurInt);
+					 }else if (i>(h2/4)-1&&i<(h2/4)*3&&j>(l2/4*3)-1){ //droite
+						 matricerandom[i][j]=  choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy,coordx+1),couleurInt);
+					 }else if (i>(h2/4*3)-1&&j>(l2/4)-1&&j<(l2/4)*3){//bas
+						 matricerandom[i][j]= choixIntCouleurCotes(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),couleurInt);
+					 }else if (i<(h2/4)&&j>(l2/4)-1&&j<(l2/4)*3){//haut
+						 matricerandom[i][j] = couleurInt;
+					 }else if (i>(h2/4)-1&&i<(h2/4)*3&&j>(l2/4)-1&&j<(l2/4)*3){// centre
+						 matricerandom[i][j] = couleurInt;
+					 }
+				 }else if(coordx==mapProcedurale.getLargeur()&&coordy>0&&coordy<mapProcedurale.getHauteur()){// bas
+					 matricerandom[i][j] = couleurInt;
+				 }
 			}
 		}
 	}
@@ -180,9 +269,7 @@ public class Biome {
 	public Color choisirCouleur(int i,int j) {
 		Aleatoire proba=new Aleatoire(aleatoire.donneRandom(),100);
 		int nbAlea = proba.donneRandom();
-		/*if (matricerandom[i][j] < 0){
-			return Color.WHITESMOKE;
-		}else*/ if (nbAlea<3){
+		if (nbAlea<3){
 			return Color.BLACK;
 		}else {
 			return couleurs[matricerandom[i][j]];
