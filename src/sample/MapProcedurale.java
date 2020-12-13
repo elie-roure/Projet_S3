@@ -2,6 +2,7 @@ package sample;
 
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static sample.InterfaceJoueur.contour;
@@ -29,6 +30,8 @@ public class MapProcedurale {
 
     private Color[] couleurs;
 
+    public Biome[] biomesAffiche;
+
 
 
     /////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
@@ -54,6 +57,7 @@ public class MapProcedurale {
         matricerandom = new int[largeur][hauteur];
         zoom = true;
         destructible = false;
+        biomesAffiche = new Biome[3];
 
 
         remplirNbAleatoire();	// remplie matriceRandom
@@ -208,7 +212,14 @@ public class MapProcedurale {
                 if (coordx+j-1<=largeur && coordx+j-1>=0 && coordy+i-1<=hauteur && coordy+i-1>=0){  // si le biome existe
                     place[0] = j;
                     place[1] = i;
-                    new Biome(20, 20, coordx+j-1, coordy+i-1,choisirCouleur(coordy+i-1, coordx+j-1), matriceVoisin[i][j], matriceVoisin, place,this);
+                    Biome b =new Biome(20, 20, coordx+j-1, coordy+i-1,choisirCouleur(coordy+i-1, coordx+j-1), matriceVoisin[i][j], matriceVoisin, place,this,true);
+                    if (i==0&&j==0){// haut gauche
+                        biomesAffiche[0]=b;
+                    }else if (i==0&&j==1){//haut
+                        biomesAffiche[1]=b;
+                    }else if(j==0&&i==1){//gauche
+                        biomesAffiche[2]=b;
+                    }
                 }
             }
         }
@@ -219,6 +230,7 @@ public class MapProcedurale {
         gc.fillRect(0,800,800+contour ,200+contour);
         gc.fillRect(0,0,800+contour ,contour);
         gc.fillRect(0,0,contour ,800+contour);
+
     }
 
     // créateur de carré

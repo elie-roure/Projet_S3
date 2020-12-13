@@ -41,11 +41,12 @@ public class Biome {
 
 
 	private Color[] couleurs;
+	private boolean estAuCentre;
 
 
 	///////////////////////////////////////////////////////////////  constructeur : ////////////////////////////////////////////////////////////////
 
-	public Biome(int l2, int h2, int coordx, int coordy, Color couleur, int nbAleatoire, int[][] matriceVoisin, int[] place, MapProcedurale mapProcedurale) {
+	public Biome(int l2, int h2, int coordx, int coordy, Color couleur, int nbAleatoire, int[][] matriceVoisin, int[] place, MapProcedurale mapProcedurale, boolean estAuCentre) {
 
 		Color[] c1 = {Color.GOLDENROD,Color.RED,Color.GREEN,Color.BLUE,Color.YELLOW};
 		couleurs=c1;
@@ -62,6 +63,7 @@ public class Biome {
 
 		matricerandom = new int[l2][h2];
 		this.matriceVoisin = matriceVoisin;
+		this.estAuCentre=estAuCentre;
 
 		dezoom = true;
 		destructible = false;
@@ -79,36 +81,65 @@ public class Biome {
 
 	// remplir la matrice de nb pour les sous-Biome:
 	public void remplirNbaleatoire(int nb){
-		int[][] sousMatrice=new int[(l2/4)*2][(h2/4)*2];
-		if (coordx==0&&coordy==0){//en haut a gauche
-		}else if (coordx==mapProcedurale.getLargeur()&&coordy==0){//en haut a droite
-		}else if(coordx==0&&coordy==mapProcedurale.getHauteur()){// en bas a gauche
-		}else if(coordx==mapProcedurale.getLargeur()&&coordy==mapProcedurale.getHauteur()){// en bas a droite
-		}else if (coordy<mapProcedurale.getHauteur()&&coordy>0&&coordx<mapProcedurale.getLargeur()&&coordx>0){ //si je suis au milieu
-			//centre
-			for (int i = l2/4; i < (l2/4)*3; i++) {
-				for (int j = h2/4; j < (h2/4)*3; j++) {
-					matricerandom[i][j] = nbAleatoire;
-				}
+		int[][] sousMatrice;
+		//centre
+		for (int i = l2/4; i < (l2/4)*3; i++) {
+			for (int j = h2/4; j < (h2/4)*3; j++) {
+				matricerandom[i][j] = nbAleatoire;
 			}
-			//en bas a droite
-
-			//droite
-			sousMatrice=frontiereBas(mapProcedurale.getIntCouleurBiome(coordy,coordx+1),nbAleatoire);
-			for (int i = (l2/4)*3; i < l2; i++) {
-				for (int j = h2/4; j < (h2/4)*3; j++) {
-					matricerandom[i][j] = sousMatrice[i-(l2/4)*3][j];
-				}
-			}
-			// bas
-
-		}else if(coordx==0&&coordy>0&&coordy<mapProcedurale.getHauteur()){//gauche
-		}else if(coordx==mapProcedurale.getLargeur()&&coordy>0&&coordy<mapProcedurale.getHauteur()){//droite
-		}else if(coordy==0&&coordx>0&&coordx<mapProcedurale.getLargeur()){ //haut
-		}else if(coordy==mapProcedurale.getLargeur()&&coordx>0&&coordx<mapProcedurale.getHauteur()){// bas
 		}
-
-
+		//bas a droite
+		sousMatrice=frontiereBasDroite(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),mapProcedurale.getIntCouleurBiome(coordy+1,coordx+1),mapProcedurale.getIntCouleurBiome(coordy,coordx+1),nbAleatoire);
+		for (int i = (l2/4)*3; i < l2; i++) {
+			for (int j = (h2/4)*3; j <h2; j++) {
+				matricerandom[i][j] = sousMatrice[i-(l2/4)*3][j-(h2/4)*3];//
+			}
+		}
+		//bas
+		sousMatrice=frontiereBas(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),nbAleatoire);
+		for (int i = (l2/4)*3; i < l2; i++) {
+			for (int j = h2/4; j < (h2/4)*3; j++) {
+				matricerandom[i][j] = sousMatrice[i-(l2/4)*3][j-h2/4];//
+			}
+		}
+		//droite
+		sousMatrice=frontiereDroite(mapProcedurale.getIntCouleurBiome(coordy,coordx+1),nbAleatoire);
+		for (int i = l2/4; i < (l2/4)*3; i++) {
+			for (int j = (h2 / 4) * 3; j < h2; j++) {
+				matricerandom[i][j] = sousMatrice[i - l2 / 4][j - (h2 / 4) * 3];//
+			}
+		}
+		//haut a gauche
+		for (int i = 0; i < l2/4; i++) {
+			for (int j = 0; j < h2/4; j++) {
+				matricerandom[i][j] = nbAleatoire;
+			}
+		}
+		//gauche
+		//sousMatrice=mapProcedurale.biomesAffiche[2].frontiereDroite(nbAleatoire,mapProcedurale.getIntCouleurBiome(coordy,coordx-1));
+		for (int i = l2/4; i < (l2/4)*3; i++) {
+			for (int j = 0; j <h2/4; j++) {
+				matricerandom[i][j] =nbAleatoire;//
+			}
+		}
+		//haut a droite
+		for (int i = 0; i < l2/4; i++) {
+			for (int j = (h2/4)*3; j <h2; j++) {
+				matricerandom[i][j] =nbAleatoire;//
+			}
+		}
+		//bas a gauche
+		for (int i = (l2/4)*3; i < l2; i++) {
+			for (int j = 0; j <h2/4; j++) {
+				matricerandom[i][j] =nbAleatoire;//
+			}
+		}
+		//haut
+		for (int i = 0; i < l2/4; i++) {
+			for (int j = h2/4; j <(h2/4)*3; j++) {
+				matricerandom[i][j] =nbAleatoire;//
+			}
+		}
 	}
 
 	public int[][] frontiereDroite(int couleurVoisin, int couleurBiome){
