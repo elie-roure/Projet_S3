@@ -30,7 +30,7 @@ public class MapProcedurale {
 
     private Color[] couleurs;
 
-    public Biome[] biomesAffiche;
+    public ArrayList<Biome> biomesAffiche;
 
 
 
@@ -57,7 +57,7 @@ public class MapProcedurale {
         matricerandom = new int[largeur][hauteur];
         zoom = true;
         destructible = false;
-        biomesAffiche = new Biome[3];
+        biomesAffiche = new ArrayList<>();
 
 
         remplirNbAleatoire();	// remplie matriceRandom
@@ -214,11 +214,11 @@ public class MapProcedurale {
                     place[1] = i;
                     Biome b =new Biome(20, 20, coordx+j-1, coordy+i-1,choisirCouleur(coordy+i-1, coordx+j-1), matriceVoisin[i][j], matriceVoisin, place,this,true);
                     if (i==0&&j==0){// haut gauche
-                        biomesAffiche[0]=b;
+                        biomesAffiche.add(0,b);
                     }else if (i==0&&j==1){//haut
-                        biomesAffiche[1]=b;
+                        biomesAffiche.add(1,b);
                     }else if(j==0&&i==1){//gauche
-                        biomesAffiche[2]=b;
+                        biomesAffiche.add(2,b);
                     }
                 }
             }

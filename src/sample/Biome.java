@@ -82,6 +82,7 @@ public class Biome {
 	// remplir la matrice de nb pour les sous-Biome:
 	public void remplirNbaleatoire(int nb){
 		int[][] sousMatrice;
+		Biome biomeVoisin;
 		//centre
 		for (int i = l2/4; i < (l2/4)*3; i++) {
 			for (int j = h2/4; j < (h2/4)*3; j++) {
@@ -92,21 +93,21 @@ public class Biome {
 		sousMatrice=frontiereBasDroite(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),mapProcedurale.getIntCouleurBiome(coordy+1,coordx+1),mapProcedurale.getIntCouleurBiome(coordy,coordx+1),nbAleatoire);
 		for (int i = (l2/4)*3; i < l2; i++) {
 			for (int j = (h2/4)*3; j <h2; j++) {
-				matricerandom[i][j] = sousMatrice[i-(l2/4)*3][j-(h2/4)*3];//
+				matricerandom[i][j] = sousMatrice[i-(l2/4)*3][j-(h2/4)*3];
 			}
 		}
 		//bas
 		sousMatrice=frontiereBas(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),nbAleatoire);
 		for (int i = (l2/4)*3; i < l2; i++) {
 			for (int j = h2/4; j < (h2/4)*3; j++) {
-				matricerandom[i][j] = sousMatrice[i-(l2/4)*3][j-h2/4];//
+				matricerandom[i][j] = sousMatrice[i-(l2/4)*3][j-h2/4];
 			}
 		}
 		//droite
 		sousMatrice=frontiereDroite(mapProcedurale.getIntCouleurBiome(coordy,coordx+1),nbAleatoire);
 		for (int i = l2/4; i < (l2/4)*3; i++) {
 			for (int j = (h2 / 4) * 3; j < h2; j++) {
-				matricerandom[i][j] = sousMatrice[i - l2 / 4][j - (h2 / 4) * 3];//
+				matricerandom[i][j] = sousMatrice[i - l2 / 4][j - (h2 / 4) * 3];
 			}
 		}
 		//haut a gauche
@@ -116,28 +117,30 @@ public class Biome {
 			}
 		}
 		//gauche
-		//sousMatrice=mapProcedurale.biomesAffiche[2].frontiereDroite(nbAleatoire,mapProcedurale.getIntCouleurBiome(coordy,coordx-1));
+		//biomeVoisin=mapProcedurale.biomesAffiche.get(2);
+		//System.out.println(biomeVoisin);
+		//sousMatrice=biomeVoisin.frontiereDroite(nbAleatoire,mapProcedurale.getIntCouleurBiome(coordy,coordx-1));
 		for (int i = l2/4; i < (l2/4)*3; i++) {
 			for (int j = 0; j <h2/4; j++) {
-				matricerandom[i][j] =nbAleatoire;//
+				matricerandom[i][j] =nbAleatoire;
 			}
 		}
 		//haut a droite
 		for (int i = 0; i < l2/4; i++) {
 			for (int j = (h2/4)*3; j <h2; j++) {
-				matricerandom[i][j] =nbAleatoire;//
+				matricerandom[i][j] =nbAleatoire;
 			}
 		}
 		//bas a gauche
 		for (int i = (l2/4)*3; i < l2; i++) {
 			for (int j = 0; j <h2/4; j++) {
-				matricerandom[i][j] =nbAleatoire;//
+				matricerandom[i][j] =nbAleatoire;
 			}
 		}
 		//haut
 		for (int i = 0; i < l2/4; i++) {
 			for (int j = h2/4; j <(h2/4)*3; j++) {
-				matricerandom[i][j] =nbAleatoire;//
+				matricerandom[i][j] =nbAleatoire;
 			}
 		}
 	}
