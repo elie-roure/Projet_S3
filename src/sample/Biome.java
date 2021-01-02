@@ -394,11 +394,6 @@ public class Biome {
 				}
 			}
 		}
-
-
-
-
-
 		//remplir en bas a droite
 		if ( b && d ){
 			for (int i = (l2/4)*3; i < l2; i++) {
@@ -428,13 +423,6 @@ public class Biome {
 				}
 			}
 		}
-
-
-
-
-
-
-
 		//remplir en bas
 		if ( b ) {
 			for (int i = (l2 / 4) * 3; i < l2; i++) {
@@ -450,10 +438,6 @@ public class Biome {
 				}
 			}
 		}
-
-
-
-
 		//remplir en droite
 		if ( d ){
 			for (int i = l2/4; i < (l2/4)*3; i++) {
@@ -469,11 +453,6 @@ public class Biome {
 				}
 			}
 		}
-
-
-
-
-
 		//remplir en Gauche
 		if ( g ){
 			for (int i = l2/4; i < (l2/4)*3; i++) {
@@ -490,10 +469,6 @@ public class Biome {
 				}
 			}
 		}
-
-
-
-
 		//remplir en haut
 		if ( h ){
 			for (int i = 0; i < l2/4; i++) {
