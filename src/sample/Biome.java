@@ -74,6 +74,21 @@ public class Biome {
 		remplirBiome(place[0],place[1]);
 	}
 
+	public Biome(int l2, int h2, int couleur){
+		Color[] c1 = {Color.GOLDENROD,Color.RED,Color.GREEN,Color.BLUE,Color.YELLOW};
+		couleurs=c1;
+
+		l = 500;
+		h = 500;
+
+		this.l2 = l2;
+		this.h2 = h2;
+		this.nbAleatoire=couleur;
+		this.couleur = couleurs[couleur];
+
+		aleatoire = new Aleatoire(Integer.parseInt("" + nbAleatoire + coordx + coordy), 100);
+	}
+
 	/////////////////////////////////////////////////////////  méthodes de remplissages  : ///////////////////////////////////////////////////////
 
 
@@ -81,67 +96,24 @@ public class Biome {
 
 	// remplir la matrice de nb pour les sous-Biome:
 	public void remplirNbaleatoire(int nb){
-		int[][] sousMatrice;
-		Biome biomeVoisin;
-		//centre
-		for (int i = l2/4; i < (l2/4)*3; i++) {
-			for (int j = h2/4; j < (h2/4)*3; j++) {
-				matricerandom[i][j] = nbAleatoire;
-			}
-		}
-		//bas a droite
-		sousMatrice=frontiereBasDroite(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),mapProcedurale.getIntCouleurBiome(coordy+1,coordx+1),mapProcedurale.getIntCouleurBiome(coordy,coordx+1),nbAleatoire);
-		for (int i = (l2/4)*3; i < l2; i++) {
-			for (int j = (h2/4)*3; j <h2; j++) {
-				matricerandom[i][j] = sousMatrice[i-(l2/4)*3][j-(h2/4)*3];
-			}
-		}
-		//bas
-		sousMatrice=frontiereBas(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),nbAleatoire);
-		for (int i = (l2/4)*3; i < l2; i++) {
-			for (int j = h2/4; j < (h2/4)*3; j++) {
-				matricerandom[i][j] = sousMatrice[i-(l2/4)*3][j-h2/4];
-			}
-		}
-		//droite
-		sousMatrice=frontiereDroite(mapProcedurale.getIntCouleurBiome(coordy,coordx+1),nbAleatoire);
-		for (int i = l2/4; i < (l2/4)*3; i++) {
-			for (int j = (h2 / 4) * 3; j < h2; j++) {
-				matricerandom[i][j] = sousMatrice[i - l2 / 4][j - (h2 / 4) * 3];
-			}
-		}
-		//haut a gauche
-		for (int i = 0; i < l2/4; i++) {
-			for (int j = 0; j < h2/4; j++) {
-				matricerandom[i][j] = nbAleatoire;
-			}
-		}
-		//gauche
-		//biomeVoisin=mapProcedurale.biomesAffiche.get(2);
-		//System.out.println(biomeVoisin);
-		//sousMatrice=biomeVoisin.frontiereDroite(nbAleatoire,mapProcedurale.getIntCouleurBiome(coordy,coordx-1));
-		for (int i = l2/4; i < (l2/4)*3; i++) {
-			for (int j = 0; j <h2/4; j++) {
-				matricerandom[i][j] =nbAleatoire;
-			}
-		}
-		//haut a droite
-		for (int i = 0; i < l2/4; i++) {
-			for (int j = (h2/4)*3; j <h2; j++) {
-				matricerandom[i][j] =nbAleatoire;
-			}
-		}
-		//bas a gauche
-		for (int i = (l2/4)*3; i < l2; i++) {
-			for (int j = 0; j <h2/4; j++) {
-				matricerandom[i][j] =nbAleatoire;
-			}
-		}
-		//haut
-		for (int i = 0; i < l2/4; i++) {
-			for (int j = h2/4; j <(h2/4)*3; j++) {
-				matricerandom[i][j] =nbAleatoire;
-			}
+		if (coordx==0&&coordy==0){//en haut a gauche
+			remplirComplet(true, false, true, false);
+		}else if (coordx==mapProcedurale.getLargeur()&&coordy==0){//en haut a droite
+			remplirComplet(true,false,false, true);
+		}else if(coordx==0&&coordy==mapProcedurale.getHauteur()){// en bas a gauche
+			remplirComplet(false, true, true, false);
+		}else if(coordx==mapProcedurale.getLargeur()&&coordy==mapProcedurale.getHauteur()){// en bas a droite
+			remplirComplet(false, true, false, true);
+		}else if (coordy<mapProcedurale.getHauteur()&&coordy>0&&coordx<mapProcedurale.getLargeur()&&coordx>0){ // centre
+			remplirComplet(false, false, false ,false);
+		}else if(coordx==0&&coordy>0&&coordy<mapProcedurale.getHauteur()){//gauche
+			remplirComplet(false, false, true, false);
+		}else if(coordx==mapProcedurale.getLargeur()&&coordy>0&&coordy<mapProcedurale.getHauteur()){//droite
+			remplirComplet(false, false, false, true);
+		}else if(coordy==0&&coordx>0&&coordx<mapProcedurale.getLargeur()){ //haut
+			remplirComplet(true, false, false, false);
+		}else if(coordy==mapProcedurale.getLargeur()&&coordx>0&&coordx<mapProcedurale.getHauteur()){// bas
+			remplirComplet(false, true,false, false);
 		}
 	}
 
@@ -178,11 +150,11 @@ public class Biome {
 	public int choixIntCouleurAngles(int couleurVoisinA, int couleurVoisinB, int couleurVoiinC, int couleurBiome){
 		Aleatoire proba=new Aleatoire(aleatoire.donneRandom(),100);
 		int nbAlea = proba.donneRandom();
-		if (nbAlea<15){
+		if (nbAlea<25){
 			return couleurVoisinA;
-		}else if (nbAlea<30){
+		}else if (nbAlea<50){
 			return couleurVoisinB;
-		}else if(nbAlea<45){
+		}else if(nbAlea<75){
 			return couleurVoiinC;
 		}else{
 			return couleurBiome;
@@ -192,7 +164,7 @@ public class Biome {
 	public int choixIntCouleurCotes(int couleurVoisin, int couleurBiome){
 		Aleatoire proba=new Aleatoire(aleatoire.donneRandom(),100);
 		int nbAlea = proba.donneRandom();
-		if (nbAlea<25){
+		if (nbAlea<50){
 			return couleurVoisin;
 		}else return couleurBiome;
 	}
@@ -317,4 +289,234 @@ public class Biome {
 		return phrase;
 	}
 
+
+
+	public void remplirComplet(boolean h, boolean b, boolean g, boolean d){
+		int[][] sousMatrice;
+		//remplir au centre
+		for (int i = l2/4; i < (l2/4)*3; i++) {
+			for (int j = h2 / 4; j < (h2 / 4) * 3; j++) {
+				matricerandom[i][j] = nbAleatoire;
+			}
+		}
+		//remplir en bas a gauche
+		if ( b && g ){
+			for (int i = (l2/4)*3; i < l2; i++) {
+				for (int j = 0; j <h2/4; j++) {
+					matricerandom[i][j] = nbAleatoire;
+				}
+			}
+		}else if (g){
+			sousMatrice=frontiereBas(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),nbAleatoire);
+			for (int i = (l2/4)*3; i < l2; i++) {
+				for (int j = 0; j <h2/4; j++) {
+					matricerandom[i][j] = sousMatrice[i-((l2/4)*3)][j+(h2/4)];
+				}
+			}
+		}else if(b){
+			Biome biomeGauche = new Biome(l2,h2,mapProcedurale.getIntCouleurBiome(coordy,coordx-1));
+			sousMatrice = biomeGauche.frontiereDroite(nbAleatoire,mapProcedurale.getIntCouleurBiome(coordy,coordx-1));
+			for (int i = (l2/4)*3; i < l2; i++) {
+				for (int j = 0; j <h2/4; j++) {
+					matricerandom[i][j] = sousMatrice[i-((l2/4)*3)][j+(h2/4)];
+				}
+			}
+		}else {
+			Biome biomeGauche = new Biome(l2,h2,mapProcedurale.getIntCouleurBiome(coordy,coordx-1));
+			sousMatrice = biomeGauche.frontiereBasDroite(mapProcedurale.getIntCouleurBiome(coordy+1,coordx-1),mapProcedurale.getIntCouleurBiome(coordy+1,coordx),nbAleatoire,mapProcedurale.getIntCouleurBiome(coordy,coordx-1));
+			for (int i = (l2/4)*3; i < l2; i++) {
+				for (int j = 0; j <h2/4; j++) {
+					matricerandom[i][j] = sousMatrice[i-((l2/4)*3)][j+(h2/4)];
+				}
+			}
+		}
+		//remplir en haut a gauche
+		if ( h && g ){
+			for (int i = 0; i < l2/4; i++) {
+				for (int j = 0; j < h2/4; j++) {
+					matricerandom[i][j] = nbAleatoire;
+				}
+			}
+		}else if(g){
+			Biome biomeHaut = new Biome(l2,h2,mapProcedurale.getIntCouleurBiome(coordy-1,coordx));
+			sousMatrice = biomeHaut.frontiereDroite(nbAleatoire,mapProcedurale.getIntCouleurBiome(coordy-1,coordx));
+			for (int i = 0; i < l2/4; i++) {
+				for (int j = 0; j < h2/4; j++) {
+					matricerandom[i][j] = sousMatrice[i+(l2/4)][j+(h2/4)];
+				}
+			}
+		} else if(h){
+			Biome biomeGauche = new Biome(l2,h2,mapProcedurale.getIntCouleurBiome(coordy,coordx-1));
+			sousMatrice = biomeGauche.frontiereDroite(nbAleatoire,mapProcedurale.getIntCouleurBiome(coordy,coordx-1));
+			for (int i = 0; i < l2/4; i++) {
+				for (int j = 0; j < h2/4; j++) {
+					matricerandom[i][j] = sousMatrice[i+(l2/4)][j+(h2/4)];
+				}
+			}
+		} else {
+			Biome biomeHautGauche = new Biome(l2,h2,mapProcedurale.getIntCouleurBiome(coordy-1,coordx-1));
+			sousMatrice = biomeHautGauche.frontiereBasDroite(mapProcedurale.getIntCouleurBiome(coordy-1,coordx),mapProcedurale.getIntCouleurBiome(coordy,coordx-1),nbAleatoire,mapProcedurale.getIntCouleurBiome(coordy-1,coordx-1));
+			for (int i = 0; i < l2/4; i++) {
+				for (int j = 0; j < h2/4; j++) {
+					matricerandom[i][j] = sousMatrice[i+(l2/4)][j+(h2/4)];
+				}
+			}
+		}
+		//remplir en haut a droite
+		if ( h && d ){
+			for (int i = 0; i < l2/4; i++) {
+				for (int j = (h2/4)*3; j <h2; j++) {
+					matricerandom[i][j] = nbAleatoire;
+				}
+			}
+		}else if(h){
+			sousMatrice=frontiereDroite(mapProcedurale.getIntCouleurBiome(coordy,coordx+1),nbAleatoire);
+			for (int i = 0; i < l2/4; i++) {
+				for (int j = (h2/4)*3; j <h2; j++) {
+					matricerandom[i][j] = sousMatrice[i+l2/4][j-((h2/4)*2)];
+				}
+			}
+		}else if(d){
+			Biome biomeHaut = new Biome(l2,h2,mapProcedurale.getIntCouleurBiome(coordy-1,coordx));
+			sousMatrice = biomeHaut.frontiereDroite(nbAleatoire,mapProcedurale.getIntCouleurBiome(coordy-1,coordx));
+			for (int i = 0; i < l2/4; i++) {
+				for (int j = (h2/4)*3; j <h2; j++) {
+					matricerandom[i][j] = sousMatrice[i+l2/4][j-((h2/4)*2)];
+				}
+			}
+		}
+		else {
+			Biome biomeHaut = new Biome(l2,h2,mapProcedurale.getIntCouleurBiome(coordy-1,coordx));
+			sousMatrice = biomeHaut.frontiereBasDroite(mapProcedurale.getIntCouleurBiome(coordy-1,coordx+1),mapProcedurale.getIntCouleurBiome(coordy,coordx+1),nbAleatoire,mapProcedurale.getIntCouleurBiome(coordy-1,coordx));
+			for (int i = 0; i < l2/4; i++) {
+				for (int j = (h2/4)*3; j <h2; j++) {
+					matricerandom[i][j] = sousMatrice[i+l2/4][j-((h2/4)*2)];
+				}
+			}
+		}
+
+
+
+
+
+		//remplir en bas a droite
+		if ( b && d ){
+			for (int i = (l2/4)*3; i < l2; i++) {
+				for (int j = (h2/4)*3; j <h2; j++) {
+					matricerandom[i][j] =nbAleatoire;
+				}
+			}
+		}else if (b){
+			sousMatrice=frontiereDroite(mapProcedurale.getIntCouleurBiome(coordy,coordx+1),nbAleatoire);
+			for (int i = (l2/4)*3; i < l2; i++) {
+				for (int j = (h2/4)*3; j <h2; j++) {
+					matricerandom[i][j] = sousMatrice[i-(l2/4)*3][j-(h2/4)*3];
+				}
+			}
+		}else if (d){
+			sousMatrice=frontiereBas(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),nbAleatoire);
+			for (int i = (l2/4)*3; i < l2; i++) {
+				for (int j = (h2/4)*3; j <h2; j++) {
+					matricerandom[i][j] = sousMatrice[i-(l2/4)*3][j-(h2/4)*3];
+				}
+			}
+		}else {
+			sousMatrice=frontiereBasDroite(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),mapProcedurale.getIntCouleurBiome(coordy+1,coordx+1),mapProcedurale.getIntCouleurBiome(coordy,coordx+1),nbAleatoire);
+			for (int i = (l2/4)*3; i < l2; i++) {
+				for (int j = (h2/4)*3; j <h2; j++) {
+					matricerandom[i][j] = sousMatrice[i-(l2/4)*3][j-(h2/4)*3];
+				}
+			}
+		}
+
+
+
+
+
+
+
+		//remplir en bas
+		if ( b ) {
+			for (int i = (l2 / 4) * 3; i < l2; i++) {
+				for (int j = h2 / 4; j < (h2 / 4) * 3; j++) {
+					matricerandom[i][j] = nbAleatoire;
+				}
+			}
+		}else {
+			sousMatrice=frontiereBas(mapProcedurale.getIntCouleurBiome(coordy+1,coordx),nbAleatoire);
+			for (int i = (l2/4)*3; i < l2; i++) {
+				for (int j = h2/4; j < (h2/4)*3; j++) {
+					matricerandom[i][j] = sousMatrice[i-(l2/4)*3][j-h2/4];
+				}
+			}
+		}
+
+
+
+
+		//remplir en droite
+		if ( d ){
+			for (int i = l2/4; i < (l2/4)*3; i++) {
+				for (int j = (h2 / 4) * 3; j < h2; j++) {
+					matricerandom[i][j] = nbAleatoire;
+				}
+			}
+		}else {
+			sousMatrice=frontiereDroite(mapProcedurale.getIntCouleurBiome(coordy,coordx+1),nbAleatoire);
+			for (int i = l2/4; i < (l2/4)*3; i++) {
+				for (int j = (h2 / 4) * 3; j < h2; j++) {
+					matricerandom[i][j] = sousMatrice[i - l2 / 4][j - (h2 / 4) * 3];
+				}
+			}
+		}
+
+
+
+
+
+		//remplir en Gauche
+		if ( g ){
+			for (int i = l2/4; i < (l2/4)*3; i++) {
+				for (int j = 0; j <h2/4; j++) {
+					matricerandom[i][j] =nbAleatoire;
+				}
+			}
+		}else {
+			Biome biomeGauche = new Biome(l2,h2,mapProcedurale.getIntCouleurBiome(coordy,coordx-1));
+			sousMatrice = biomeGauche.frontiereDroite(nbAleatoire,mapProcedurale.getIntCouleurBiome(coordy,coordx-1));
+			for (int i = l2/4; i < (l2/4)*3; i++) {
+				for (int j = 0; j <h2/4; j++) {
+					matricerandom[i][j] = sousMatrice[i- (l2/4)][j+ (h2/4)];
+				}
+			}
+		}
+
+
+
+
+		//remplir en haut
+		if ( h ){
+			for (int i = 0; i < l2/4; i++) {
+				for (int j = h2/4; j <(h2/4)*3; j++) {
+					matricerandom[i][j] = nbAleatoire;
+				}
+			}
+		}else {
+			Biome biomeHaut = new Biome(l2,h2,mapProcedurale.getIntCouleurBiome(coordy-1,coordx));
+			sousMatrice = biomeHaut.frontiereDroite(nbAleatoire,mapProcedurale.getIntCouleurBiome(coordy-1,coordx));
+			for (int i = 0; i < l2/4; i++) {
+				for (int j = h2/4; j <(h2/4)*3; j++) {
+					matricerandom[i][j] =sousMatrice[i+(l2/4)][j-(h2/4)];
+				}
+			}
+		}
+	}
+
 }
+
+
+
+
+
+
+

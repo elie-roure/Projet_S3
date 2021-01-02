@@ -213,13 +213,6 @@ public class MapProcedurale {
                     place[0] = j;
                     place[1] = i;
                     Biome b =new Biome(20, 20, coordx+j-1, coordy+i-1,choisirCouleur(coordy+i-1, coordx+j-1), matriceVoisin[i][j], matriceVoisin, place,this,true);
-                    if (i==0&&j==0){// haut gauche
-                        biomesAffiche.add(0,b);
-                    }else if (i==0&&j==1){//haut
-                        biomesAffiche.add(1,b);
-                    }else if(j==0&&i==1){//gauche
-                        biomesAffiche.add(2,b);
-                    }
                 }
             }
         }
