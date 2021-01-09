@@ -104,8 +104,6 @@ public class Biome {
 			remplirComplet(false, true, true, false);
 		}else if(coordx==mapProcedurale.getLargeur()&&coordy==mapProcedurale.getHauteur()){// en bas a droite
 			remplirComplet(false, true, false, true);
-		}else if (coordy<mapProcedurale.getHauteur()&&coordy>0&&coordx<mapProcedurale.getLargeur()&&coordx>0){ // centre
-			remplirComplet(false, false, false ,false);
 		}else if(coordx==0&&coordy>0&&coordy<mapProcedurale.getHauteur()){//gauche
 			remplirComplet(false, false, true, false);
 		}else if(coordx==mapProcedurale.getLargeur()&&coordy>0&&coordy<mapProcedurale.getHauteur()){//droite
@@ -114,6 +112,8 @@ public class Biome {
 			remplirComplet(true, false, false, false);
 		}else if(coordy==mapProcedurale.getLargeur()&&coordx>0&&coordx<mapProcedurale.getHauteur()){// bas
 			remplirComplet(false, true,false, false);
+		}else if (coordy<mapProcedurale.getHauteur()&&coordy>0&&coordx<mapProcedurale.getLargeur()&&coordx>0){ // centre
+			remplirComplet(false, false, false ,false);
 		}
 	}
 
@@ -486,7 +486,6 @@ public class Biome {
 			}
 		}
 	}
-
 }
 
 

@@ -117,8 +117,8 @@ public class MapProcedurale {
 
     //adapte les chiffre pour obtenir des zones de meme nb plus cohérente (appeler dans remplirNbAleatoire)
     public void lisserCouleur(){
-        for(int i = 0; i<= largeur; i++){
-            for(int j=0 ; j<=hauteur ; j++) {
+        for(int i = 0; i<= largeur ; i++){
+            for(int j=0 ; j<= hauteur ; j++) {
                 //si je suis au milieu
                 if (i>0&&j>0&&i< largeur -1&&j<hauteur-1) {
                     //si je suis entouré par une couleur
