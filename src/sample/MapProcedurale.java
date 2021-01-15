@@ -65,6 +65,10 @@ public class MapProcedurale {
     }
 
 
+
+
+
+
     /////////////////////////////////////////////////////////  méthodes de remplissages : ///////////////////////////////////////////////////////
 
 
@@ -242,6 +246,20 @@ public class MapProcedurale {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     ////////////////////////////////////////////////////////  getter, setter et toString : ///////////////////////////////////////////////////////
 
     // getter :
@@ -283,5 +301,25 @@ public class MapProcedurale {
         }
         return phrase;
 
+    }
+
+
+    // remplissage de la fenetre (en récursif)
+    public void remplir(int i, int j){
+
+        if (!(i == largeur && j == hauteur)){
+
+            creerCarre(i,j);
+
+            if (i == largeur){
+                remplir(0,j+1);
+            }
+            else {
+                remplir(i+1,j);
+            }
+        }
+        else {
+            creerCarre(i,j);
+        }
     }
 }

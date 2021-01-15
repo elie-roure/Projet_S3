@@ -33,10 +33,12 @@ public class InterfaceJoueur extends Parent {
 	private final Button bGenerer = new Button("Generer la map");
 	private final Button bFullScreen = new Button("FullScreen");
 	//text field génération
-	private final Text tLargeur = new Text("Saisir la hauteur de la carte (entre 0 et " +(int)((0.90*hauteurEcran-40)/20)+ ")");
-	private final Text tHauteur = new Text("Saisir la largeur de la carte (entre 0 et " + (int)((0.70*largeurEcran-40)/20) +")");
+	private final Text tLargeur = new Text("Saisir la taille de la carte (entre 0 et " +(int)((0.90*hauteurEcran-40)/20)+ ")");
+	//private final Text tHauteur = new Text("Saisir la largeur de la carte (entre 0 et " + (int)((0.70*largeurEcran-40)/20) +")");
+	//private final Text tHauteur = tLargeur;
 	private final Text tSeed = new Text("Saisir la seed de la carte ( entre 0 et 999)");
-	private final IntField hauteur = new IntField(0, (int)((0.70*largeurEcran-40)/20), 20);
+	//private final IntField hauteur = new IntField(0, (int)((0.70*largeurEcran-40)/20), 20);
+	//private final IntField largeur = hauteur;
 	private final IntField largeur = new IntField(0, (int)((0.90*hauteurEcran-40)/20), 20);
 	private final IntField seed = new IntField(0, 999, 0);
 
@@ -62,8 +64,8 @@ public class InterfaceJoueur extends Parent {
 	////////////////////////////////////////////////////////////  autorisation : /////////////////////////////////////////////////////////////
 
 	public void autorisation(Group root){
-		root.getChildren().removeAll(bGenerer, tHauteur, tLargeur,tSeed, hauteur, largeur,seed);
-
+		//root.getChildren().removeAll(bGenerer, tHauteur, tLargeur,tSeed, hauteur, largeur,seed);
+		root.getChildren().removeAll(bGenerer, tLargeur,tSeed, largeur,seed);
 		if (!dezoomable) root.getChildren().removeAll(bHaut,bBas,bDroite,bGauche,bDezoom);
 		else root.getChildren().add(bDezoom);
 	}
@@ -285,15 +287,15 @@ public class InterfaceJoueur extends Parent {
 		//IntField hauteur = new IntField(0,1000,20);
 
 		//On positionne le tout
-		placement(100, 75, tHauteur);
+		//placement(100, 75, tHauteur);
 		placement(100, 175, tLargeur);
 		placement(100, 275, tSeed);
 
-		hauteur.minHeight(100);
+		//hauteur.minHeight(100);
 		largeur.minWidth(100);
 		seed.minWidth(100);
 
-		placement(100, 100, hauteur);
+		//placement(100, 100, hauteur);
 		placement(100, 200, largeur);
 		placement(100, 300, seed);
 		placement(100,30,bGenerer);
@@ -317,13 +319,14 @@ public class InterfaceJoueur extends Parent {
 				//mapStage.show();
 				gc.setFill(Color.BLUE);
 				gc.fillRect(0,0,0.70*largeurEcran ,0.90*hauteurEcran);
-				mapProcedurale = new MapProcedurale(largeur.getValue(), hauteur.getValue(), seed.getValue());
-
+				//mapProcedurale = new MapProcedurale(largeur.getValue(), hauteur.getValue(), seed.getValue());
+				mapProcedurale = new MapProcedurale(largeur.getValue(), largeur.getValue(), seed.getValue());
 				autorisation(root);
 				//SANS AUTORISATION : root.getChildren().removeAll(bGenerer,tLongueur,tHauteur,tSeed,longueur,hauteur,seed);
 			}
 		});
-		root.getChildren().addAll(hauteur, largeur, seed, bGenerer, tLargeur, tHauteur, tSeed,bFullScreen);
+		//root.getChildren().addAll(hauteur, largeur, seed, bGenerer, tLargeur, tHauteur, tSeed,bFullScreen);
+		root.getChildren().addAll( largeur, seed, bGenerer, tLargeur, tSeed,bFullScreen);
 	}
 
 
